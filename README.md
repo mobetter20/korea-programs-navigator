@@ -22,8 +22,8 @@ Make Korea's startup- and business-support universe **navigable** for foreign re
 
 | Source | Endpoint | Key | Status |
 |---|---|---|---|
-| K-Startup (창업진흥원) | `apis.data.go.kr/B552735/kisedKstartupService01/getAnnouncementInformation01` | `serviceKey` (data.go.kr) | live, **needs key** |
-| Bizinfo (기업마당) | `bizinfo.go.kr/uss/rss/bizinfoApi.do` | `crtfcKey` (bizinfo.go.kr) | live, **needs key** |
+| **K-Startup** (창업진흥원) — *primary* | `…/kisedKstartupService01/getAnnouncementInformation01` (params: `page`, `perPage`, `returnType=json`) | `serviceKey` | ✅ live — 28,758 programs |
+| Bizinfo (기업마당) — *secondary* | `bizinfo.go.kr/uss/rss/bizinfoApi.do` | `crtfcKey` | ✅ live — ~500 active |
 
 ### Register the keys (links verified 2026-05-22)
 
@@ -33,13 +33,16 @@ Make Korea's startup- and business-support universe **navigable** for foreign re
 
 **Deferred** (broad/civic, for later non-biz domains): 보조금24, 정부24, 청년몽땅정보통, MSS PDF.
 
-## Spike findings (2026-05-22)
+## Spike findings
 
-- Both endpoints **reachable and alive**; both require a **free auth key** (Bizinfo returns `인증키를 입력해주세요`; K-Startup returns `401 Unauthorized`).
-- **Both sources confirmed to carry 지원대상 (eligibility) + 문의처 (contact) + 신청기간 (period)** — so visa-aware filtering and contact capture are both supported by the data model.
-  - K-Startup (semantic, from data description): 사업명 / 사업유형 / 사업개요 / 지원대상 / 모집기간 / 신청방법 / 문의처.
-  - Bizinfo (exact field names): `pblancId` (dedup key) / `title` / `trgetNm` (지원대상) / `refrncNm` (문의처) / `reqstBeginEndDe` (신청기간) / `jrsdInsttNm` (소관기관) / `pldirSportRealmLclasCodeNm` (지원분야) / `bsnsSumryCn` (개요) / `reqstMthPapersCn` (신청방법).
-- **Verdict: data premise SOUND, pending 2 free keys.**
+**2026-05-22 — reachability:** both endpoints alive; both need a free key.
+
+**2026-05-23 — live data (keys active):**
+- **K-Startup = primary.** 28,758 announcements; paging is `page`/`perPage` (not numOfRows/pageNo). Eligibility comes **already structured** — minimal LLM needed:
+  - `biz_enyy` (stage: 예비창업자/1년미만/…/10년미만), `biz_trgt_age` (age range), `supt_regin` (region), `supt_biz_clsfc` (category: 사업화/멘토링/시설/판로·해외진출/글로벌/…), `aply_trgt` + `aply_trgt_ctnt` (target + eligibility prose), `aply_excl_trgt_ctnt` (exclusions — industry/financial/legal in samples, *not* nationality), `prch_cnpl_no` (phone), `detl_pg_url`, dates.
+- **Bizinfo = secondary.** ~500 active SME programs; eligibility a coarse tag (`trgetNm: 중소기업`), full criteria in the linked 공고.
+- **Foreigner-relevance, honestly:** raw 글로벌/해외 keyword match = 177/1000 K-Startup items, but **most 글로벌/해외진출 = OUTBOUND** (Korean firms expanding abroad — CES, expos), not inbound foreign-founder. The genuinely foreigner-relevant slice (인바운드 / 외국인-open) is smaller. Exclusions aren't nationality-based → foreign residents are **eligible for most of the general pool** (inferred); they just don't know it.
+- **Premise (resolved):** structured eligibility-*matching* (stage/age/region/category) is the real engine and is viable via K-Startup — the interim "pure-navigation" read was a Bizinfo artifact. Visa/nationality = a flag, not the spine. Build **K-Startup-primary**.
 
 ## Run the spike
 

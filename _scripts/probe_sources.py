@@ -78,7 +78,7 @@ def probe_kstartup(key):
     if not key:
         print("  SKIP — set DATA_GO_KR_SERVICE_KEY (free, data.go.kr dataset 15125364, 활용신청)")
         return
-    params = {"serviceKey": key, "numOfRows": "20", "pageNo": "1", "returnType": "json"}
+    params = {"serviceKey": key, "page": "1", "perPage": "20", "returnType": "json"}
     url = (
         "https://apis.data.go.kr/B552735/kisedKstartupService01/getAnnouncementInformation01?"
         + urllib.parse.urlencode(params)
