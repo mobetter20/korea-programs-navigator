@@ -22,21 +22,28 @@ Make Korea's startup- and business-support universe **navigable** for foreign re
 
 | Source | Endpoint | Key | Status |
 |---|---|---|---|
-| K-Startup (창업진흥원) | `apis.data.go.kr/B552735/kisedKstartupService01/…` (data.go.kr `15125364`) | `serviceKey` — free, 활용신청, auto-approved | live, **needs key** |
-| Bizinfo (기업마당) | `bizinfo.go.kr/uss/rss/bizinfoApi.do` | `crtfcKey` — free, bizinfo.go.kr → 활용정보 > 정책정보 개방 | live, **needs key** |
+| K-Startup (창업진흥원) | `apis.data.go.kr/B552735/kisedKstartupService01/getAnnouncementInformation01` | `serviceKey` (data.go.kr) | live, **needs key** |
+| Bizinfo (기업마당) | `bizinfo.go.kr/uss/rss/bizinfoApi.do` | `crtfcKey` (bizinfo.go.kr) | live, **needs key** |
+
+### Register the keys (links verified 2026-05-22)
+
+- **K-Startup `serviceKey`** — <https://www.data.go.kr/data/15125364/openapi.do> (search box: `창업진흥원 K-Startup 조회서비스`). Click **활용신청** → instant/auto-approved → copy the key. `15125364` is an internal ID: it works in the URL, **not** the search box.
+- **Bizinfo `crtfcKey`** — <https://www.bizinfo.go.kr/apiDetail.do?id=bizinfoApi> (or menu **활용정보 › 정책정보 개방**). Fill the form (기관명/신청자명/이메일/전화/시스템명/IP-or-URL); key is **emailed** to you. No login required.
+  - Endpoint params: `crtfcKey`, `dataType=json`, `searchCnt` (0=all), `searchLclasId` (01–09 category — one is 창업), `hashtags`, `pageUnit`, `pageIndex`.
 
 **Deferred** (broad/civic, for later non-biz domains): 보조금24, 정부24, 청년몽땅정보통, MSS PDF.
 
 ## Spike findings (2026-05-22)
 
 - Both endpoints **reachable and alive**; both require a **free auth key** (Bizinfo returns `인증키를 입력해주세요`; K-Startup returns `401 Unauthorized`).
-- K-Startup data description confirms fields: 사업명, 사업유형, 사업개요, **지원대상**, 모집기간, 신청방법, **문의처** → eligibility text + contact + period are present, so visa-aware filtering and contact capture are both supported by the data model.
-- Bizinfo exact field list: confirm on first keyed pull (`_scripts/probe_sources.py` prints the real item keys).
+- **Both sources confirmed to carry 지원대상 (eligibility) + 문의처 (contact) + 신청기간 (period)** — so visa-aware filtering and contact capture are both supported by the data model.
+  - K-Startup (semantic, from data description): 사업명 / 사업유형 / 사업개요 / 지원대상 / 모집기간 / 신청방법 / 문의처.
+  - Bizinfo (exact field names): `pblancId` (dedup key) / `title` / `trgetNm` (지원대상) / `refrncNm` (문의처) / `reqstBeginEndDe` (신청기간) / `jrsdInsttNm` (소관기관) / `pldirSportRealmLclasCodeNm` (지원분야) / `bsnsSumryCn` (개요) / `reqstMthPapersCn` (신청방법).
 - **Verdict: data premise SOUND, pending 2 free keys.**
 
 ## Run the spike
 
-1. Get the two free keys (see table above). Both auto-approve.
+1. Get the two free keys — see **Register the keys** above. (data.go.kr is instant; Bizinfo emails the key after a short form.)
 2. `cp .env.example .env` and paste the keys in.
 3. `python3 _scripts/probe_sources.py` (stdlib only, no install). Pulls ~20 records/source and reports: item count, real field names, foreigner-relevant vs national-only term frequency, and contact-field presence.
 
