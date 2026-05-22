@@ -12,99 +12,107 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Source Sans 3',-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
   .fat{font-family:'Bagel Fat One','Arial Black',sans-serif;font-weight:400}
-
-  header{position:sticky;top:0;z-index:10;background:rgba(251,247,240,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  .bar{max-width:1040px;margin:0 auto;padding:13px 22px;display:flex;align-items:center;gap:14px}
-  .brand{font-size:16px;font-weight:800;letter-spacing:-.01em}
-  .brand .dot{color:var(--pink)}
+  header{position:sticky;top:0;z-index:10;background:rgba(251,247,240,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .bar{max-width:1180px;margin:0 auto;padding:13px 22px;display:flex;align-items:center;gap:14px}
+  .brand{font-size:16px;font-weight:800;letter-spacing:-.01em}.brand .d{color:var(--pink)}
   .live{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:11.5px;letter-spacing:.06em;color:var(--muted);font-weight:600}
-  .live .led{width:8px;height:8px;border-radius:50%;background:#2da854;animation:p 1.8s infinite}
+  .led{width:8px;height:8px;border-radius:50%;background:#2da854;animation:p 1.8s infinite}
   @keyframes p{0%{box-shadow:0 0 0 0 rgba(45,168,84,.55)}70%{box-shadow:0 0 0 7px rgba(45,168,84,0)}100%{box-shadow:0 0 0 0 rgba(45,168,84,0)}}
-  .lenses{max-width:1040px;margin:0 auto;padding:0 16px 12px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
-  .lenses::-webkit-scrollbar{display:none}
+  .lenses{max-width:1180px;margin:0 auto;padding:0 18px 12px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}.lenses::-webkit-scrollbar{display:none}
   .lens{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 15px;font-size:13.5px;font-weight:600;color:var(--ink);cursor:pointer;font-family:inherit;white-space:nowrap;transition:.12s}
-  .lens:hover{border-color:var(--pink)}
-  .lens.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .lens:hover{border-color:var(--pink)}.lens.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 
-  .feed{max-width:1040px;margin:0 auto;padding:20px 16px 80px;display:grid;grid-template-columns:repeat(auto-fill,minmax(284px,1fr));gap:14px}
+  .layout{max-width:1180px;margin:0 auto;display:flex;gap:20px;padding:18px 18px 70px}
+  .feed{flex:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(264px,1fr));gap:14px;align-content:start}
   .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px 16px 13px;display:flex;flex-direction:column;gap:9px;cursor:pointer;transition:.14s;text-decoration:none;color:inherit}
   .card:hover{transform:translateY(-3px);box-shadow:0 12px 30px -16px rgba(40,20,60,.4);border-color:#e6dccb}
   .top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-  .dday{font-size:33px;line-height:.85;color:var(--ink)}
-  .dday small{display:block;font-family:'Source Sans 3';font-size:11px;font-weight:600;letter-spacing:.05em;color:var(--muted);margin-top:3px}
-  .dday.hot{color:var(--pink)}
+  .dday{font-size:32px;line-height:.85;color:var(--ink)}.dday small{display:block;font-family:'Source Sans 3';font-size:11px;font-weight:600;letter-spacing:.05em;color:var(--muted);margin-top:3px}.dday.hot{color:var(--pink)}
   .pill{font-size:11px;font-weight:800;padding:5px 9px;border-radius:999px;white-space:nowrap}
-  .pill.fore{background:var(--pink);color:#fff}
-  .pill.glob{background:#e8f0ff;color:#2f6bd8}
-  .pill.easy{background:var(--butter-tint);color:#8a6d00;border:1px solid #ecd98a}
+  .pill.fore{background:var(--pink);color:#fff}.pill.glob{background:#e8f0ff;color:#2f6bd8}.pill.easy{background:var(--butter-tint);color:#8a6d00;border:1px solid #ecd98a}
   h3{font-size:15.5px;line-height:1.32;font-weight:700}
   .ko{display:block;font-size:11.5px;color:var(--muted);font-weight:400;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .blurb{font-size:13.5px;color:#5f5870;line-height:1.45}
   .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:1px}
-  .tag{font-size:11px;padding:3px 8px;border-radius:7px;background:#f4eee5;color:#6a6478}
-  .tag.cat{background:var(--butter);color:#5a4a00;font-weight:700}
-  .seat{background:var(--pink-tint);color:var(--pink-dk);font-weight:700}
-  .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:50px}
+  .tag{font-size:11px;padding:3px 8px;border-radius:7px;background:#f4eee5;color:#6a6478}.tag.cat{background:var(--butter);color:#5a4a00;font-weight:700}.seat{background:var(--pink-tint);color:var(--pink-dk);font-weight:700}
+
+  .stream{width:296px;flex:none;align-self:flex-start;position:sticky;top:112px;max-height:calc(100vh - 130px);background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+  .shead{padding:13px 15px 11px;border-bottom:1px solid var(--line)}
+  .shead b{font-size:13px}.shead .sub{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-top:4px}
+  .srows{overflow:auto;padding:2px 6px 0}
+  .srow{display:flex;gap:9px;align-items:baseline;padding:8px 8px;border-bottom:1px solid #f5efe6;text-decoration:none;color:inherit}
+  .srow:hover{background:#faf5ec}
+  .sd{font-family:'Bagel Fat One','Arial Black';font-size:13px;min-width:34px;color:var(--muted)}.sd.hot{color:var(--pink)}
+  .st{flex:1;font-size:12px;line-height:1.3;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sc{font-size:10px;color:#a59db4;flex:none}
+  .more{text-align:center;padding:12px;font-size:12px;font-weight:700;color:var(--pink);background:linear-gradient(to bottom,#fff,var(--pink-tint))}
+  @media(max-width:900px){.stream{display:none}}
 </style>
 </head>
 <body>
 <header>
   <div class="bar">
-    <span class="brand">Korea Programs Navigator<span class="dot">.</span></span>
+    <span class="brand">Korea Programs Navigator<span class="d">.</span></span>
     <span class="live"><span class="led"></span> <span class="fat" style="font-size:13px">296</span> LIVE · UPDATED JUST NOW</span>
   </div>
   <div class="lenses" id="lenses"></div>
 </header>
-<main class="feed" id="feed"></main>
+
+<div class="layout">
+  <main class="feed" id="feed"></main>
+  <aside class="stream">
+    <div class="shead"><b>🌐 The full stream</b><div class="sub"><span class="led"></span> 296 live · always more coming</div></div>
+    <div class="srows" id="srows"></div>
+    <div class="more">+ 254 more ↓</div>
+  </aside>
+</div>
 
 <script>
 const TODAY=new Date('2026-05-23');
 const dd=iso=>Math.max(0,Math.ceil((new Date(iso)-TODAY)/864e5));
-const LENSES=[["all","All"],["soon","🔥 Closing soon"],["fore","✨ For foreigners"],["fun","🎉 Fun"],["money","💰 Money"],["space","🏢 Space"],["global","🌏 Go global"]];
+const LENSES=[["all","All"],["soon","🔥 Closing soon"],["visa","🛂 Visa"],["money","💰 Money"],["space","🏢 Space"],["fun","🎉 Fun"],["global","🌏 Go global"]];
 const D=[
- {en:"Get a startup visa (D-8-4 / D-10-2) while you build",ko:"2026 창업이민종합지원시스템(OASIS 4&5)",blurb:"OASIS — Korea's startup-immigration track, built for foreign founders. Any stage, no age limit.",cat:"Mentoring",reg:"Seoul",close:"2026-06-15",lens:["fore"],pill:["fore","✨ Foreign founders"]},
- {en:"Korea University's global startup track",ko:"[고려대 캠퍼스타운] KU GLOBAL STARTLINK",blurb:"Find a team, get space + mentoring at KU's campus town. For global founders.",cat:"Space",reg:"Seoul",close:"2026-06-01",lens:["fore","space"],pill:["fore","✨ Foreign founders"]},
- {en:"Hanyang's startup pitch competition",ko:"2026 한양대 캠퍼스타운 창업경진대회",blurb:"Bring a bold idea, pitch it, win backing. Open to foreign founders.",cat:"Event",reg:"Seoul",close:"2026-06-01",lens:["fore","fun"],pill:["fore","✨ Foreign founders"]},
+ {en:"Get a startup visa (D-8-4 / D-10-2) while you build",ko:"2026 창업이민종합지원시스템(OASIS 4&5)",blurb:"OASIS — Korea's startup-immigration track. Any stage, no age limit.",cat:"Mentoring",reg:"Seoul",close:"2026-06-15",lens:["visa"],badge:["fore","✨ For foreign founders"]},
+ {en:"Korea University's global startup track",ko:"[고려대 캠퍼스타운] KU GLOBAL STARTLINK",blurb:"Find a team, get space + mentoring at KU's campus town.",cat:"Space",reg:"Seoul",close:"2026-06-01",lens:["space"],badge:["fore","✨ For foreign founders"]},
+ {en:"Hanyang's startup pitch competition",ko:"2026 한양대 캠퍼스타운 창업경진대회",blurb:"Bring a bold idea, pitch it, win backing.",cat:"Event",reg:"Seoul",close:"2026-06-01",lens:["fun"],badge:["fore","✨ For foreign founders"]},
  {en:"Voucher to cover your patent filing costs",ko:"2026 특허출원·등록 비용 바우처 지원",blurb:"Protect your tech — the program pays the filing + registration fees.",cat:"Money",reg:"Nationwide",close:"2026-05-23",lens:["money"]},
  {en:"Pitch to investors at Gangwon's demo day",ko:"2026 강원 BRIDGE X 창업BuS 데모데이",blurb:"Get in front of investors hunting for early startups.",cat:"Event",reg:"Nationwide",close:"2026-05-25",lens:["fun"]},
  {en:"Free course: build a smart-healthcare startup",ko:"PBL 스마트헬스케어 (예비)스타트업 육성과정",blurb:"Fully state-funded training — idea to healthcare startup.",cat:"Education",reg:"Busan",close:"2026-05-25",lens:["fun"],seat:"1 seat left"},
- {en:"Startup 101: business model + writing your plan",ko:"도전창업트랙 2기 [창업실무 기초교육]",blurb:"The fundamentals, for first-timers. The plan that unlocks the rest.",cat:"Education",reg:"Seoul",close:"2026-05-25",lens:["fun"],pill:["easy","🟢 Easy apply"]},
+ {en:"Startup 101: business model + writing your plan",ko:"도전창업트랙 2기 [창업실무 기초교육]",blurb:"The fundamentals, for first-timers.",cat:"Education",reg:"Seoul",close:"2026-05-25",lens:["fun"],pill:["easy","🟢 Easy apply"]},
  {en:"Free office space at a youth startup center",ko:"서대문청년창업센터 입주기업 모집",blurb:"Move into a free, run office in Seodaemun, Seoul.",cat:"Space",reg:"Seoul",close:"2026-05-25",lens:["space"]},
  {en:"Free on-site consulting to unstick your business",ko:"찾아가는 기업 고민해결 찐(眞)톡",blurb:"A consultant comes to you and solves one specific problem.",cat:"People",reg:"Seoul",close:"2026-05-27",lens:["fun"],pill:["easy","🟢 Easy apply"]},
  {en:"Show your startup at CES 2027, with Seoul",ko:"CES 2027 관악S밸리관 참가기업 모집",blurb:"Join the Seoul delegation to the world's biggest tech show.",cat:"Global",reg:"Nationwide",close:"2026-05-26",lens:["global"],pill:["glob","🌏 Abroad"]},
- {en:"Take your K-beauty brand overseas",ko:"2026 B the B 글로벌 거점 확산 파트너사",blurb:"Get help opening overseas retail for your beauty brand.",cat:"Global",reg:"Nationwide",close:"2026-05-28",lens:["global"],pill:["glob","🌏 Abroad"]},
- {en:"Makerspace + academy to productize a prototype",ko:"제조전문형 메이커스페이스 메이킹 아카데미",blurb:"For hardware founders — tools and help to turn a prototype into a product.",cat:"R&D",reg:"Gyeongnam",close:"2026-06-02",lens:["space"]},
+ {en:"Take your K-beauty brand overseas",ko:"2026 B the B 글로벌 거점 확산 파트너사",blurb:"Help opening overseas retail for your beauty brand.",cat:"Global",reg:"Nationwide",close:"2026-05-28",lens:["global"],pill:["glob","🌏 Abroad"]},
+ {en:"Makerspace + academy to productize a prototype",ko:"제조전문형 메이커스페이스 메이킹 아카데미",blurb:"For hardware founders — tools to turn a prototype into a product.",cat:"R&D",reg:"Gyeongnam",close:"2026-06-02",lens:["space"]},
  {en:"Break into Japan: open-innovation program",ko:"경기 스타트업 글로벌 성장지원 (일본)",blurb:"Match with Japanese partners + chase local investment.",cat:"Global",reg:"Gyeonggi",close:"2026-06-05",lens:["global"],pill:["glob","🌏 Abroad"]},
  {en:"Free e-commerce tools to grow your sales",ko:"2026 2차 판로확대 지원사업 소상공인",blurb:"A shopping-mall management solution, on the house.",cat:"Money",reg:"Nationwide",close:"2026-06-05",lens:["money"],pill:["easy","🟢 Easy apply"]},
- {en:"K-Startup's NYC program — land real US revenue",ko:"2026 뉴욕 Revenue-First 성장 프로그램",blurb:"Get into the New York market and chase actual sales, not just demos.",cat:"Global",reg:"Nationwide",close:"2026-06-04",lens:["global"],pill:["glob","🌏 Abroad"]},
+ {en:"K-Startup's NYC program — land real US revenue",ko:"2026 뉴욕 Revenue-First 성장 프로그램",blurb:"Get into New York and chase actual sales, not just demos.",cat:"Global",reg:"Nationwide",close:"2026-06-04",lens:["global"],pill:["glob","🌏 Abroad"]},
  {en:"Road to TIPS: get matched with a VC",ko:"PRODIGY Road to TIPS 참가 기업 모집",blurb:"The on-ramp to TIPS — Korea's flagship gov't scale-up funding.",cat:"Funding",reg:"Nationwide",close:"2026-06-10",lens:["money"]},
 ];
-D.forEach(p=>{ if(dd(p.close)<=7) p.lens=[...p.lens,"soon"]; });
+D.forEach(p=>{if(dd(p.close)<=7)p.lens=[...p.lens,"soon"];});
+const STREAM=[{"t": "[창업] 청년창업가 기획자 양성(능력 있는 기획자의 듣고 말하…", "d": "2026-05-27", "c": "창업교육"}, {"t": "[강원창조경제혁신센터] 2026 강원BRIDGE X 창업BuS…", "d": "2026-05-25", "c": "행사"}, {"t": "『2026년 민간주도형 기술창업 활성화 지원사업』 정출연 (예…", "d": "2026-05-31", "c": "멘토링"}, {"t": "2026년 유한킴벌리 시니어 임팩트 4기 펠로우십 모집", "d": "2026-06-05", "c": "사업화"}, {"t": "2026년 2차 대전 팁스타운 팁스아카데미 : IR 자료 작성…", "d": "2026-05-27", "c": "멘토링"}, {"t": "SYNERGY CORE 4기 스타트업 모집 (투자)", "d": "2026-06-14", "c": "사업화"}, {"t": "2026 교보생명 오픈이노베이션 1:1 사전밋업 참가기업 모집", "d": "2026-05-26", "c": "사업화"}, {"t": "「2026년 U-SPACE 제품개발 통합지원 프로그램」 참여…", "d": "2026-06-04", "c": "사업화"}, {"t": "[강동구 청년해냄센터] 입주기업 모집", "d": "2026-06-05", "c": "공간"}, {"t": "[강동구 청년해냄센터] 취약분야 상시 컨설팅 6월 참가자 모집…", "d": "2026-06-30", "c": "멘토링"}, {"t": "2026년 제2차 노원사회적경제지원센터 입주기업 신규 공모", "d": "2026-06-05", "c": "공간"}, {"t": "2026년 광명시 스타트업 챌린지 모집공고", "d": "2026-07-01", "c": "사업화"}, {"t": "Forbes Korea 30 Under 30 Summit", "d": "2026-06-08", "c": "행사"}, {"t": "[고려대 캠퍼스타운] KU GLOBAL STARTLINK「글로…", "d": "2026-06-01", "c": "공간"}, {"t": "[포스텍홀딩스] TIPS 갈 팀, 지금 찾습니다.", "d": "2026-06-21", "c": "사업화"}, {"t": "울산시 바이오 디지털 헬스케어 글로벌 진출 지원 (2026 B…", "d": "2026-06-19", "c": "글로벌"}, {"t": "[한국국제협력단(KOICA)] 2026-2027 포용적 비즈니…", "d": "2026-06-18", "c": "판로"}, {"t": "2026년 바이오 스타트업 지원을 위한 액셀러레이팅 프로그램 …", "d": "2026-06-11", "c": "공간"}, {"t": "2026 서울 유니콘 챌린지 참가기업 모집", "d": "2026-06-30", "c": "판로"}, {"t": "2026년도 보건산업혁신창업센터 혁신창업멤버스 기업 모집 연장…", "d": "2026-06-01", "c": "공간"}, {"t": "2026년 「민관협력 오픈이노베이션 지원」 제2차 수요기업·기…", "d": "2026-06-09", "c": "행사"}, {"t": "「2026년 경기 스타트업 글로벌 성장지원」 일본 오픈이노베이…", "d": "2026-06-05", "c": "글로벌"}, {"t": "2026년 제3차 국립공주대학교 창업보육센터 입주기업 모집 공…", "d": "2026-06-10", "c": "공간"}, {"t": "2026 APAN62 연계 기업 쇼케이스 참가업체 모집(~5.…", "d": "2026-05-29", "c": "판로"}, {"t": "2026년 소모성자재(MRO) 납품 중소기업 구매상담회 참여기…", "d": "2026-06-22", "c": "행사"}, {"t": "[전남]「전남형 AI‧AX 산업 생태계 조성사업」 스타트업 A…", "d": "2026-06-08", "c": "사업화"}, {"t": "2026년 소모성자재(MRO) 납품 중소기업 공공조달 입찰 실…", "d": "2026-06-04", "c": "멘토링"}, {"t": "[부산] 2026년 소상공인 IP창출 종합패키지(브랜드&디자인…", "d": "2026-06-15", "c": "사업화"}, {"t": "[코레일유통/본사] 제3차 청년창업 제휴사업자 모집공고", "d": "2026-05-29", "c": "공간"}, {"t": "[숭실대학교 캠퍼스타운] 2026 숭실 스타트업 아카데미 6월…", "d": "2026-06-19", "c": "창업교육"}, {"t": "동국대학교 창업보육센터(서울) 신규 입주기업 모집 공고", "d": "2026-06-08", "c": "공간"}, {"t": "강남구 개포동지역 ㈜오피스허브 1인 창조기업 지원센터 입주기업…", "d": "2026-05-27", "c": "공간"}, {"t": "2026 지역창업 페스티벌 연계 제102회 대전창업포럼 참여 …", "d": "2026-05-29", "c": "행사"}, {"t": "26년 5월 스타트업 언론 홍보 지원사업 참가사 모집 공고(2…", "d": "2026-05-31", "c": "사업화"}, {"t": "2026년 경기 스타트업 아카데미 AWS Kiro로 Spec …", "d": "2026-05-29", "c": "멘토링"}, {"t": "[ 칠곡군 중장년 기술창업센터] Pre-인큐베이팅 창업교육 …", "d": "2026-06-15", "c": "공간"}, {"t": "2026년도 화성산업진흥원「글로벌 스타트업 이륙작전」참가기업 …", "d": "2026-05-27", "c": "글로벌"}, {"t": "[성남산업진흥원] 폴란드 국제방위산업전시회 2026(MSPO …", "d": "2026-06-08", "c": "판로"}, {"t": "[광주] 2026년 IP나래 프로그램 하반기(2차) 지원기업 …", "d": "2026-06-04", "c": "멘토링"}, {"t": "2026년 위치정보 보호조치 교육", "d": "2026-05-26", "c": "멘토링"}, {"t": "AI 솔로프러너 프리오픈 참가자 모집", "d": "2026-05-25", "c": "사업화"}, {"t": "[경기테크노파크, 무료교육] 2026년 디지털 전환 실습 전문…", "d": "2026-07-03", "c": "멘토링"}];
 
 let active="all";
 const feed=document.getElementById('feed');
 function card(p){
-  const d=dd(p.close), hot=d<=3;
-  const pill=p.pill?`<span class="pill ${p.pill[0]}">${p.pill[1]}</span>`:'';
+  const d=dd(p.close),hot=d<=3;
+  const badge=p.badge?`<span class="pill ${p.badge[0]}">${p.badge[1]}</span>`:(p.pill?`<span class="pill ${p.pill[0]}">${p.pill[1]}</span>`:'');
   const seat=p.seat?`<span class="tag seat">⏳ ${p.seat}</span>`:'';
   return `<a class="card" href="https://www.k-startup.go.kr" target="_blank" rel="noopener">
-    <div class="top"><div class="dday fat ${hot?'hot':''}">D-${d}<small>${p.close.slice(5).replace('-','/')}</small></div>${pill}</div>
-    <h3>${p.en}<span class="ko">${p.ko}</span></h3>
-    <div class="blurb">${p.blurb}</div>
-    <div class="tags"><span class="tag cat">${p.cat}</span><span class="tag">📍 ${p.reg}</span>${seat}</div>
-  </a>`;
+    <div class="top"><div class="dday fat ${hot?'hot':''}">D-${d}<small>${p.close.slice(5).replace('-','/')}</small></div>${badge}</div>
+    <h3>${p.en}<span class="ko">${p.ko}</span></h3><div class="blurb">${p.blurb}</div>
+    <div class="tags"><span class="tag cat">${p.cat}</span><span class="tag">📍 ${p.reg}</span>${seat}</div></a>`;
 }
 function render(){
   const rows=D.filter(p=>active==="all"||p.lens.includes(active)).sort((a,b)=>dd(a.close)-dd(b.close));
-  feed.innerHTML = rows.length?rows.map(card).join(''):'<div class="empty">nothing here yet — try another lens</div>';
+  feed.innerHTML=rows.length?rows.map(card).join(''):'<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:50px">nothing in this lens — try another</div>';
 }
 document.getElementById('lenses').innerHTML=LENSES.map(([k,l])=>`<button class="lens${k==='all'?' on':''}" data-k="${k}">${l}</button>`).join('');
-document.getElementById('lenses').addEventListener('click',e=>{
-  const b=e.target.closest('.lens'); if(!b)return;
-  active=b.dataset.k;
-  document.querySelectorAll('.lens').forEach(x=>x.classList.toggle('on',x===b));
-  render();
-});
+document.getElementById('lenses').addEventListener('click',e=>{const b=e.target.closest('.lens');if(!b)return;active=b.dataset.k;document.querySelectorAll('.lens').forEach(x=>x.classList.toggle('on',x===b));render();});
+document.getElementById('srows').innerHTML=STREAM.map(s=>{
+  const d=s.d==="상시"?"상시":"D-"+dd(s.d);const hot=s.d!=="상시"&&dd(s.d)<=3;
+  return `<a class="srow" href="https://www.k-startup.go.kr" target="_blank" rel="noopener"><span class="sd ${hot?'hot':''}">${d}</span><span class="st">${s.t}</span><span class="sc">${s.c}</span></a>`;
+}).join('');
 render();
 </script>
 </body>
