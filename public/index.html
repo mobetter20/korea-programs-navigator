@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Korea Programs Navigator — check</title>
+<style>
+  :root{--pink:#ff52e5;--butter:#f6d242;--ink:#1f1b2e;--bg:#fdf9f3;--card:#fff;--muted:#7a7488;--line:#ece6dc}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+  header{padding:16px 24px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:5}
+  h1{font-size:18px;margin:0} .sub{color:var(--muted);font-size:13px}
+  .wrap{display:flex;align-items:flex-start}
+  .filters{width:230px;padding:16px 18px;position:sticky;top:62px;flex:none}
+  .filters label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:13px 0 4px}
+  .filters input,.filters select{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:#fff;font-size:13px;color:var(--ink)}
+  main{flex:1;min-width:0}
+  .feed{padding:14px 24px 40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;display:flex;flex-direction:column;gap:8px}
+  .card h3{margin:0;font-size:14.5px;line-height:1.35}
+  .card .en{color:var(--muted);font-size:12.5px;font-weight:400;margin-top:3px}
+  .badges{display:flex;flex-wrap:wrap;gap:6px}
+  .b{font-size:11px;padding:3px 8px;border-radius:999px;background:#f3eee6}
+  .b.cat{background:var(--butter)} .b.global{background:var(--pink);color:#fff}
+  .b.barred{background:#ffd9d9;color:#a11} .b.foreign{background:#d9f0ff;color:#06c}
+  .meta{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:10px}
+  .deadline{font-weight:600;color:var(--ink)} .soon{color:#c026a6}
+  a.detail{font-size:12px;color:var(--pink);text-decoration:none;font-weight:700;margin-top:2px}
+  .count{font-size:13px;color:var(--muted);padding:0 24px} .summary{font-size:12px;color:var(--muted);padding:8px 24px 0}
+</style>
+</head>
+<body>
+<header>
+  <h1>Korea Programs Navigator <span class="sub">— internal check UI</span></h1>
+  <div class="sub" id="sub"></div>
+</header>
+<div class="wrap">
+  <aside class="filters">
+    <label>Search title</label><input id="q" placeholder="키워드…">
+    <label>Your age</label><input id="age" type="number" placeholder="e.g. 35">
+    <label>Category</label><select id="cat"></select>
+    <label>Region</label><select id="region"></select>
+    <label>Business stage</label><select id="stage"></select>
+    <label>Nationality flag</label>
+    <select id="nat"><option value="">all</option><option>silent</option><option>barred</option><option>explicit_foreign</option></select>
+  </aside>
+  <main>
+    <div class="summary" id="summary"></div>
+    <div class="count" id="count"></div>
+    <section class="feed" id="feed"></section>
+  </main>
+</div>
+<script src="./data/programs.js"></script>
+<script>
+const D = window.KPN_DATA || {programs:[],facets:{},count:0,generated:"(run build.py)"};
+const $ = s => document.querySelector(s);
+const opt = (el,items)=> el.innerHTML = '<option value="">all</option>'+items.map(i=>`<option>${i}</option>`).join('');
+opt($('#cat'),D.facets.category||[]); opt($('#region'),D.facets.region||[]); opt($('#stage'),D.facets.stage||[]);
+$('#sub').textContent = `${D.count} active programs · generated ${D.generated} · source: K-Startup`;
+const all = D.programs;
+const s = {
+  allAges: all.filter(p=>p.age_min==null&&p.age_max==null).length,
+  barred: all.filter(p=>p.nationality_flag==='barred').length,
+  foreign: all.filter(p=>p.nationality_flag==='explicit_foreign').length,
+  global: all.filter(p=>p.foreigner_relevance==='needs_judgment').length,
+  translated: all.filter(p=>p.title_en).length,
+};
+$('#summary').textContent = `data check — all-ages: ${s.allAges} · barred: ${s.barred} · explicit-foreign: ${s.foreign} · global/해외 (needs judgment): ${s.global} · translated: ${s.translated}/${all.length}`;
+const daysLeft = d => d ? Math.ceil((new Date(d)-new Date())/864e5) : null;
+const ageOk = (p,a)=> a===''||((p.age_min==null||+a>=p.age_min)&&(p.age_max==null||+a<=p.age_max));
+function render(){
+  const q=$('#q').value.trim(), cat=$('#cat').value, rg=$('#region').value, st=$('#stage').value, nat=$('#nat').value, age=$('#age').value;
+  const rows = all.filter(p=>
+    (!q||p.title_ko.includes(q)||(p.title_en||'').toLowerCase().includes(q.toLowerCase())) &&
+    (!cat||p.category===cat)&&(!rg||p.region===rg)&&(!st||p.business_stage.includes(st))&&(!nat||p.nationality_flag===nat)&&ageOk(p,age));
+  $('#count').textContent = `${rows.length} match`;
+  $('#feed').innerHTML = rows.map(p=>{
+    const dl=daysLeft(p.close_date);
+    const age = (p.age_min==null&&p.age_max==null)?'all ages':`${p.age_min??'~'}–${p.age_max??'∞'}`;
+    return `<div class="card">
+      <h3>${p.title_ko}${p.title_en?`<div class="en">${p.title_en}</div>`:''}</h3>
+      <div class="badges">
+        <span class="b cat">${p.category||'—'}</span>
+        ${p.foreigner_relevance==='needs_judgment'?'<span class="b global">글로벌/해외</span>':''}
+        ${p.nationality_flag==='barred'?'<span class="b barred">국민 한정?</span>':''}
+        ${p.nationality_flag==='explicit_foreign'?'<span class="b foreign">외국인</span>':''}
+      </div>
+      <div class="meta"><span>📍 ${p.region||'—'}</span><span>👤 ${age}</span><span>🪜 ${p.business_stage.join(', ')||'—'}</span></div>
+      <div class="meta">
+        <span class="deadline ${dl!=null&&dl<=14?'soon':''}">${p.close_date?`마감 ${p.close_date}${dl!=null?` · ${dl}d`:''}`:'상시'}</span>
+        <span>${p.agency||''}</span>
+      </div>
+      ${p.detail_url?`<a class="detail" href="${p.detail_url}" target="_blank" rel="noopener">K-Startup 공고 →</a>`:''}
+    </div>`;
+  }).join('') || '<p style="color:var(--muted)">no matches</p>';
+}
+['#q','#age','#cat','#region','#stage','#nat'].forEach(x=>$(x).addEventListener('input',render));
+render();
+</script>
+</body>
+</html>
