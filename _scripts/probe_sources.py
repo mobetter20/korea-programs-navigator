@@ -68,6 +68,9 @@ def probe_bizinfo(key):
     if items:
         print("  sample item keys: " + ", ".join(sorted(items[0].keys())))
         _scan(items)
+    else:
+        print("  top-level keys: " + ", ".join(map(str, data.keys())))
+        print("  raw snippet: " + body[:300].decode("utf-8", "replace"))
 
 
 def probe_kstartup(key):
@@ -99,6 +102,9 @@ def probe_kstartup(key):
     if items:
         print("  sample item keys: " + ", ".join(sorted(items[0].keys())))
         _scan(items)
+    else:
+        print("  top-level keys: " + ", ".join(map(str, data.keys())))
+        print("  raw snippet: " + body[:300].decode("utf-8", "replace"))
 
 
 def main():
