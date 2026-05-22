@@ -6,9 +6,9 @@ English-language navigator that aggregates Korean government **startup & busines
 
 ## North-Star
 
-Make Korea's startup- and business-support universe **navigable** for foreign residents who want to start or run something here but can't find — or read — what's open to them. Surface what they can actually apply for, in plain English, from data they can **trust**. Comprehensive underneath, ruthlessly simple on top: one program = one scannable card, never a menu you fight. A navigation aid that shows you what exists and how to verify it — never an adjudicator that promises you qualify.
+Make Korea's startup- and business-support universe **navigable** for foreign residents who want to build something here — surfacing the programs they're **actually eligible for** (far more than they realize), **matched to their situation** (stage · age · region · sector), readable **in English**. Comprehensive underneath, ruthlessly simple on top: one program = one scannable card filtered to *you*, never a 28,000-row haystack. Honest about fit — shows what matches and how to verify it, flags the rare nationality bars — **never promising you qualify.**
 
-**Drift signals:** (a) coverage gaps that hollow out "comprehensive"; (b) the surface going layered as coverage grows — *simple wins the top, comprehensive the back end*; (c) data that doesn't earn trust (stale, unsourced, falsely certain); (d) implying eligibility certainty the prose doesn't support; (e) drifting toward Korean-national startup tooling or general expat/tourist content; (f) any runtime LLM, analytics, or tracking.
+**Drift signals:** (a) coverage gaps hollowing out "comprehensive"; (b) surface going layered as coverage grows — *matched/simple wins the top, comprehensive the back end*; (c) data that doesn't earn trust — stale, or LLM-guessed where a structured field exists; (d) implying eligibility certainty the data can't support; (e) drifting either way off-target — shrinking to a tiny "foreigner-only" ghetto, OR sliding to outbound / Korean-national / general-expat content; (f) runtime LLM, analytics, or tracking.
 
 ## Audience & scope (MVP)
 
