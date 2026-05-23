@@ -2,8 +2,8 @@
 """Build the static data the check-UI loads.
 
 Merges data/normalized.json + data/translations.json (cache, optional) into
-public/data/programs.js (window global — works on file://, no server) and
-programs.json. Pure.
+public/data/programs.js (window global — works on file://, no server),
+programs.json, and feed.xml (RSS 2.0). Pure.
 
 Run: python3 _scripts/build.py
 """
@@ -12,9 +12,49 @@ from __future__ import annotations
 import datetime as dt
 import json
 import os
+import xml.etree.ElementTree as ET
 from collections import Counter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SITE_URL = "https://korea-programs-navigator.local"
+
+
+def make_rss(programs: list, out_dir: str) -> None:
+    """Emit RSS 2.0 of programs sorted by open_date desc, max 60 items."""
+    rss = ET.Element("rss", version="2.0")
+    ch = ET.SubElement(rss, "channel")
+    ET.SubElement(ch, "title").text = "Korea Programs Navigator — Active Programs"
+    ET.SubElement(ch, "link").text = SITE_URL
+    ET.SubElement(ch, "description").text = (
+        "Korean government startup and business-support programs for foreign residents"
+    )
+    ET.SubElement(ch, "language").text = "en"
+
+    items = sorted(
+        (p for p in programs if p.get("open_date")),
+        key=lambda p: p["open_date"],
+        reverse=True,
+    )[:60]
+
+    for p in items:
+        item = ET.SubElement(ch, "item")
+        title = p.get("title_en") or p.get("title_ko", "")
+        desc = p.get("summary_en") or p.get("summary_ko", "")
+        link = p.get("apply_url") or p.get("detail_url") or SITE_URL
+        ET.SubElement(item, "title").text = title
+        ET.SubElement(item, "link").text = link
+        ET.SubElement(item, "description").text = desc
+        ET.SubElement(item, "guid", isPermaLink="false").text = p["id"]
+        d = dt.date.fromisoformat(p["open_date"])
+        pub = dt.datetime.combine(d, dt.time()).strftime("%a, %d %b %Y %H:%M:%S +0900")
+        ET.SubElement(item, "pubDate").text = pub
+
+    tree = ET.ElementTree(rss)
+    ET.indent(tree, space="  ")
+    path = os.path.join(out_dir, "feed.xml")
+    with open(path, "wb") as f:
+        f.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
+        tree.write(f, encoding="utf-8", xml_declaration=False)
 
 
 def main():
@@ -44,9 +84,11 @@ def main():
         json.dump(payload, f, ensure_ascii=False, indent=1)
     with open(os.path.join(out, "programs.js"), "w", encoding="utf-8") as f:
         f.write("window.KPN_DATA = " + json.dumps(payload, ensure_ascii=False) + ";")
+    make_rss(norm, out)
 
     print(f"built {len(norm)} programs -> public/data/  (translated: {sum(1 for r in norm if r['title_en'])}/{len(norm)})")
     print("facets:", {k: len(v) for k, v in facets.items()})
+    print(f"rss: public/data/feed.xml")
 
 
 if __name__ == "__main__":
