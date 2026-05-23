@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KPN v6 — poppy pink + modes</title>
+<style>
+  @font-face{font-family:'Bagel Fat One';src:url('fonts/bagel-fat-one/bagel-fat-one-400-091.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'Source Sans 3';src:url('fonts/source-sans-3/source-sans-3-400-006.woff2') format('woff2');font-weight:400;font-display:swap}
+  @font-face{font-family:'JetBrains Mono';src:url('fonts/jetbrains-mono/jetbrains-mono-500-000.woff2') format('woff2');font-weight:500;font-display:swap}
+  :root{--pink:#ff52e5;--pink-dk:#ca27b2;--butter:#f6d242;--gold-dk:#b58a00;--ink:#1a1a1a;--muted:#8c8598;--line:#ece2d3;--card:#fff}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{color:var(--ink);font-family:'Source Sans 3','Apple SD Gothic Neo',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;
+       background:radial-gradient(820px 360px at 78% -130px,#ffd9f2,transparent 72%),radial-gradient(700px 320px at 0% 0%,#fff3cf66,transparent 70%),#f8efe1;min-height:100vh}
+  .mono{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace}.fat{font-family:'Bagel Fat One','Arial Black',cursive}.kr{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif}
+  header{position:sticky;top:0;z-index:20;background:rgba(248,239,225,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;gap:14px;padding:12px 24px}
+  .brand{font-size:16px;font-weight:800}.brand .d{color:var(--pink)}
+  .modes{display:flex;gap:4px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px}
+  .mode{border:none;background:none;font-family:inherit;font-size:13px;font-weight:700;color:var(--muted);padding:6px 14px;border-radius:999px;cursor:pointer}
+  .mode.on{background:var(--ink);color:#fff}
+  .live{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.05em;color:var(--muted);font-weight:600;font-family:'JetBrains Mono',monospace}
+  .led{width:8px;height:8px;border-radius:50%;background:#2da854;animation:p 1.8s infinite}
+  @keyframes p{0%{box-shadow:0 0 0 0 rgba(45,168,84,.5)}70%{box-shadow:0 0 0 7px rgba(45,168,84,0)}100%{box-shadow:0 0 0 0 rgba(45,168,84,0)}}
+  .pills{display:flex;gap:7px;padding:0 22px 11px;overflow-x:auto;scrollbar-width:none}.pills::-webkit-scrollbar{display:none}
+  .pill{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;font-family:inherit;white-space:nowrap;transition:.12s}
+  .pill:hover{border-color:var(--pink)}.pill.on{background:var(--pink);color:#fff;border-color:var(--pink)}.pill .n{opacity:.6;margin-left:3px;font-size:11px}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:16px 22px 70px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:13px}
+  .card{display:flex;flex-direction:column;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 15px;text-decoration:none;color:inherit;box-shadow:0 2px 5px -3px rgba(60,30,50,.15);transition:.13s}
+  .card:hover{transform:translateY(-3px);border-color:var(--pink);box-shadow:0 14px 28px -16px rgba(200,40,160,.45)}
+  .top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:1px}
+  .dday{font-family:'Bagel Fat One','Arial Black',cursive;font-size:27px;line-height:.82;color:var(--pink-dk)}.dday.hot{color:var(--pink)}.dday small{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;color:var(--muted);margin-top:4px;letter-spacing:.03em}
+  .cat{font-size:9.5px;font-weight:700;letter-spacing:.09em;color:var(--muted);font-family:'JetBrains Mono',monospace;padding-top:3px}
+  h3{font-size:15px;line-height:1.27;font-weight:700}
+  .ko{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .foot{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:6px}
+  .badge{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:999px}
+  .b-fore{background:var(--pink);color:#fff}.b-easy{background:#fff3c2;color:var(--gold-dk)}.b-glob{background:#eaf1ff;color:#2f6bd8}
+  .reg{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-left:auto}
+
+  /* Just-in mode */
+  .stream{max-width:760px;margin:0 auto}
+  .sintro{font-size:13px;color:var(--muted);padding:2px 4px 14px;font-family:'JetBrains Mono',monospace}
+  .row{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:9px;text-decoration:none;color:inherit;transition:.12s}
+  .row:hover{border-color:var(--pink);transform:translateX(3px)}
+  .row .d{font-family:'Bagel Fat One','Arial Black';font-size:23px;color:var(--pink-dk);min-width:62px}.row .d.hot{color:var(--pink)}
+  .row .t{flex:1;font-size:14px;font-weight:600}
+  .row .c{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+  .row .new{font-size:9px;font-weight:800;color:#fff;background:var(--pink);border-radius:5px;padding:2px 6px;letter-spacing:.05em}
+  .hide{display:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <span class="brand">Korea Programs Navigator<span class="d">.</span></span>
+    <div class="modes"><button class="mode on" data-m="browse">Browse</button><button class="mode" data-m="justin">⚡ Just in</button></div>
+    <span class="live"><span class="led"></span> 296 LIVE · UPDATED JUST NOW</span>
+  </div>
+  <div class="pills" id="pills"></div>
+</header>
+
+<div class="wrap">
+  <main class="grid" id="grid"></main>
+  <section class="stream hide" id="stream">
+    <div class="sintro">// the full firehose — everything, newest first, always more coming</div>
+    <div id="rows"></div>
+  </section>
+</div>
+
+<script>
+const TODAY=new Date('2026-05-23'); const dd=iso=>Math.max(0,Math.ceil((new Date(iso)-TODAY)/864e5));
+const LENSES=[["all","All"],["soon","🔥 Closing soon"],["fore","✨ Foreign founders"],["visa","🛂 Visa"],["money","💰 Money"],["space","🏢 Space"],["fun","🎉 Fun"],["global","🌏 Go global"]];
+const D=[
+ {cat:"VISA",en:"Get a startup visa (D-8-4 / D-10-2) while you build",ko:"OASIS 4&5 창업이민종합지원",reg:"SEOUL",close:"2026-06-15",lens:["visa","fore"],badge:["fore","✨ For foreign founders"]},
+ {cat:"SPACE",en:"Korea University's global startup track",ko:"고려대 KU GLOBAL STARTLINK",reg:"SEOUL",close:"2026-06-01",lens:["space","fore"],badge:["fore","✨ For foreign founders"]},
+ {cat:"EVENT",en:"Hanyang's startup pitch competition",ko:"한양대 캠퍼스타운 창업경진대회",reg:"SEOUL",close:"2026-06-01",lens:["fun","fore"],badge:["fore","✨ For foreign founders"]},
+ {cat:"MONEY",en:"Voucher to cover your patent filing costs",ko:"특허출원·등록 비용 바우처 지원",reg:"NATIONWIDE",close:"2026-05-23",lens:["money"]},
+ {cat:"EVENT",en:"Pitch to investors at Gangwon's demo day",ko:"강원 BRIDGE X 창업BuS 데모데이",reg:"NATIONWIDE",close:"2026-05-25",lens:["fun"]},
+ {cat:"EDUCATION",en:"Free course: build a smart-healthcare startup",ko:"PBL 스마트헬스케어 스타트업 육성과정",reg:"BUSAN",close:"2026-05-25",lens:["fun"],badge:["easy","⏳ 1 seat left"]},
+ {cat:"EDUCATION",en:"Startup 101: business model + writing your plan",ko:"도전창업트랙 2기 창업실무 기초교육",reg:"SEOUL",close:"2026-05-25",lens:["fun"],badge:["easy","🟢 Easy apply"]},
+ {cat:"SPACE",en:"Free office space at a youth startup center",ko:"서대문청년창업센터 입주기업 모집",reg:"SEOUL",close:"2026-05-25",lens:["space"]},
+ {cat:"PEOPLE",en:"Free on-site consulting to unstick your business",ko:"찾아가는 기업 고민해결 찐(眞)톡",reg:"SEOUL",close:"2026-05-27",lens:["fun"],badge:["easy","🟢 Easy apply"]},
+ {cat:"GLOBAL",en:"Show your startup at CES 2027, with Seoul",ko:"CES 2027 관악S밸리관 참가기업",reg:"NATIONWIDE",close:"2026-05-26",lens:["global"],badge:["glob","🌏 Abroad"]},
+ {cat:"GLOBAL",en:"Take your K-beauty brand overseas",ko:"B the B 글로벌 거점 확산 파트너사",reg:"NATIONWIDE",close:"2026-05-28",lens:["global"],badge:["glob","🌏 Abroad"]},
+ {cat:"R&D",en:"Makerspace + academy to productize a prototype",ko:"제조전문형 메이커스페이스 아카데미",reg:"GYEONGNAM",close:"2026-06-02",lens:["space"]},
+ {cat:"GLOBAL",en:"Break into Japan: open-innovation program",ko:"경기 스타트업 글로벌 (일본)",reg:"GYEONGGI",close:"2026-06-05",lens:["global"],badge:["glob","🌏 Abroad"]},
+ {cat:"MONEY",en:"Free e-commerce tools to grow your sales",ko:"2차 판로확대 지원사업 소상공인",reg:"NATIONWIDE",close:"2026-06-05",lens:["money"],badge:["easy","🟢 Easy apply"]},
+ {cat:"GLOBAL",en:"K-Startup's NYC program — land real US revenue",ko:"뉴욕 Revenue-First 성장 프로그램",reg:"NATIONWIDE",close:"2026-06-04",lens:["global"],badge:["glob","🌏 Abroad"]},
+ {cat:"FUNDING",en:"Road to TIPS: get matched with a VC",ko:"PRODIGY Road to TIPS 참가 기업",reg:"NATIONWIDE",close:"2026-06-10",lens:["money"]},
+];
+D.forEach(p=>{if(dd(p.close)<=7)p.lens=[...p.lens,"soon"];});
+const STREAM=[["[창업] 청년창업가 기획자 양성","2026-05-27","창업교육"],["강원 BRIDGE X 창업BuS 데모데이","2026-05-25","행사"],["민간주도형 기술창업 활성화 지원","2026-05-31","멘토링"],["유한킴벌리 시니어 임팩트 펠로우십","2026-06-05","사업화"],["대전 팁스아카데미 IR 작성","2026-05-27","멘토링"],["SYNERGY CORE 4기 스타트업 (투자)","2026-06-14","사업화"],["교보생명 오픈이노베이션 밋업","2026-05-26","사업화"],["U-SPACE 제품개발 통합지원","2026-06-04","사업화"],["강동구 청년해냄센터 입주기업","2026-06-05","공간"],["노원사회적경제 입주기업 공모","2026-06-05","공간"],["광명시 스타트업 챌린지","2026-07-01","사업화"],["Forbes Korea 30 Under 30 Summit","2026-06-08","행사"],["포스텍홀딩스 TIPS 갈 팀","2026-06-21","사업화"],["울산 바이오 헬스케어 글로벌 진출","2026-06-19","글로벌"],["KOICA 포용적 비즈니스","2026-06-18","판로"],["바이오 스타트업 액셀러레이팅","2026-06-11","공간"],["2026 서울 유니콘 챌린지","2026-06-30","판로"],["보건산업 혁신창업멤버스","2026-06-01","공간"],["민관협력 오픈이노베이션 2차","2026-06-09","행사"],["국립공주대 창업보육센터 입주","2026-06-10","공간"]];
+
+let active="all";
+const grid=document.getElementById('grid');
+const card=p=>{const n=dd(p.close),hot=n<=3,b=p.badge?`<span class="badge b-${p.badge[0]}">${p.badge[1]}</span>`:'';
+ return `<a class="card" href="https://www.k-startup.go.kr" target="_blank" rel="noopener">
+   <div class="top"><div class="dday ${hot?'hot':''}">D-${n}<small>${p.close.slice(5).replace('-','/')}</small></div><span class="cat">${p.cat}</span></div>
+   <h3>${p.en}</h3><span class="ko kr">${p.ko}</span>
+   <div class="foot">${b}<span class="reg">${p.reg}</span></div></a>`;};
+const render=()=>{const r=D.filter(p=>active==="all"||p.lens.includes(active)).sort((a,b)=>dd(a.close)-dd(b.close));grid.innerHTML=r.map(card).join('');};
+document.getElementById('pills').innerHTML=LENSES.map(([k,l])=>{const c=k==="all"?D.length:D.filter(p=>p.lens.includes(k)).length;return `<button class="pill${k==='all'?' on':''}" data-k="${k}">${l}<span class="n">${c}</span></button>`;}).join('');
+document.getElementById('pills').addEventListener('click',e=>{const b=e.target.closest('.pill');if(!b)return;active=b.dataset.k;document.querySelectorAll('.pill').forEach(x=>x.classList.toggle('on',x===b));render();});
+document.getElementById('rows').innerHTML=STREAM.map(([t,d,c],i)=>{const n=dd(d),hot=n<=3;return `<a class="row" href="https://www.k-startup.go.kr" target="_blank" rel="noopener"><span class="d ${hot?'hot':''}">D-${n}</span><span class="t kr">${t}</span>${i<3?'<span class="new">NEW</span>':''}<span class="c">${c}</span></a>`;}).join('');
+document.querySelectorAll('.mode').forEach(m=>m.addEventListener('click',()=>{
+  document.querySelectorAll('.mode').forEach(x=>x.classList.toggle('on',x===m));
+  const justin=m.dataset.m==="justin";
+  document.getElementById('stream').classList.toggle('hide',!justin);
+  document.getElementById('grid').classList.toggle('hide',justin);
+  document.getElementById('pills').style.display=justin?'none':'flex';
+}));
+render();
+</script>
+</body>
+</html>
