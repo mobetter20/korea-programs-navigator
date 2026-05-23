@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KPN — design playground</title>
+<style>
+  @font-face{font-family:'Bagel Fat One';src:url('fonts/bagel-fat-one/bagel-fat-one-400-091.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'Source Sans 3';src:url('fonts/source-sans-3/source-sans-3-400-006.woff2') format('woff2');font-display:swap}
+  :root{--pink:#ff52e5;--pink-dk:#ca27b2;--gold-dk:#b58a00;--ink:#1a1a1a;--muted:#8c8598;--line:#e9e1d4;--bg:#f3f4f6;--card:#fff}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{color:var(--ink);font-family:'Source Sans 3','Apple SD Gothic Neo',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);min-height:100vh}
+  .mono{font-family:ui-monospace,Menlo,monospace}.fat{font-family:'Bagel Fat One','Arial Black',cursive}.kr{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif}
+
+  /* ---- backgrounds (no beige default) ---- */
+  body[data-bg="white"]{--bg:#fafafa}
+  body[data-bg="gray"]{--bg:#eef0f4}
+  body[data-bg="cream"]{--bg:#faf3e8}
+  body[data-bg="pink"]{--bg:radial-gradient(1100px 460px at 80% -160px,#ffdcf2,transparent 70%) #fdf2f9}
+  body[data-bg="dark"]{--bg:#16141b;--card:#211e29;--ink:#f1eff5;--muted:#9a93a8;--line:#322e3c}
+
+  /* ---- playground control strip ---- */
+  .pg{position:sticky;top:0;z-index:40;display:flex;flex-wrap:wrap;gap:16px;align-items:center;padding:9px 18px;background:#100f14;color:#cfc9d8;font-size:12px;border-bottom:1px solid #2a2832}
+  .pg b{color:#fff;font-size:11px;letter-spacing:.05em}
+  .pg .grp{display:flex;gap:4px;align-items:center}.pg .grp>span{color:#7d7689;margin-right:3px}
+  .pg button{font-family:inherit;font-size:11.5px;font-weight:700;border:1px solid #353241;background:#211f29;color:#aaa3b6;padding:5px 10px;border-radius:7px;cursor:pointer}
+  .pg button.on{background:var(--pink);color:#fff;border-color:var(--pink)}
+  .pg .cfg{margin-left:auto;color:#6f6880;font-family:ui-monospace,Menlo,monospace;font-size:11px}
+
+  header{position:sticky;top:39px;z-index:20;background:color-mix(in srgb,var(--card) 60%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;gap:12px;padding:12px 22px}
+  .brand{font-size:16px;font-weight:800}.brand .d{color:var(--pink)}
+  .live{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.05em;color:var(--muted);font-weight:600;font-family:ui-monospace,Menlo,monospace}
+  .led{width:8px;height:8px;border-radius:50%;background:#2da854;animation:p 1.8s infinite}@keyframes p{0%{box-shadow:0 0 0 0 rgba(45,168,84,.5)}70%{box-shadow:0 0 0 7px rgba(45,168,84,0)}100%{box-shadow:0 0 0 0 rgba(45,168,84,0)}}
+  .pills{display:flex;gap:7px;padding:0 22px 11px;overflow-x:auto;scrollbar-width:none}.pills::-webkit-scrollbar{display:none}
+  .pill{flex:none;border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;font-family:inherit;white-space:nowrap}
+  .pill.on{background:var(--pink);color:#fff;border-color:var(--pink)}.pill .n{opacity:.6;margin-left:3px;font-size:11px}
+
+  .layout{display:flex;gap:18px;padding:16px 22px 70px;align-items:flex-start}
+  .grid{flex:1;display:grid;gap:13px}
+  body[data-cols="2"] .grid{grid-template-columns:repeat(2,1fr)}body[data-cols="3"] .grid{grid-template-columns:repeat(3,1fr)}body[data-cols="4"] .grid{grid-template-columns:repeat(4,1fr)}
+  .card{display:flex;flex-direction:column;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 15px;text-decoration:none;color:inherit;box-shadow:0 2px 6px -4px rgba(60,30,50,.18);transition:.12s}
+  .card:hover{transform:translateY(-3px);border-color:var(--pink)}
+  .top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+  .dday{font-family:'Bagel Fat One','Arial Black',cursive;font-size:26px;line-height:.82;color:var(--pink-dk)}.dday.hot{color:var(--pink)}.dday small{display:block;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--muted);margin-top:4px}
+  .cat{font-size:10px;font-weight:800;letter-spacing:.06em;font-family:ui-monospace,Menlo,monospace;padding:3px 7px;border-radius:6px}
+  h3{font-size:15px;line-height:1.27;font-weight:700}
+  .ko{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .foot{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:6px}
+  .badge{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:999px}.b-fore{background:var(--pink);color:#fff}.b-easy{background:#fff3c2;color:var(--gold-dk)}.b-glob{background:#eaf1ff;color:#2f6bd8}
+  .reg{font-size:10px;color:var(--muted);font-family:ui-monospace,Menlo,monospace;margin-left:auto}
+  /* color levels */
+  body[data-color="mono"] .cat{background:transparent;color:var(--muted);padding-left:0}
+  body[data-color="chips"] .cat{background:color-mix(in srgb,var(--ac) 18%,transparent);color:var(--ac)}
+  body[data-color="tints"] .cat{background:color-mix(in srgb,var(--ac) 20%,transparent);color:var(--ac)}
+  body[data-color="tints"] .card{background:color-mix(in srgb,var(--ac) 7%,var(--card));border-left:3px solid var(--ac)}
+
+  /* right stream — recency ticker, deliberately NOT the cards */
+  .stream{width:250px;flex:none;position:sticky;top:104px;max-height:calc(100vh - 122px);background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+  body[data-stream="off"] .stream{display:none}
+  .shead{padding:11px 13px;border-bottom:1px solid var(--line);font-size:12px}.shead b{font-weight:800}.shead .s{display:block;color:var(--muted);font-size:10px;margin-top:3px;font-family:ui-monospace,Menlo,monospace}
+  .srows{overflow:auto}
+  .tl{display:flex;gap:9px;align-items:baseline;padding:8px 12px;border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent);text-decoration:none;color:inherit}.tl:hover{background:color-mix(in srgb,var(--pink) 6%,transparent)}
+  .ago{font-size:10px;font-weight:700;color:var(--pink-dk);font-family:ui-monospace,Menlo,monospace;min-width:34px}
+  .tlt{flex:1;font-size:11.5px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .more{text-align:center;padding:10px;font-size:11px;font-weight:700;color:var(--pink-dk);font-family:ui-monospace,Menlo,monospace}
+</style>
+</head>
+<body data-bg="pink" data-cols="3" data-color="chips" data-stream="on">
+
+<div class="pg">
+  <b>🎛 PLAYGROUND</b>
+  <div class="grp"><span>bg</span><button data-k="bg" data-v="white">white</button><button data-k="bg" data-v="gray">gray</button><button data-k="bg" data-v="cream">cream</button><button data-k="bg" data-v="pink" class="on">pink</button><button data-k="bg" data-v="dark">dark</button></div>
+  <div class="grp"><span>cols</span><button data-k="cols" data-v="2">2</button><button data-k="cols" data-v="3" class="on">3</button><button data-k="cols" data-v="4">4</button></div>
+  <div class="grp"><span>color</span><button data-k="color" data-v="mono">mono</button><button data-k="color" data-v="chips" class="on">chips</button><button data-k="color" data-v="tints">tints</button></div>
+  <div class="grp"><span>stream</span><button data-k="stream" data-v="on" class="on">on</button><button data-k="stream" data-v="off">off</button></div>
+  <span class="cfg" id="cfg"></span>
+</div>
+
+<header>
+  <div class="bar"><span class="brand">Korea Programs Navigator<span class="d">.</span></span>
+    <span class="live"><span class="led"></span> 296 LIVE · UPDATED JUST NOW</span></div>
+  <div class="pills" id="pills"></div>
+</header>
+
+<div class="layout">
+  <main class="grid" id="grid"></main>
+  <aside class="stream">
+    <div class="shead"><b>⚡ Just posted</b><span class="s">newest first · all 296</span></div>
+    <div class="srows" id="tl"></div>
+    <div class="more">+ 256 more ↓</div>
+  </aside>
+</div>
+
+<script>
+const TODAY=new Date('2026-05-23'); const dd=iso=>Math.max(0,Math.ceil((new Date(iso)-TODAY)/864e5));
+const AC={Money:"#b58a00",Funding:"#b58a00",Event:"#d8635f",Education:"#7c4dd6",Space:"#3a9d4f",Global:"#2f6bd8",People:"#1f9e8f","R&D":"#d9802a",Visa:"#ca27b2"};
+const LENSES=[["all","All"],["soon","🔥 Closing soon"],["fore","✨ Foreign founders"],["visa","🛂 Visa"],["money","💰 Money"],["space","🏢 Space"],["fun","🎉 Fun"],["global","🌏 Go global"]];
+const D=[
+ {cat:"Visa",en:"Get a startup visa (D-8-4 / D-10-2) while you build",ko:"OASIS 4&5 창업이민종합지원",reg:"SEOUL",close:"2026-06-15",lens:["visa","fore"],badge:["fore","✨ For foreign founders"]},
+ {cat:"Space",en:"Korea University's global startup track",ko:"고려대 KU GLOBAL STARTLINK",reg:"SEOUL",close:"2026-06-01",lens:["space","fore"],badge:["fore","✨ For foreign founders"]},
+ {cat:"Event",en:"Hanyang's startup pitch competition",ko:"한양대 캠퍼스타운 창업경진대회",reg:"SEOUL",close:"2026-06-01",lens:["fun","fore"],badge:["fore","✨ For foreign founders"]},
+ {cat:"Money",en:"Voucher to cover your patent filing costs",ko:"특허출원·등록 비용 바우처 지원",reg:"NATIONWIDE",close:"2026-05-23",lens:["money"]},
+ {cat:"Event",en:"Pitch to investors at Gangwon's demo day",ko:"강원 BRIDGE X 창업BuS 데모데이",reg:"NATIONWIDE",close:"2026-05-25",lens:["fun"]},
+ {cat:"Education",en:"Free course: build a smart-healthcare startup",ko:"PBL 스마트헬스케어 스타트업 육성과정",reg:"BUSAN",close:"2026-05-25",lens:["fun"],badge:["easy","⏳ 1 seat left"]},
+ {cat:"Education",en:"Startup 101: business model + writing your plan",ko:"도전창업트랙 2기 창업실무 기초교육",reg:"SEOUL",close:"2026-05-25",lens:["fun"],badge:["easy","🟢 Easy apply"]},
+ {cat:"Space",en:"Free office space at a youth startup center",ko:"서대문청년창업센터 입주기업 모집",reg:"SEOUL",close:"2026-05-25",lens:["space"]},
+ {cat:"People",en:"Free on-site consulting to unstick your business",ko:"찾아가는 기업 고민해결 찐(眞)톡",reg:"SEOUL",close:"2026-05-27",lens:["fun"],badge:["easy","🟢 Easy apply"]},
+ {cat:"Global",en:"Show your startup at CES 2027, with Seoul",ko:"CES 2027 관악S밸리관 참가기업",reg:"NATIONWIDE",close:"2026-05-26",lens:["global"],badge:["glob","🌏 Abroad"]},
+ {cat:"Global",en:"Take your K-beauty brand overseas",ko:"B the B 글로벌 거점 확산 파트너사",reg:"NATIONWIDE",close:"2026-05-28",lens:["global"],badge:["glob","🌏 Abroad"]},
+ {cat:"R&D",en:"Makerspace + academy to productize a prototype",ko:"제조전문형 메이커스페이스 아카데미",reg:"GYEONGNAM",close:"2026-06-02",lens:["space"]},
+ {cat:"Global",en:"Break into Japan: open-innovation program",ko:"경기 스타트업 글로벌 (일본)",reg:"GYEONGGI",close:"2026-06-05",lens:["global"],badge:["glob","🌏 Abroad"]},
+ {cat:"Money",en:"Free e-commerce tools to grow your sales",ko:"2차 판로확대 지원사업 소상공인",reg:"NATIONWIDE",close:"2026-06-05",lens:["money"],badge:["easy","🟢 Easy apply"]},
+ {cat:"Global",en:"K-Startup's NYC program — land real US revenue",ko:"뉴욕 Revenue-First 성장 프로그램",reg:"NATIONWIDE",close:"2026-06-04",lens:["global"],badge:["glob","🌏 Abroad"]},
+ {cat:"Funding",en:"Road to TIPS: get matched with a VC",ko:"PRODIGY Road to TIPS 참가 기업",reg:"NATIONWIDE",close:"2026-06-10",lens:["money"]},
+];
+D.forEach(p=>{if(dd(p.close)<=7)p.lens=[...p.lens,"soon"];});
+// recency ticker = different angle from the deadline cards (less duplicative)
+const STREAM=[["방금","[창업] 청년창업가 기획자 양성"],["12분","유한킴벌리 시니어 임팩트 펠로우십"],["31분","교보생명 오픈이노베이션 밋업"],["1시간","Forbes Korea 30 Under 30 Summit"],["1시간","SYNERGY CORE 4기 스타트업 (투자)"],["2시간","2026 서울 유니콘 챌린지"],["3시간","민간주도형 기술창업 활성화"],["3시간","KOICA 포용적 비즈니스"],["5시간","바이오 스타트업 액셀러레이팅"],["6시간","대전 팁스아카데미 IR 작성"],["8시간","울산 바이오 헬스케어 글로벌"],["9시간","국립공주대 창업보육센터 입주"],["11시간","포스텍홀딩스 TIPS 갈 팀"],["13시간","민관협력 오픈이노베이션 2차"],["1일","강동구 청년해냄센터 입주"],["1일","숭실대 스타트업 아카데미"],["1일","동국대 창업보육센터 입주"],["2일","광명시 스타트업 챌린지"]];
+
+let active="all";
+const card=p=>{const n=dd(p.close),hot=n<=3,ac=AC[p.cat]||"#888",b=p.badge?`<span class="badge b-${p.badge[0]}">${p.badge[1]}</span>`:'';
+ return `<a class="card" style="--ac:${ac}" href="https://www.k-startup.go.kr" target="_blank" rel="noopener">
+   <div class="top"><div class="dday ${hot?'hot':''}">D-${n}<small>${p.close.slice(5).replace('-','/')}</small></div><span class="cat">${p.cat.toUpperCase()}</span></div>
+   <h3>${p.en}</h3><span class="ko kr">${p.ko}</span>
+   <div class="foot">${b}<span class="reg">${p.reg}</span></div></a>`;};
+const render=()=>{const r=D.filter(p=>active==="all"||p.lens.includes(active)).sort((a,b)=>dd(a.close)-dd(b.close));document.getElementById('grid').innerHTML=r.map(card).join('');};
+document.getElementById('pills').innerHTML=LENSES.map(([k,l])=>{const c=k==="all"?D.length:D.filter(p=>p.lens.includes(k)).length;return `<button class="pill${k==='all'?' on':''}" data-k="${k}">${l}<span class="n">${c}</span></button>`;}).join('');
+document.getElementById('pills').addEventListener('click',e=>{const b=e.target.closest('.pill');if(!b)return;active=b.dataset.k;document.querySelectorAll('.pill').forEach(x=>x.classList.toggle('on',x===b));render();});
+document.getElementById('tl').innerHTML=STREAM.map(([ago,t])=>`<a class="tl" href="https://www.k-startup.go.kr" target="_blank" rel="noopener"><span class="ago">${ago}</span><span class="tlt kr">${t}</span></a>`).join('');
+// playground controls
+const cfg=()=>document.getElementById('cfg').textContent=`bg=${document.body.dataset.bg} · cols=${document.body.dataset.cols} · color=${document.body.dataset.color} · stream=${document.body.dataset.stream}`;
+document.querySelector('.pg').addEventListener('click',e=>{const b=e.target.closest('button[data-k]');if(!b)return;
+  document.body.dataset[b.dataset.k]=b.dataset.v;
+  b.parentElement.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));cfg();});
+render();cfg();
+</script>
+</body>
+</html>
