@@ -23,16 +23,16 @@
   .mode-btn.on{background:var(--ink);color:var(--card)}
 
   /* custom popover — anchored under the Custom button so it reads as related */
-  .custom-pop{display:none;position:absolute;top:calc(100% + 8px);right:0;z-index:60;
-    flex-direction:column;gap:9px;padding:12px 13px;min-width:210px;
-    background:var(--card);border:1px solid var(--line);border-radius:11px;
-    box-shadow:0 12px 32px -10px rgba(40,20,40,.4)}
+  .custom-pop{display:none;position:absolute;top:calc(100% + 7px);right:0;z-index:60;
+    flex-flow:row wrap;align-items:center;gap:6px 13px;padding:8px 11px;width:max-content;max-width:calc(100vw - 24px);
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    box-shadow:0 10px 28px -12px rgba(40,20,40,.38)}
   .custom-pop.open{display:flex}
   .custom-pop::before{content:"";position:absolute;top:-5px;right:24px;width:9px;height:9px;
     background:var(--card);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
-  .grp{display:flex;gap:4px;align-items:center}
-  .grp>label{font-size:10px;font-weight:800;letter-spacing:.06em;color:var(--muted);margin-right:auto;font-family:ui-monospace,Menlo,monospace}
-  .cfg-btn{font-size:11px;font-weight:700;padding:4px 10px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--muted);cursor:pointer;font-family:inherit;transition:.1s}
+  .grp{display:flex;gap:3px;align-items:center}
+  .grp>label{font-size:9.5px;font-weight:800;letter-spacing:.05em;color:var(--muted);margin-right:3px;font-family:ui-monospace,Menlo,monospace}
+  .cfg-btn{font-size:11px;font-weight:700;padding:3px 8px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--muted);cursor:pointer;font-family:inherit;transition:.1s}
   .cfg-btn:hover{border-color:var(--pink);color:var(--ink)}
   .cfg-btn.on{background:var(--pink);color:#fff;border-color:var(--pink)}
 
