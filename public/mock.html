@@ -7,151 +7,106 @@
 <style>
   @font-face{font-family:'Bagel Fat One';src:url('fonts/bagel-fat-one/bagel-fat-one-400-091.woff2') format('woff2');font-display:swap}
   @font-face{font-family:'Source Sans 3';src:url('fonts/source-sans-3/source-sans-3-400-006.woff2') format('woff2');font-weight:400;font-display:swap}
-  @font-face{font-family:'JetBrains Mono';src:url('fonts/jetbrains-mono/jetbrains-mono-400-000.woff2') format('woff2');font-weight:400;font-display:swap}
   @font-face{font-family:'JetBrains Mono';src:url('fonts/jetbrains-mono/jetbrains-mono-500-000.woff2') format('woff2');font-weight:500;font-display:swap}
-  @font-face{font-family:'JetBrains Mono';src:url('fonts/jetbrains-mono/jetbrains-mono-600-000.woff2') format('woff2');font-weight:600;font-display:swap}
-  :root{--primary:#ff52e5;--primary-dark:#ca27b2;--secondary:#f6d242;--secondary-dark:#eeb608;--secondary-shadow:#f1e9c5;--secondary-light:#fff1b9;--secondary-lighter:#fff8d9;
-        --grey:#7a7a7a;--grey-dark:#4a4a4a;--grey-light:#b5b5b5;--grey-lighter:#dbdbdb;--ink:#1a1a1a;--black:#0a0a0a;
-        --doom-tint:#ffe9f7;--shine-tint:#fff8d9;--auto:#2da854;--rail-w:60px;--col:284px}
+  :root{--pink:#ff52e5;--pink-dk:#ca27b2;--gold:#f6d242;--gold-dk:#b58a00;--ink:#1a1a1a;--muted:#8a8398;--bg:#fbf7f0;--line:#ece4d6}
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100vh;overflow:hidden}
-  body{background:#fafafa;color:var(--ink);font-family:'Source Sans 3','Apple SD Gothic Neo',-apple-system,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
-  .mono{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace}
-  .fat{font-family:'Bagel Fat One','Arial Black',cursive}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--ink);font-family:'Source Sans 3','Apple SD Gothic Neo',-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+  .mono{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace}.fat{font-family:'Bagel Fat One','Arial Black',cursive}
   .kr{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif}
-  a{color:var(--primary-dark);text-decoration:none}
-  #app{display:flex;height:100vh;min-width:0}
-  #rail,#browse,#feed,#stream{min-height:100vh;max-height:100vh;overflow-y:auto}
-  ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:var(--grey-lighter);border-radius:3px}
 
-  #rail{width:var(--rail-w);min-width:var(--rail-w);background-image:linear-gradient(120deg,var(--secondary) 10%,var(--primary) 100%);color:var(--black);display:flex;flex-direction:column;align-items:center;text-align:center;text-shadow:0 0 5px var(--secondary);z-index:1000;overflow:hidden}
-  .r-icon{width:var(--rail-w);height:var(--rail-w);display:flex;align-items:center;justify-content:center;font-size:24px;font-family:'JetBrains Mono',monospace}
-  .r-brand{margin-top:14px;writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Bagel Fat One',cursive;font-size:17px;letter-spacing:.05em}
-  .r-pulse{margin-top:auto;margin-bottom:16px;writing-mode:vertical-rl;transform:rotate(180deg);display:inline-flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em}
-  .dot{width:6px;height:6px;border-radius:50%;background:var(--auto);display:inline-block;animation:pulse 1.6s ease-in-out infinite}
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+  header{position:sticky;top:0;z-index:20;background:rgba(251,247,240,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .bar{display:flex;align-items:center;gap:12px;padding:12px 22px}
+  .brand{font-size:16px;font-weight:800}.brand .d{color:var(--pink)}
+  .live{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.06em;color:var(--muted);font-weight:600;font-family:'JetBrains Mono',monospace}
+  .led{width:8px;height:8px;border-radius:50%;background:#2da854;animation:p 1.8s infinite}
+  @keyframes p{0%{box-shadow:0 0 0 0 rgba(45,168,84,.5)}70%{box-shadow:0 0 0 7px rgba(45,168,84,0)}100%{box-shadow:0 0 0 0 rgba(45,168,84,0)}}
+  .pills{display:flex;gap:7px;padding:0 18px 11px;overflow-x:auto;scrollbar-width:none}.pills::-webkit-scrollbar{display:none}
+  .pill{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;font-family:inherit;white-space:nowrap;transition:.12s}
+  .pill:hover{border-color:var(--pink)}.pill.on{background:var(--ink);color:#fff;border-color:var(--ink)}.pill .n{opacity:.5;margin-left:3px}
 
-  #browse{flex:1 0 var(--col);min-width:var(--col);background:var(--secondary-lighter);border-left:5px solid var(--secondary-shadow);padding:0 0 20px}
-  #browse header{position:sticky;top:0;z-index:100;padding:20px 14px 12px;background-image:linear-gradient(0deg,transparent,var(--secondary-lighter) 50%)}
-  #browse header h2{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-dark)}
-  .sub{color:var(--grey);font-size:12px}
-  #lenses{padding:6px 14px 0}
-  .lens{display:flex;align-items:center;gap:10px;width:100%;min-height:38px;padding:6px;border:0;border-radius:5px;background:transparent;color:var(--grey-dark);text-align:left;cursor:pointer;font:inherit}
-  .lens:hover,.lens.on{background:var(--secondary-light);color:var(--ink)}.lens.on{font-weight:600}
-  .lens .ico{width:28px;height:24px;flex:0 0 28px;border:1px solid var(--secondary-shadow);border-radius:5px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:14px}
-  .lens.on .ico{box-shadow:0 0 0 2px var(--primary)}
-  .lens .nm{flex:1;font-size:14px}
-  .lens .ct{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--grey)}
+  .layout{display:flex;gap:18px;padding:16px 18px 60px;align-items:flex-start}
+  .grid{flex:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:12px}
+  .card{display:flex;flex-direction:column;gap:6px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--ac);border-radius:13px;padding:13px 14px;text-decoration:none;color:inherit;transition:.13s;background:var(--tint)}
+  .card:hover{transform:translateY(-3px);box-shadow:0 12px 26px -16px rgba(40,20,60,.4)}
+  .chead{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .cat{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--ac);font-family:'JetBrains Mono',monospace}
+  .dday{font-family:'Bagel Fat One','Arial Black',cursive;font-size:15px;color:var(--muted)}.dday.hot{color:var(--pink)}
+  h3{font-size:14.5px;line-height:1.28;font-weight:700}
+  .ko{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cfoot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:3px}
+  .badge{font-size:10.5px;font-weight:800;padding:3px 7px;border-radius:999px}
+  .b-fore{background:var(--pink);color:#fff}.b-easy{background:#fff3c2;color:var(--gold-dk)}.b-glob{background:#e8f0ff;color:#2f6bd8}
+  .reg{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-left:auto}
 
-  #feed{flex:20 1 auto;min-width:0;background:#fff;padding:0 24px}
-  #feed header{position:sticky;top:0;z-index:100;padding:20px 0 10px;background-image:linear-gradient(0deg,transparent,#fff 30%);display:flex;align-items:flex-end;gap:12px;border-bottom:1px solid var(--grey-lighter)}
-  #feed header h2{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-dark)}
-  .live{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--grey);display:inline-flex;align-items:center;gap:6px}
-  #list{padding-bottom:60px}
-  .ind{display:flex;gap:16px;padding:18px 0;border-top:1px dotted var(--grey-lighter)}.ind:first-child{border-top:0}
-  .ind-ico{width:56px;height:56px;flex:0 0 56px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:28px;background:var(--shine-tint)}
-  .ind.hot .ind-ico{background:var(--doom-tint)}
-  .ind-body{flex:1;min-width:0}
-  .ind-head{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:3px}
-  .ind-label{font-size:17px;font-weight:700;color:var(--ink)}
-  .ind-label-kr{color:var(--grey);font-size:12px}
-  .ind-meta{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:8px;color:var(--grey-light);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.07em;text-transform:uppercase}
-  .pip{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:3px;vertical-align:middle;background:var(--secondary-dark)}.ind.hot .pip{background:var(--primary)}
-  .ind-row{display:flex;align-items:flex-end;gap:13px;flex-wrap:wrap;margin-bottom:8px}
-  .ind-num{font-family:'Bagel Fat One',cursive;font-size:44px;line-height:.95;color:var(--secondary-dark)}.ind.hot .ind-num{color:var(--primary-dark)}
-  .ind-unit{padding-bottom:6px;color:var(--grey);font-family:'JetBrains Mono',monospace;font-size:12px}
-  .ind-ctx{margin-left:auto;padding-bottom:5px;font-size:12px;font-weight:700}
-  .ctx-fore{color:var(--primary-dark)}.ctx-easy{color:var(--secondary-dark)}.ctx-glob{color:#2f6bd8}
-  .blurb{color:var(--grey-dark);font-size:14px;margin-bottom:9px;max-width:62ch}
-  .ind-foot{display:flex;justify-content:space-between;gap:12px;color:var(--grey);font-family:'JetBrains Mono',monospace;font-size:11px}
-  .ind-src{color:var(--grey-dark);border-bottom:1px dotted currentColor}
-
-  #stream{flex:1 0 var(--col);min-width:var(--col);background:#fff;border-left:1px dotted var(--grey-lighter);padding:0 14px}
-  #stream header{position:sticky;top:0;z-index:100;padding:20px 4px 12px;background-image:linear-gradient(0deg,transparent,#fff 50%)}
-  #stream header h2{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--grey-dark)}
-  .tl{display:flex;align-items:center;gap:9px;min-height:30px;padding:5px 4px;border-radius:3px;font-size:11.5px;color:inherit}
-  .tl:hover{background:var(--secondary-lighter)}
-  .tl-d{flex:0 0 38px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--secondary-dark);text-align:right}.tl-d.hot{color:var(--primary)}
-  .tl-t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}
-  .tl-c{flex:none;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--grey-light)}
-  .tl-more{text-align:center;padding:14px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--primary-dark);background:linear-gradient(to bottom,#fff,var(--doom-tint))}
-  @media(max-width:1100px){#stream{display:none}}
-  @media(max-width:840px){#browse{display:none}}
+  .stream{width:236px;flex:none;position:sticky;top:104px;max-height:calc(100vh - 122px);background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+  .shead{padding:12px 13px 10px;border-bottom:1px solid var(--line);font-size:12px}.shead b{font-weight:800}.shead .s{display:block;color:var(--muted);font-size:10.5px;margin-top:3px;font-family:'JetBrains Mono',monospace}
+  .srows{overflow:auto}
+  .tl{display:flex;gap:8px;align-items:baseline;padding:7px 11px;border-bottom:1px solid #f6f0e7;text-decoration:none;color:inherit}.tl:hover{background:var(--bg)}
+  .tl-d{font-family:'Bagel Fat One','Arial Black';font-size:12px;color:var(--gold-dk);min-width:30px}.tl-d.hot{color:var(--pink)}
+  .tl-t{flex:1;font-size:11.5px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .more{text-align:center;padding:11px;font-size:11px;font-weight:700;color:var(--pink-dk);font-family:'JetBrains Mono',monospace;background:linear-gradient(to bottom,#fff,#ffe9f7)}
+  @media(max-width:1000px){.stream{display:none}}
 </style>
 </head>
 <body>
-<div id="app">
-  <nav id="rail">
-    <div class="r-icon">⌕</div>
-    <div class="r-brand">KOREA PROGRAMS</div>
-    <div class="r-pulse"><span class="dot"></span>LIVE</div>
-  </nav>
+<header>
+  <div class="bar"><span class="brand">Korea Programs Navigator<span class="d">.</span></span>
+    <span class="live"><span class="led"></span> 296 LIVE · UPDATED JUST NOW</span></div>
+  <div class="pills" id="pills"></div>
+</header>
 
-  <aside id="browse">
-    <header><h2>Browse</h2><div class="sub">pick a lens — no sign-up, just look</div></header>
-    <div id="lenses"></div>
-  </aside>
-
-  <section id="feed">
-    <header><h2 id="feed-title">All opportunities</h2><span class="live"><span class="dot"></span> UPDATED 2026-05-23</span></header>
-    <div id="list"></div>
-  </section>
-
-  <aside id="stream">
-    <header><h2>🌐 The full stream</h2><div class="sub"><span class="dot"></span> 296 live · always more</div></header>
-    <div id="tl"></div>
-    <div class="tl-more">+ 254 more ↓</div>
+<div class="layout">
+  <main class="grid" id="grid"></main>
+  <aside class="stream">
+    <div class="shead"><b>🌐 The full stream</b><span class="s">296 live · always more coming</span></div>
+    <div class="srows" id="tl"></div>
+    <div class="more">+ 254 more ↓</div>
   </aside>
 </div>
 
 <script>
 const TODAY=new Date('2026-05-23'); const dd=iso=>Math.max(0,Math.ceil((new Date(iso)-TODAY)/864e5));
-const LENSES=[["all","✦","All"],["soon","🔥","Closing soon"],["fore","✨","For foreign founders"],["visa","🛂","Visa"],["money","💰","Money"],["space","🏢","Space"],["fun","🎉","Fun"],["global","🌏","Go global"]];
+const TONE={pink:["#ffe9f7","#ca27b2"],gold:["#fff8d9","#b58a00"],green:["#eafbe4","#3a9d4f"],blue:["#e8f1ff","#2f6bd8"],coral:["#ffeceb","#d8635f"],purple:["#f1ebfd","#7c4dd6"],teal:["#e3f7f4","#1f9e8f"],orange:["#fff1e2","#d9802a"]};
+const LENSES=[["all","All"],["soon","🔥 Closing soon"],["fore","✨ Foreign founders"],["visa","🛂 Visa"],["money","💰 Money"],["space","🏢 Space"],["fun","🎉 Fun"],["global","🌏 Go global"]];
 const D=[
- {ic:"🛂",en:"Get a startup visa (D-8-4 / D-10-2) while you build",ko:"2026 창업이민종합지원시스템 OASIS 4&5",blurb:"OASIS — Korea's startup-immigration track. Any stage, no age limit.",cat:"Mentoring",reg:"Seoul",ag:"창업진흥원",close:"2026-06-15",lens:["visa"],ctx:["fore","✨ For foreign founders"]},
- {ic:"🏢",en:"Korea University's global startup track",ko:"고려대 캠퍼스타운 KU GLOBAL STARTLINK",blurb:"Find a team, get space + mentoring at KU's campus town.",cat:"Space",reg:"Seoul",ag:"고려대 캠퍼스타운",close:"2026-06-01",lens:["space"],ctx:["fore","✨ For foreign founders"]},
- {ic:"🎉",en:"Hanyang's startup pitch competition",ko:"2026 한양대 캠퍼스타운 창업경진대회",blurb:"Bring a bold idea, pitch it, win backing.",cat:"Event",reg:"Seoul",ag:"한양대 캠퍼스타운",close:"2026-06-01",lens:["fun"],ctx:["fore","✨ For foreign founders"]},
- {ic:"💰",en:"Voucher to cover your patent filing costs",ko:"2026 특허출원·등록 비용 바우처 지원",blurb:"Protect your tech — the program pays the filing + registration fees.",cat:"Money",reg:"Nationwide",ag:"특허청",close:"2026-05-23",lens:["money"]},
- {ic:"🎉",en:"Pitch to investors at Gangwon's demo day",ko:"2026 강원 BRIDGE X 창업BuS 데모데이",blurb:"Get in front of investors hunting for early startups.",cat:"Event",reg:"Nationwide",ag:"강원창조경제혁신센터",close:"2026-05-25",lens:["fun"]},
- {ic:"💡",en:"Free course: build a smart-healthcare startup",ko:"PBL 스마트헬스케어 (예비)스타트업 육성과정",blurb:"Fully state-funded training — idea to healthcare startup.",cat:"Education",reg:"Busan",ag:"부산진여성새로일하기센터",close:"2026-05-25",lens:["fun"],ctx:["easy","⏳ 1 seat left"]},
- {ic:"💡",en:"Startup 101: business model + writing your plan",ko:"도전창업트랙 2기 창업실무 기초교육",blurb:"The fundamentals, for first-timers.",cat:"Education",reg:"Seoul",ag:"서울창업허브",close:"2026-05-25",lens:["fun"],ctx:["easy","🟢 Easy apply"]},
- {ic:"🏢",en:"Free office space at a youth startup center",ko:"서대문청년창업센터 입주기업 모집",blurb:"Move into a free, run office in Seodaemun, Seoul.",cat:"Space",reg:"Seoul",ag:"서대문구",close:"2026-05-25",lens:["space"]},
- {ic:"🤝",en:"Free on-site consulting to unstick your business",ko:"찾아가는 기업 고민해결 찐(眞)톡",blurb:"A consultant comes to you and solves one specific problem.",cat:"People",reg:"Seoul",ag:"광진구·중진공",close:"2026-05-27",lens:["fun"],ctx:["easy","🟢 Easy apply"]},
- {ic:"🌏",en:"Show your startup at CES 2027, with Seoul",ko:"CES 2027 관악S밸리관 참가기업 모집",blurb:"Join the Seoul delegation to the world's biggest tech show.",cat:"Global",reg:"Nationwide",ag:"관악구",close:"2026-05-26",lens:["global"],ctx:["glob","🌏 Abroad"]},
- {ic:"🌏",en:"Take your K-beauty brand overseas",ko:"2026 B the B 글로벌 거점 확산 파트너사",blurb:"Help opening overseas retail for your beauty brand.",cat:"Global",reg:"Nationwide",ag:"서울경제진흥원",close:"2026-05-28",lens:["global"],ctx:["glob","🌏 Abroad"]},
- {ic:"🔬",en:"Makerspace + academy to productize a prototype",ko:"제조전문형 메이커스페이스 메이킹 아카데미",blurb:"For hardware founders — tools to turn a prototype into a product.",cat:"R&D",reg:"Gyeongnam",ag:"경남TP",close:"2026-06-02",lens:["space"]},
- {ic:"🌏",en:"Break into Japan: open-innovation program",ko:"경기 스타트업 글로벌 성장지원 (일본)",blurb:"Match with Japanese partners + chase local investment.",cat:"Global",reg:"Gyeonggi",ag:"경기도경제과학진흥원",close:"2026-06-05",lens:["global"],ctx:["glob","🌏 Abroad"]},
- {ic:"💰",en:"Free e-commerce tools to grow your sales",ko:"2026 2차 판로확대 지원사업 소상공인",blurb:"A shopping-mall management solution, on the house.",cat:"Money",reg:"Nationwide",ag:"소상공인시장진흥공단",close:"2026-06-05",lens:["money"],ctx:["easy","🟢 Easy apply"]},
- {ic:"🌏",en:"K-Startup's NYC program — land real US revenue",ko:"2026 뉴욕 Revenue-First 성장 프로그램",blurb:"Get into New York and chase actual sales, not just demos.",cat:"Global",reg:"Nationwide",ag:"창업진흥원",close:"2026-06-04",lens:["global"],ctx:["glob","🌏 Abroad"]},
- {ic:"💰",en:"Road to TIPS: get matched with a VC",ko:"PRODIGY Road to TIPS 참가 기업 모집",blurb:"The on-ramp to TIPS — Korea's flagship gov't scale-up funding.",cat:"Funding",reg:"Nationwide",ag:"프로디지인베스트먼트",close:"2026-06-10",lens:["money"]},
+ {tone:"pink",cat:"Visa",en:"Get a startup visa (D-8-4 / D-10-2) while you build",ko:"OASIS 4&5 창업이민종합지원",reg:"SEOUL",close:"2026-06-15",lens:["visa","fore"],badge:["fore","✨ For foreign founders"]},
+ {tone:"green",cat:"Space",en:"Korea University's global startup track",ko:"고려대 KU GLOBAL STARTLINK",reg:"SEOUL",close:"2026-06-01",lens:["space","fore"],badge:["fore","✨ For foreign founders"]},
+ {tone:"coral",cat:"Event",en:"Hanyang's startup pitch competition",ko:"한양대 캠퍼스타운 창업경진대회",reg:"SEOUL",close:"2026-06-01",lens:["fun","fore"],badge:["fore","✨ For foreign founders"]},
+ {tone:"gold",cat:"Money",en:"Voucher to cover your patent filing costs",ko:"특허출원·등록 비용 바우처 지원",reg:"NATIONWIDE",close:"2026-05-23",lens:["money"]},
+ {tone:"coral",cat:"Event",en:"Pitch to investors at Gangwon's demo day",ko:"강원 BRIDGE X 창업BuS 데모데이",reg:"NATIONWIDE",close:"2026-05-25",lens:["fun"]},
+ {tone:"purple",cat:"Education",en:"Free course: build a smart-healthcare startup",ko:"PBL 스마트헬스케어 스타트업 육성과정",reg:"BUSAN",close:"2026-05-25",lens:["fun"],badge:["easy","⏳ 1 seat left"]},
+ {tone:"purple",cat:"Education",en:"Startup 101: business model + writing your plan",ko:"도전창업트랙 2기 창업실무 기초교육",reg:"SEOUL",close:"2026-05-25",lens:["fun"],badge:["easy","🟢 Easy apply"]},
+ {tone:"green",cat:"Space",en:"Free office space at a youth startup center",ko:"서대문청년창업센터 입주기업 모집",reg:"SEOUL",close:"2026-05-25",lens:["space"]},
+ {tone:"teal",cat:"People",en:"Free on-site consulting to unstick your business",ko:"찾아가는 기업 고민해결 찐(眞)톡",reg:"SEOUL",close:"2026-05-27",lens:["fun"],badge:["easy","🟢 Easy apply"]},
+ {tone:"blue",cat:"Global",en:"Show your startup at CES 2027, with Seoul",ko:"CES 2027 관악S밸리관 참가기업",reg:"NATIONWIDE",close:"2026-05-26",lens:["global"],badge:["glob","🌏 Abroad"]},
+ {tone:"blue",cat:"Global",en:"Take your K-beauty brand overseas",ko:"B the B 글로벌 거점 확산 파트너사",reg:"NATIONWIDE",close:"2026-05-28",lens:["global"],badge:["glob","🌏 Abroad"]},
+ {tone:"orange",cat:"R&D",en:"Makerspace + academy to productize a prototype",ko:"제조전문형 메이커스페이스 아카데미",reg:"GYEONGNAM",close:"2026-06-02",lens:["space"]},
+ {tone:"blue",cat:"Global",en:"Break into Japan: open-innovation program",ko:"경기 스타트업 글로벌 (일본)",reg:"GYEONGGI",close:"2026-06-05",lens:["global"],badge:["glob","🌏 Abroad"]},
+ {tone:"gold",cat:"Money",en:"Free e-commerce tools to grow your sales",ko:"2차 판로확대 지원사업 소상공인",reg:"NATIONWIDE",close:"2026-06-05",lens:["money"],badge:["easy","🟢 Easy apply"]},
+ {tone:"blue",cat:"Global",en:"K-Startup's NYC program — land real US revenue",ko:"뉴욕 Revenue-First 성장 프로그램",reg:"NATIONWIDE",close:"2026-06-04",lens:["global"],badge:["glob","🌏 Abroad"]},
+ {tone:"gold",cat:"Funding",en:"Road to TIPS: get matched with a VC",ko:"PRODIGY Road to TIPS 참가 기업",reg:"NATIONWIDE",close:"2026-06-10",lens:["money"]},
 ];
-D.forEach(p=>{if(dd(p.close)<=7)p.lens=[...p.lens,"soon"];if(p.ctx&&p.ctx[0]==="fore")p.lens=[...p.lens,"fore"];});
-const STREAM=[{"t":"[창업] 청년창업가 기획자 양성","d":"2026-05-27","c":"창업교육"},{"t":"강원 BRIDGE X 창업BuS 데모데이","d":"2026-05-25","c":"행사"},{"t":"민간주도형 기술창업 활성화 지원사업","d":"2026-05-31","c":"멘토링"},{"t":"유한킴벌리 시니어 임팩트 4기 펠로우십","d":"2026-06-05","c":"사업화"},{"t":"대전 팁스타운 팁스아카데미 IR 작성","d":"2026-05-27","c":"멘토링"},{"t":"SYNERGY CORE 4기 스타트업 모집(투자)","d":"2026-06-14","c":"사업화"},{"t":"교보생명 오픈이노베이션 1:1 사전밋업","d":"2026-05-26","c":"사업화"},{"t":"U-SPACE 제품개발 통합지원 프로그램","d":"2026-06-04","c":"사업화"},{"t":"강동구 청년해냄센터 입주기업 모집","d":"2026-06-05","c":"공간"},{"t":"강동구 청년해냄센터 상시 컨설팅","d":"2026-06-30","c":"멘토링"},{"t":"노원사회적경제지원센터 입주기업 공모","d":"2026-06-05","c":"공간"},{"t":"광명시 스타트업 챌린지 모집공고","d":"2026-07-01","c":"사업화"},{"t":"Forbes Korea 30 Under 30 Summit","d":"2026-06-08","c":"행사"},{"t":"고려대 KU GLOBAL STARTLINK","d":"2026-06-01","c":"공간"},{"t":"포스텍홀딩스 TIPS 갈 팀, 지금 찾습니다","d":"2026-06-21","c":"사업화"},{"t":"울산 바이오 디지털 헬스케어 글로벌","d":"2026-06-19","c":"글로벌"},{"t":"KOICA 포용적 비즈니스 프로그램","d":"2026-06-18","c":"판로"},{"t":"바이오 스타트업 액셀러레이팅","d":"2026-06-11","c":"공간"},{"t":"2026 서울 유니콘 챌린지","d":"2026-06-30","c":"판로"},{"t":"보건산업혁신창업센터 혁신창업멤버스","d":"2026-06-01","c":"공간"},{"t":"민관협력 오픈이노베이션 지원 2차","d":"2026-06-09","c":"행사"},{"t":"경기 스타트업 글로벌(일본 오픈이노)","d":"2026-06-05","c":"글로벌"},{"t":"국립공주대 창업보육센터 입주기업","d":"2026-06-10","c":"공간"},{"t":"APAN62 연계 기업 쇼케이스","d":"2026-05-29","c":"판로"},{"t":"MRO 납품 중소기업 구매상담회","d":"2026-06-22","c":"행사"},{"t":"전남형 AI·AX 스타트업 모집","d":"2026-06-08","c":"사업화"},{"t":"부산 소상공인 IP창출 종합패키지","d":"2026-06-15","c":"사업화"},{"t":"코레일유통 청년창업 제휴사업자","d":"2026-05-29","c":"공간"},{"t":"숭실대 스타트업 아카데미 6월","d":"2026-06-19","c":"창업교육"},{"t":"동국대 창업보육센터(서울) 입주","d":"2026-06-08","c":"공간"},{"t":"강남 개포동 1인 창조기업 지원센터","d":"2026-05-27","c":"공간"},{"t":"대전창업포럼 제102회","d":"2026-05-29","c":"행사"},{"t":"스타트업 언론 홍보 지원사업","d":"2026-05-31","c":"사업화"},{"t":"경기 스타트업 아카데미 AWS Kiro","d":"2026-05-29","c":"멘토링"},{"t":"칠곡군 중장년 기술창업 Pre-인큐","d":"2026-06-15","c":"공간"},{"t":"화성 글로벌 스타트업 이륙작전","d":"2026-05-27","c":"글로벌"},{"t":"성남 폴란드 방위산업전시회 참관단","d":"2026-06-08","c":"판로"},{"t":"광주 IP나래 프로그램 하반기","d":"2026-06-04","c":"멘토링"},{"t":"AI 솔로프러너 프리오픈","d":"2026-05-25","c":"사업화"},{"t":"경기TP 디지털 전환 실습 무료교육","d":"2026-07-03","c":"멘토링"}];
+D.forEach(p=>{if(dd(p.close)<=7)p.lens=[...p.lens,"soon"];});
+const STREAM=[["[창업] 청년창업가 기획자 양성","2026-05-27"],["강원 BRIDGE X 창업BuS 데모데이","2026-05-25"],["민간주도형 기술창업 활성화 지원","2026-05-31"],["유한킴벌리 시니어 임팩트 펠로우십","2026-06-05"],["대전 팁스아카데미 IR 작성","2026-05-27"],["SYNERGY CORE 4기 (투자)","2026-06-14"],["교보생명 오픈이노베이션 밋업","2026-05-26"],["U-SPACE 제품개발 통합지원","2026-06-04"],["강동구 청년해냄센터 입주","2026-06-05"],["노원사회적경제 입주기업 공모","2026-06-05"],["광명시 스타트업 챌린지","2026-07-01"],["Forbes Korea 30 Under 30 Summit","2026-06-08"],["포스텍홀딩스 TIPS 갈 팀","2026-06-21"],["울산 바이오 헬스케어 글로벌","2026-06-19"],["KOICA 포용적 비즈니스","2026-06-18"],["바이오 스타트업 액셀러레이팅","2026-06-11"],["2026 서울 유니콘 챌린지","2026-06-30"],["보건산업 혁신창업멤버스","2026-06-01"],["민관협력 오픈이노베이션 2차","2026-06-09"],["국립공주대 창업보육센터 입주","2026-06-10"],["APAN62 기업 쇼케이스","2026-05-29"],["전남형 AI·AX 스타트업","2026-06-08"],["부산 소상공인 IP창출 패키지","2026-06-15"],["코레일유통 청년창업 제휴","2026-05-29"],["숭실대 스타트업 아카데미","2026-06-19"],["동국대 창업보육센터 입주","2026-06-08"],["대전창업포럼 제102회","2026-05-29"],["스타트업 언론 홍보 지원","2026-05-31"],["경기 스타트업 아카데미 AWS","2026-05-29"],["칠곡군 중장년 기술창업","2026-06-15"],["화성 글로벌 스타트업 이륙작전","2026-05-27"],["AI 솔로프러너 프리오픈","2026-05-25"]];
 
 let active="all";
+const grid=document.getElementById('grid');
+function card(p){
+  const n=dd(p.close),hot=n<=3,[tint,ac]=TONE[p.tone];
+  const badge=p.badge?`<span class="badge b-${p.badge[0]}">${p.badge[1]}</span>`:'';
+  return `<a class="card" style="--tint:${tint};--ac:${ac}" href="https://www.k-startup.go.kr" target="_blank" rel="noopener">
+    <div class="chead"><span class="cat">${p.cat}</span><span class="dday ${hot?'hot':''}">D-${n}</span></div>
+    <h3>${p.en}</h3><span class="ko kr">${p.ko}</span>
+    <div class="cfoot">${badge}<span class="reg">${p.reg}</span></div></a>`;
+}
 function render(){
   const rows=D.filter(p=>active==="all"||p.lens.includes(active)).sort((a,b)=>dd(a.close)-dd(b.close));
-  document.getElementById('feed-title').textContent=(LENSES.find(l=>l[0]===active)[2])+" · "+rows.length;
-  document.getElementById('list').innerHTML=rows.map(p=>{
-    const n=dd(p.close),hot=n<=7;
-    const ctx=p.ctx?`<span class="ind-ctx ctx-${p.ctx[0]}">${p.ctx[1]}</span>`:'';
-    return `<a class="ind ${hot?'hot':''}" href="https://www.k-startup.go.kr" target="_blank" rel="noopener">
-      <div class="ind-ico">${p.ic}</div>
-      <div class="ind-body">
-        <div class="ind-head"><span class="ind-label">${p.en}</span><span class="ind-label-kr kr">${p.ko}</span></div>
-        <div class="ind-meta"><span><span class="pip"></span>CLOSING ${p.close}</span><span>${p.cat}</span><span>${p.reg}</span></div>
-        <div class="ind-row"><span class="ind-num">D-${n}</span><span class="ind-unit">days left</span>${ctx}</div>
-        <div class="blurb">${p.blurb}</div>
-        <div class="ind-foot"><span class="ind-src">See the 공고 →</span><span>${p.ag}</span></div>
-      </div></a>`;
-  }).join('')||'<p style="padding:40px 0;color:var(--grey);text-align:center">nothing in this lens — try another</p>';
+  grid.innerHTML=rows.map(card).join('')||'<p style="color:var(--muted);padding:40px">nothing in this lens</p>';
 }
-document.getElementById('lenses').innerHTML=LENSES.map(([k,ic,nm])=>{
-  const ct=k==="all"?D.length:D.filter(p=>p.lens.includes(k)).length;
-  return `<button class="lens${k==='all'?' on':''}" data-k="${k}"><span class="ico">${ic}</span><span class="nm">${nm}</span><span class="ct">${ct}</span></button>`;
-}).join('');
-document.getElementById('lenses').addEventListener('click',e=>{const b=e.target.closest('.lens');if(!b)return;active=b.dataset.k;document.querySelectorAll('.lens').forEach(x=>x.classList.toggle('on',x===b));render();});
-document.getElementById('tl').innerHTML=STREAM.map(s=>{const n=dd(s.d),hot=n<=3;return `<a class="tl" href="https://www.k-startup.go.kr" target="_blank" rel="noopener"><span class="tl-d ${hot?'hot':''}">D-${n}</span><span class="tl-t kr">${s.t}</span><span class="tl-c">${s.c}</span></a>`;}).join('');
+document.getElementById('pills').innerHTML=LENSES.map(([k,l])=>{const c=k==="all"?D.length:D.filter(p=>p.lens.includes(k)).length;return `<button class="pill${k==='all'?' on':''}" data-k="${k}">${l}<span class="n">${c}</span></button>`;}).join('');
+document.getElementById('pills').addEventListener('click',e=>{const b=e.target.closest('.pill');if(!b)return;active=b.dataset.k;document.querySelectorAll('.pill').forEach(x=>x.classList.toggle('on',x===b));render();});
+document.getElementById('tl').innerHTML=STREAM.map(([t,d])=>{const n=dd(d),hot=n<=3;return `<a class="tl" href="https://www.k-startup.go.kr" target="_blank" rel="noopener"><span class="tl-d ${hot?'hot':''}">D-${n}</span><span class="tl-t kr">${t}</span></a>`;}).join('');
 render();
 </script>
 </body>
