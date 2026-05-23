@@ -76,7 +76,7 @@
   .empty{color:var(--muted);padding:48px 22px;font-size:14px}
 </style>
 </head>
-<body data-bg="gray" data-cols="4" data-stream="on">
+<body data-bg="gray" data-cols="3" data-stream="on">
 
 <header>
   <div class="bar">
@@ -96,8 +96,8 @@
         </div>
         <div class="grp"><label>COLS</label>
           <button class="cfg-btn" data-k="cols" data-v="2">2</button>
-          <button class="cfg-btn" data-k="cols" data-v="3">3</button>
-          <button class="cfg-btn on" data-k="cols" data-v="4">4</button>
+          <button class="cfg-btn on" data-k="cols" data-v="3">3</button>
+          <button class="cfg-btn" data-k="cols" data-v="4">4</button>
         </div>
         <div class="grp"><label>STREAM</label>
           <button class="cfg-btn on" data-k="stream" data-v="on">on</button>
@@ -203,7 +203,7 @@ function renderStream(){
 }
 
 // View modes
-const PRESET={light:{bg:'gray',cols:'4',stream:'on'},dark:{bg:'dark',cols:'4',stream:'on'}};
+const PRESET={light:{bg:'gray',cols:'3',stream:'on'},dark:{bg:'dark',cols:'3',stream:'on'}};
 const pop=document.getElementById('customPop');
 function setPop(open){pop.classList.toggle('open',open);}
 function syncCfg(){document.querySelectorAll('[data-k]').forEach(b=>b.classList.toggle('on',b.dataset.v===document.body.dataset[b.dataset.k]));}
@@ -211,7 +211,7 @@ function applyMode(mode){
   document.body.dataset.mode=mode;
   document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
   if(mode==='custom'){
-    const s=JSON.parse(localStorage.getItem('kpn_custom')||'null')||{bg:'gray',cols:'4',stream:'on'};
+    const s=JSON.parse(localStorage.getItem('kpn_custom')||'null')||{bg:'gray',cols:'3',stream:'on'};
     document.body.dataset.bg=s.bg;document.body.dataset.cols=s.cols;document.body.dataset.stream=s.stream;
     localStorage.setItem('kpn_mode','custom');
   }else{

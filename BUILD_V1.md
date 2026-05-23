@@ -13,7 +13,8 @@ K-Startup **active only** (~296; `rcrt_prgs_yn=="Y"` AND `close_date ≥ today`)
 ## UX (match the playground/mock)
 - **Browse:** compact cards, **chips** category color (not rainbow tints, not mono), fat **pink D-day**, warm English title leads + KO secondary. Lenses: `All · 🔥 Closing soon · 🛂 Visa · 💰 Money · 🏢 Space · 🎉 Fun · 🌏 Go global`.
 - **⚡ Just-in:** recency stream (newest first) — de-duplicated from the cards (different angle, not the same list).
-- **View customization:** **Light** (default = gray bg · 4-col · stream on) / **Dark** (dark · 4 · on) / **Custom** (bg `gray|pink|dark` · cols `2|3|4` · stream `on|off`). Persist in localStorage. Color = chips only.
+- **View customization:** **Light** (default = gray bg · 3-col · stream on) / **Dark** (dark · 3 · on) / **Custom** (bg `gray|pink|dark` · cols `2|3|4` · stream `on|off`). Persist in localStorage. Color = chips only.
+  - _Amended 2026-05-24: default cols 4 → 3. At a typical ~900px Arc window 4-col yielded ~138px cards (titles wrapping 4–5 lines); 3-col (~190px) matches the playground feel that was signed off. 4-col remains available in Custom._
 - **Wow discovery (in v1):** feature the standout foreigner-unique programs prominently (OASIS startup-visa, global tracks) — a featured slot + 🛂 Visa as a front lens. This is the shareable hook ("wait, I can get a startup visa?!"). No new data — pure framing of what's already in the 296.
 
 ## Translation — NO paid AI API
