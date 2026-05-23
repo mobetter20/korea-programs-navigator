@@ -16,17 +16,24 @@
   .mono{font-family:ui-monospace,Menlo,monospace}.fat{font-family:'Bagel Fat One','Arial Black',cursive}.kr{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif}
 
   /* ── Mode switcher (replaces .pg) ── */
-  .modes{display:flex;gap:1px;background:var(--line);border-radius:7px;overflow:hidden;margin-left:12px;flex-shrink:0}
+  .modewrap{position:relative;margin-left:12px;flex-shrink:0}
+  .modes{display:flex;gap:1px;background:var(--line);border-radius:7px;overflow:hidden}
   .mode-btn{font-size:11px;font-weight:700;padding:5px 10px;background:var(--card);color:var(--muted);cursor:pointer;border:none;font-family:ui-monospace,Menlo,monospace;transition:.1s;white-space:nowrap}
   .mode-btn:hover{color:var(--ink)}
   .mode-btn.on{background:var(--ink);color:var(--card)}
 
-  /* custom control row */
-  .custom-row{display:none;align-items:center;gap:14px;padding:7px 22px;border-bottom:1px solid var(--line);flex-wrap:wrap;font-size:12px}
-  .grp{display:flex;gap:3px;align-items:center}
-  .grp>label{font-size:10px;font-weight:700;letter-spacing:.06em;color:var(--muted);margin-right:4px;font-family:ui-monospace,Menlo,monospace}
-  .cfg-btn{font-size:11px;font-weight:700;padding:4px 9px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--muted);cursor:pointer;font-family:inherit;transition:.1s}
-  .cfg-btn:hover{border-color:var(--pink)}
+  /* custom popover — anchored under the Custom button so it reads as related */
+  .custom-pop{display:none;position:absolute;top:calc(100% + 8px);right:0;z-index:60;
+    flex-direction:column;gap:9px;padding:12px 13px;min-width:210px;
+    background:var(--card);border:1px solid var(--line);border-radius:11px;
+    box-shadow:0 12px 32px -10px rgba(40,20,40,.4)}
+  .custom-pop.open{display:flex}
+  .custom-pop::before{content:"";position:absolute;top:-5px;right:24px;width:9px;height:9px;
+    background:var(--card);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
+  .grp{display:flex;gap:4px;align-items:center}
+  .grp>label{font-size:10px;font-weight:800;letter-spacing:.06em;color:var(--muted);margin-right:auto;font-family:ui-monospace,Menlo,monospace}
+  .cfg-btn{font-size:11px;font-weight:700;padding:4px 10px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--muted);cursor:pointer;font-family:inherit;transition:.1s}
+  .cfg-btn:hover{border-color:var(--pink);color:var(--ink)}
   .cfg-btn.on{background:var(--pink);color:#fff;border-color:var(--pink)}
 
   /* ── Header (from playground, top:0 since no pg bar) ── */
@@ -41,8 +48,8 @@
 
   /* ── Layout (unchanged from playground) ── */
   .layout{display:flex;gap:18px;padding:16px 22px 70px;align-items:flex-start}
-  .grid{flex:1;display:grid;gap:13px}
-  body[data-cols="2"] .grid{grid-template-columns:repeat(2,1fr)}body[data-cols="3"] .grid{grid-template-columns:repeat(3,1fr)}body[data-cols="4"] .grid{grid-template-columns:repeat(4,1fr)}
+  .grid{flex:1;min-width:0;display:grid;gap:13px}
+  body[data-cols="2"] .grid{grid-template-columns:repeat(2,minmax(0,1fr))}body[data-cols="3"] .grid{grid-template-columns:repeat(3,minmax(0,1fr))}body[data-cols="4"] .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
 
   /* ── Card (unchanged from playground) ── */
   .card{display:flex;flex-direction:column;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 15px;text-decoration:none;color:inherit;box-shadow:0 2px 6px -4px rgba(60,30,50,.18);transition:.12s}
@@ -59,14 +66,13 @@
   .cat{background:color-mix(in srgb,var(--ac) 18%,transparent);color:var(--ac)}
 
   /* ── Stream (playground values, top adjusted -39px for no pg bar) ── */
-  .stream{width:250px;flex:none;position:sticky;top:65px;max-height:calc(100vh - 83px);background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+  .stream{width:250px;flex:none;position:sticky;top:96px;max-height:calc(100vh - 112px);background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
   body[data-stream="off"] .stream{display:none}
   .shead{padding:11px 13px;border-bottom:1px solid var(--line);font-size:12px}.shead b{font-weight:800}.shead .s{display:block;color:var(--muted);font-size:10px;margin-top:3px;font-family:ui-monospace,Menlo,monospace}
   .srows{overflow:auto}
   .tl{display:flex;gap:9px;align-items:baseline;padding:8px 12px;border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent);text-decoration:none;color:inherit}.tl:hover{background:color-mix(in srgb,var(--pink) 6%,transparent)}
   .ago{font-size:10px;font-weight:700;color:var(--pink-dk);font-family:ui-monospace,Menlo,monospace;min-width:34px}
   .tlt{flex:1;font-size:11.5px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  @media(max-width:1000px){.stream{display:none}}
   .empty{color:var(--muted);padding:48px 22px;font-size:14px}
 </style>
 </head>
@@ -76,26 +82,28 @@
   <div class="bar">
     <span class="brand">Korea Programs Navigator<span class="d">.</span></span>
     <span class="live"><span class="led"></span><span id="liveCount">…</span> LIVE</span>
-    <div class="modes" id="modes">
-      <button class="mode-btn on" data-mode="light">Light</button>
-      <button class="mode-btn" data-mode="dark">Dark</button>
-      <button class="mode-btn" data-mode="custom">Custom</button>
-    </div>
-  </div>
-  <div class="custom-row" id="customRow">
-    <div class="grp"><label>BG</label>
-      <button class="cfg-btn on" data-k="bg" data-v="gray">gray</button>
-      <button class="cfg-btn" data-k="bg" data-v="pink">pink</button>
-      <button class="cfg-btn" data-k="bg" data-v="dark">dark</button>
-    </div>
-    <div class="grp"><label>COLS</label>
-      <button class="cfg-btn" data-k="cols" data-v="2">2</button>
-      <button class="cfg-btn" data-k="cols" data-v="3">3</button>
-      <button class="cfg-btn on" data-k="cols" data-v="4">4</button>
-    </div>
-    <div class="grp"><label>STREAM</label>
-      <button class="cfg-btn on" data-k="stream" data-v="on">on</button>
-      <button class="cfg-btn" data-k="stream" data-v="off">off</button>
+    <div class="modewrap">
+      <div class="modes" id="modes">
+        <button class="mode-btn on" data-mode="light">Light</button>
+        <button class="mode-btn" data-mode="dark">Dark</button>
+        <button class="mode-btn" data-mode="custom">Custom</button>
+      </div>
+      <div class="custom-pop" id="customPop">
+        <div class="grp"><label>BG</label>
+          <button class="cfg-btn on" data-k="bg" data-v="gray">gray</button>
+          <button class="cfg-btn" data-k="bg" data-v="pink">pink</button>
+          <button class="cfg-btn" data-k="bg" data-v="dark">dark</button>
+        </div>
+        <div class="grp"><label>COLS</label>
+          <button class="cfg-btn" data-k="cols" data-v="2">2</button>
+          <button class="cfg-btn" data-k="cols" data-v="3">3</button>
+          <button class="cfg-btn on" data-k="cols" data-v="4">4</button>
+        </div>
+        <div class="grp"><label>STREAM</label>
+          <button class="cfg-btn on" data-k="stream" data-v="on">on</button>
+          <button class="cfg-btn" data-k="stream" data-v="off">off</button>
+        </div>
+      </div>
     </div>
   </div>
   <div class="pills" id="pills"></div>
@@ -196,28 +204,36 @@ function renderStream(){
 
 // View modes
 const PRESET={light:{bg:'gray',cols:'4',stream:'on'},dark:{bg:'dark',cols:'4',stream:'on'}};
+const pop=document.getElementById('customPop');
+function setPop(open){pop.classList.toggle('open',open);}
 function syncCfg(){document.querySelectorAll('[data-k]').forEach(b=>b.classList.toggle('on',b.dataset.v===document.body.dataset[b.dataset.k]));}
 function applyMode(mode){
   document.body.dataset.mode=mode;
   document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
-  document.getElementById('customRow').style.display=mode==='custom'?'flex':'none';
   if(mode==='custom'){
     const s=JSON.parse(localStorage.getItem('kpn_custom')||'null')||{bg:'gray',cols:'4',stream:'on'};
     document.body.dataset.bg=s.bg;document.body.dataset.cols=s.cols;document.body.dataset.stream=s.stream;
+    localStorage.setItem('kpn_mode','custom');
   }else{
     const p=PRESET[mode];document.body.dataset.bg=p.bg;document.body.dataset.cols=p.cols;document.body.dataset.stream=p.stream;
     localStorage.setItem('kpn_mode',mode);
+    setPop(false);
   }
   syncCfg();
 }
-document.getElementById('modes').addEventListener('click',e=>{const b=e.target.closest('.mode-btn');if(!b)return;applyMode(b.dataset.mode);});
-document.getElementById('customRow').addEventListener('click',e=>{
+document.getElementById('modes').addEventListener('click',e=>{
+  const b=e.target.closest('.mode-btn');if(!b)return;
+  if(b.dataset.mode==='custom'){applyMode('custom');setPop(!pop.classList.contains('open'));}
+  else applyMode(b.dataset.mode);
+});
+pop.addEventListener('click',e=>{
   const b=e.target.closest('[data-k]');if(!b)return;
   document.body.dataset[b.dataset.k]=b.dataset.v;
   b.parentElement.querySelectorAll('[data-k]').forEach(x=>x.classList.toggle('on',x===b));
   const c={bg:document.body.dataset.bg,cols:document.body.dataset.cols,stream:document.body.dataset.stream};
   localStorage.setItem('kpn_custom',JSON.stringify(c));localStorage.setItem('kpn_mode','custom');
 });
+document.addEventListener('click',e=>{if(!e.target.closest('.modewrap'))setPop(false);});
 
 document.getElementById('liveCount').textContent=ACTIVE.length;
 applyMode(localStorage.getItem('kpn_mode')||'light');
