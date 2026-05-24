@@ -97,7 +97,7 @@ h1{font-size:25px;line-height:1.14;font-weight:800;letter-spacing:-.01em}
 .hf-pills{display:flex;gap:6px;align-items:center}
 .hf-pills .pill{font-family:'Source Sans 3','Apple SD Gothic Neo',-apple-system,sans-serif;font-weight:700;font-size:12px;text-decoration:none;padding:3px 10px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
 .hf-pills .pill-w{color:#ca27b2}.hf-pills .pill-w:hover{background:color-mix(in srgb,#ca27b2 12%,transparent)}
-.hf-pills .pill-s{color:#b58a00}.hf-pills .pill-s.here{cursor:default;background:color-mix(in srgb,#b58a00 12%,transparent);border-color:#f0d97a}
+.hf-pills .pill-s{color:#8a6900}.hf-pills .pill-s.here{cursor:default;background:color-mix(in srgb,#8a6900 12%,transparent);border-color:#f0d97a}
 .hf-pills .pill-d{color:#7c4dd6}.hf-pills .pill-d:hover{background:color-mix(in srgb,#7c4dd6 12%,transparent)}
 @media(max-width:600px){.house-foot .hf-meta .hf-pagemeta{display:none}}
 """
@@ -223,8 +223,12 @@ def render_overview(p, site_url=""):
             f'<meta name="author" content="ajin.im">'
             f'<meta property="og:title" content="{title}"><meta property="og:description" content="{summary}">'
             f'<meta property="og:type" content="article">'
+            f'<meta property="og:image" content="{site_url}/og-image.png">'
             f'<link rel="canonical" href="{site_url}/start/{p["id"]}">'
             f'<meta property="og:url" content="{site_url}/start/{p["id"]}">'
+            f'<meta name="twitter:card" content="summary_large_image">'
+            f'<meta name="twitter:title" content="{title}">'
+            f'<meta name="twitter:image" content="{site_url}/og-image.png">'
             f"<style>{PAGE_CSS}</style></head><body><div class=\"wrap\">")
     return head + "".join(parts) + HOUSE_FOOT + "</div></body></html>"
 

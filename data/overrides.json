@@ -8,5 +8,13 @@
   "nationality_flag": "explicit_foreign",
   "confidence": "explicit",
   "foreigner_relevance": "inbound_global"
+ },
+ "ks-177656": {
+  "confidence": "explicit",
+  "foreigner_relevance": "outbound_na"
+ },
+ "ks-177614": {
+  "confidence": "explicit",
+  "foreigner_relevance": "outbound_na"
  }
 }
