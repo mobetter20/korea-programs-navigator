@@ -77,6 +77,17 @@
   .more{flex:none;text-align:center;padding:10px;font-size:11px;font-weight:700;color:var(--pink-dk);font-family:ui-monospace,Menlo,monospace;border-top:1px solid var(--line);cursor:pointer;user-select:none}
   .more:hover{background:color-mix(in srgb,var(--pink) 7%,transparent)}
   .empty{color:var(--muted);padding:48px 22px;font-size:14px}
+
+  /* ── Featured wow-anchor (the startup-visa hook) ── */
+  .feat{display:flex;flex-wrap:wrap;align-items:center;gap:5px 14px;margin:14px 22px 0;padding:13px 17px;border-radius:14px;
+    background:linear-gradient(100deg,color-mix(in srgb,var(--pink) 16%,var(--card)),var(--card) 72%);
+    border:1px solid color-mix(in srgb,var(--pink) 34%,var(--line))}
+  .feat-k{width:100%;font-family:ui-monospace,Menlo,monospace;font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--pink-dk)}
+  .feat-h{font-family:'Bagel Fat One','Arial Black',cursive;font-size:21px;line-height:1;color:var(--ink)}
+  .feat-sub{flex:1 1 240px;min-width:0;font-size:13px;line-height:1.35;color:var(--muted)}
+  .feat-links{display:flex;flex-wrap:wrap;gap:7px;width:100%;margin-top:3px}
+  .feat-links a{font-size:12px;font-weight:700;font-family:ui-monospace,Menlo,monospace;text-decoration:none;color:#fff;background:var(--pink);padding:5px 11px;border-radius:999px}
+  .feat-links a:hover{background:var(--pink-dk)}
 </style>
 </head>
 <body data-bg="gray" data-cols="3" data-stream="on">
@@ -112,6 +123,13 @@
   </div>
   <div class="pills" id="pills"></div>
 </header>
+
+<section class="feat" id="feat" hidden>
+  <span class="feat-k">✨ most foreign founders don't know this exists</span>
+  <b class="feat-h">Wait — Korea has a startup visa.</b>
+  <span class="feat-sub">The OASIS startup-immigration system and the Startup Korea Special Visa are built for foreign founders — and the K-Startup Grand Challenge will fund you to come build here.</span>
+  <span class="feat-links" id="featLinks"></span>
+</section>
 
 <div class="layout">
   <main class="grid" id="grid"></main>
@@ -218,6 +236,22 @@ function renderStream(){
   paint();
 }
 
+// Featured wow-anchor: surface the startup-visa programs if they're live
+const FEATURED=[
+  {match:'OASIS',                       label:'OASIS startup visa'},
+  {match:'Startup Korea Special Visa',  label:'Startup Korea Special Visa'},
+  {match:'K-Startup Grand Challenge',   label:'K-Startup Grand Challenge'},
+];
+function renderFeatured(){
+  const found=[];
+  FEATURED.forEach(f=>{
+    const p=ACTIVE.find(x=>(x.title_ko||'').includes(f.match)||(x.title_en||'').includes(f.match));
+    if(p){const link=p.apply_url||p.detail_url||'#';
+      found.push(`<a href="${link}" target="_blank" rel="noopener noreferrer">${f.label} →</a>`);}
+  });
+  if(found.length){document.getElementById('featLinks').innerHTML=found.join('');document.getElementById('feat').hidden=false;}
+}
+
 // View modes
 const PRESET={light:{bg:'gray',cols:'3',stream:'on'},dark:{bg:'dark',cols:'3',stream:'on'}};
 const pop=document.getElementById('customPop');
@@ -253,7 +287,7 @@ document.addEventListener('click',e=>{if(!e.target.closest('.modewrap'))setPop(f
 
 document.getElementById('liveCount').textContent=ACTIVE.length;
 applyMode(localStorage.getItem('kpn_mode')||'light');
-renderPills();render();renderStream();
+renderPills();render();renderStream();renderFeatured();
 })();
 </script>
 </body>
