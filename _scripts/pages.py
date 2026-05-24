@@ -108,7 +108,7 @@ def _app_lang(p):
     return "Korean (official portal)"
 
 
-def render_overview(p):
+def render_overview(p, site_url=""):
     e = html.escape
     cat_ko = p.get("category", "")
     catlabel = CAT_LABEL.get(cat_ko, cat_ko)
@@ -198,11 +198,13 @@ def render_overview(p):
             f'<meta name="description" content="{summary}">'
             f'<meta property="og:title" content="{title}"><meta property="og:description" content="{summary}">'
             f'<meta property="og:type" content="article">'
+            f'<link rel="canonical" href="{site_url}/start/{p["id"]}">'
+            f'<meta property="og:url" content="{site_url}/start/{p["id"]}">'
             f"<style>{PAGE_CSS}</style></head><body><div class=\"wrap\">")
     return head + "".join(parts) + "</div></body></html>"
 
 
-def make_pages(programs, public_dir):
+def make_pages(programs, public_dir, site_url=""):
     """Emit public/start/<id>.html for every program. Returns the count."""
     out = os.path.join(public_dir, "start")
     os.makedirs(out, exist_ok=True)
@@ -212,7 +214,7 @@ def make_pages(programs, public_dir):
         if not pid:
             continue
         with open(os.path.join(out, f"{pid}.html"), "w", encoding="utf-8") as f:
-            f.write(render_overview(p))
+            f.write(render_overview(p, site_url))
         n += 1
     return n
 

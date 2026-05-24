@@ -18,7 +18,7 @@ from collections import Counter
 from pages import make_pages, CAT_LABEL, REG_EN, STAGE_EN
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE_URL = "https://seoulcrushing.com/start"
+SITE_URL = "https://start.seoulcrushing.com"
 
 
 def make_rss(programs: list, out_dir: str) -> None:
@@ -57,6 +57,18 @@ def make_rss(programs: list, out_dir: str) -> None:
     with open(path, "wb") as f:
         f.write(b'<?xml version="1.0" encoding="UTF-8"?>\n')
         tree.write(f, encoding="utf-8", xml_declaration=False)
+
+
+def make_sitemap(programs, public_dir, site_url):
+    """Emit public/sitemap.xml — home + each per-program clean URL (no .html;
+    Cloudflare serves /start/<id> canonically)."""
+    locs = [f"{site_url}/"] + [f"{site_url}/start/{p['id']}" for p in programs if p.get("id")]
+    body = "\n".join(f"  <url><loc>{loc}</loc></url>" for loc in locs)
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+           f"{body}\n</urlset>\n")
+    with open(os.path.join(public_dir, "sitemap.xml"), "w", encoding="utf-8") as f:
+        f.write(xml)
 
 
 def main():
@@ -112,7 +124,8 @@ def main():
     with open(os.path.join(out, "programs.js"), "w", encoding="utf-8") as f:
         f.write("window.KPN_DATA = " + json.dumps(payload, ensure_ascii=False) + ";")
     make_rss(norm, out)
-    npages = make_pages(norm, os.path.join(ROOT, "public"))
+    npages = make_pages(norm, os.path.join(ROOT, "public"), SITE_URL)
+    make_sitemap(norm, os.path.join(ROOT, "public"), SITE_URL)
 
     print(f"built {len(norm)} programs -> public/data/  (translated: {sum(1 for r in norm if r['title_en'])}/{len(norm)})")
     print("facets:", {k: len(v) for k, v in facets.items()})
