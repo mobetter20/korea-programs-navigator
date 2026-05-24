@@ -6,5 +6,6 @@ __pycache__/
 venv/
 /data/raw/
 /data/*.json
+!/data/translations.json
 /data/batches/
 /public/data/

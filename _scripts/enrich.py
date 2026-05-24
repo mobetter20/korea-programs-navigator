@@ -36,14 +36,16 @@ def main() -> None:
 
     if args.merge:
         incoming = json.load(open(args.merge, encoding="utf-8"))
-        merged = 0
+        fields = 0
         for k, v in incoming.items():
-            if k not in trans or not trans[k].get("title_en"):
-                trans[k] = v
-                merged += 1
+            entry = trans.setdefault(k, {})
+            for fk, fv in v.items():
+                if fv and entry.get(fk) != fv:  # field-level: never clobber with empty
+                    entry[fk] = fv
+                    fields += 1
         with open(TRANS, "w", encoding="utf-8") as f:
             json.dump(trans, f, ensure_ascii=False, indent=1)
-        print(f"merged {merged} new entries into cache ({len(trans)} total)")
+        print(f"merged {fields} field-updates into cache ({len(trans)} entries)")
         return
 
     # Report status

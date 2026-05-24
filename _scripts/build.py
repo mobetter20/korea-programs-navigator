@@ -68,6 +68,10 @@ def main():
             r["summary_en"] = t.get("summary_en") or r["summary_en"]
             if t.get("foreigner_relevance"):
                 r["foreigner_relevance"] = t["foreigner_relevance"]
+            if t.get("target_en"):
+                r["target_en"] = t["target_en"]
+            if t.get("exclusions_en"):
+                r["exclusions_en"] = t["exclusions_en"]
 
     facets = {
         "category": [k for k, _ in Counter(r["category"] for r in norm).most_common()],
