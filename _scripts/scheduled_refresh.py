@@ -43,6 +43,17 @@ def log(msg: str) -> None:
         pass
 
 
+def notify(msg: str) -> None:
+    """Best-effort macOS notification + log, so a failure is SEEN, not silent."""
+    log(f"ALERT: {msg}")
+    try:
+        subprocess.run(["osascript", "-e",
+                        f'display notification "{msg}" with title "Navigator refresh"'],
+                       capture_output=True, timeout=10)
+    except Exception:
+        pass
+
+
 def run(args: list[str]) -> subprocess.CompletedProcess:
     r = subprocess.run(args, cwd=ROOT, capture_output=True, text=True)
     out = (r.stdout or "").strip()
@@ -81,6 +92,8 @@ def main() -> int:
     v = run([PY, "_scripts/validate_build.py"])
     if v.returncode != 0:
         log(f"ABORT: validate_build exit {v.returncode} — reverting; last-good stays live.")
+        notify("content gate FAILED — bad data caught, last-good stays live." if v.returncode == 1
+               else "data anomaly HELD (big drop?) — re-run with --force if legit.")
         revert(); return v.returncode
 
     changed = subprocess.run(
@@ -95,9 +108,18 @@ def main() -> int:
     run(["git", "add", "public/", "data/translations.json", "data/overrides.json"])
     run(["git", "commit", "-q", "-m", f"data: refresh {dt.date.today().isoformat()}"])
     if run(["git", "push", "-q", "origin", "main"]).returncode != 0:
-        log("WARN: push failed (commit is local + safe; retries next run). Check git creds in keychain.")
-    else:
-        log("pushed -> CF deploys once the GitHub webhook is reconnected.")
+        notify("push FAILED — commit is local, NOT published. Run `git push` once / check creds.")
+        log("=== refresh done (PUSH FAILED) ===")
+        return 1
+    # verify the push actually landed on origin (catches a silent launchd credential failure)
+    subprocess.run(["git", "fetch", "-q", "origin"], cwd=ROOT, capture_output=True)
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    orig = subprocess.run(["git", "rev-parse", "origin/main"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    if head and head != orig:
+        notify("push did NOT land on origin — the site will not update. Investigate.")
+        log("=== refresh done (PUSH UNVERIFIED) ===")
+        return 1
+    log("pushed + verified on origin/main -> CF auto-deploys.")
     log("=== refresh done ===")
     return 0
 

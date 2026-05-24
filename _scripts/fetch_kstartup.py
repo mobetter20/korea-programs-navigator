@@ -99,6 +99,12 @@ def main():
     with open(tmp, "w", encoding="utf-8") as f:
         json.dump(active, f, ensure_ascii=False, indent=1)
     os.replace(tmp, final)  # atomic promote: a partial/failed write never becomes the "latest" raw
+    import glob as _glob  # prune old raws — keep the 7 most recent (gitignored; unbounded otherwise)
+    for old in sorted(_glob.glob(os.path.join(ROOT, "data", "raw", "kstartup_active_*.json")))[:-7]:
+        try:
+            os.remove(old)
+        except OSError:
+            pass
     if active:
         fx = dict(active[0])
         fx["prch_cnpl_no"] = "REDACTED"
