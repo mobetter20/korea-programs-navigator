@@ -16,6 +16,7 @@ import json
 import os
 import re
 from collections import Counter
+from urllib.parse import urlparse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GLOBAL_CATS = {"글로벌", "판로ㆍ해외진출"}
@@ -25,10 +26,14 @@ FOREIGN_RE = re.compile(r"(외국인|재외국민|외국\s*국적)")
 
 
 def strip_html(s):
+    # unescape FIRST, then strip: entity-encoded tags (&lt;script&gt;) become
+    # real tags so the regex removes them — otherwise html.unescape AFTER the
+    # strip would re-introduce live markup. Order is the stored-XSS guard.
     if not s:
         return ""
+    s = html.unescape(s)
     s = re.sub(r"<[^>]+>", " ", s)
-    return html.unescape(re.sub(r"\s+", " ", s)).strip()
+    return re.sub(r"\s+", " ", s).strip()
 
 
 def to_iso(yyyymmdd):
@@ -71,12 +76,21 @@ def nationality(target, excl):
 
 
 def abs_url(u):
-    """Ensure an external URL has a scheme — K-Startup stores some apply URLs
-    scheme-less (e.g. 'www.foo.com'), which a browser treats as a relative path."""
+    """Return u ONLY if it is an http(s) URL — positive scheme allowlist.
+
+    K-Startup stores some apply URLs scheme-less ('www.foo.com'), so we prefix
+    https:// for those. But the field is upstream-controlled and renders into an
+    <a href> on a public page, so anything that isn't http/https — javascript:,
+    data:, vbscript:, incl. the javascript://%0a… bypass — is rejected -> None.
+    Never trust an upstream URL field on a public surface.
+    """
     u = (u or "").strip()
-    if u and "://" not in u:
+    if not u:
+        return None
+    # scheme-less host (no scheme delimiter in the first path segment) -> https
+    if "://" not in u and ":" not in u.split("/", 1)[0]:
         u = "https://" + u
-    return u or None
+    return u if urlparse(u).scheme.lower() in ("http", "https") else None
 
 
 def normalize(rec):

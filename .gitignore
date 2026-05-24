@@ -10,6 +10,4 @@ venv/
 !/data/org_types.json
 !/data/overrides.json
 /data/batches/
-/public/data/
-/public/start/
-/public/stats.html
+/_mocks/

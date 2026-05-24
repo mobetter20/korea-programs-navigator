@@ -52,7 +52,7 @@ PAGE_CSS = """
 :root{--pink:#ff52e5;--pink-dk:#ca27b2;--ink:#1a1a1a;--muted:#8c8598;--line:#e9e1d4;--bg:#eef0f4;--card:#fff;--ac:#7c4dd6}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:'Source Sans 3','Apple SD Gothic Neo',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;padding:22px}
-.kr{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif}
+.kr{font-family:'Apple SD Gothic Neo',sans-serif}
 .wrap{max-width:660px;margin:0 auto}
 .back{display:inline-block;font-family:ui-monospace,Menlo,monospace;font-size:11px;font-weight:700;color:var(--muted);text-decoration:none;margin-bottom:16px}
 .back:hover{color:var(--pink-dk)}
@@ -90,11 +90,6 @@ h1{font-size:25px;line-height:1.14;font-weight:800;letter-spacing:-.01em}
 """
 
 
-def _stage_range(stages):
-    en = [STAGE_EN[s] for s in (stages or []) if s in STAGE_EN]
-    return "" if not en else (en[0] if len(en) == 1 else f"{en[0]}–{en[-1]}")
-
-
 def _fmt_date(iso):
     if not iso:
         return "—"
@@ -127,12 +122,11 @@ def render_overview(p):
     badge = ('<span class="badge">🛂 For foreign founders</span>' if fore
              else ('<span class="badge abroad">🌏 Abroad / outbound</span>'
                    if p.get("foreigner_relevance") == "outbound_na" else ""))
-    stages = _stage_range(p.get("business_stage"))
     stage_html = "".join(f"<span>{e(STAGE_EN[s])}</span>" for s in (p.get("business_stage") or []) if s in STAGE_EN)
     target = e(p.get("target_en") or "")
     excl_raw = p.get("exclusions_en") or ""
     excl = e(excl_raw)
-    excl_is_pointer = excl_raw in ("See the official announcement.", "See the official announcement and attachments.")
+    excl_is_pointer = excl_raw.strip() in ("See the official announcement.", "See the official announcement and attachments.", "See detailed announcement.")
     reg = e(REG_EN.get(p.get("region", ""), p.get("region", "")))
     no_prelaunch = bool(p.get("business_stage")) and "예비창업자" not in p["business_stage"]
     org = e(p.get("agency") or "")
@@ -249,7 +243,12 @@ def _bars(counter):
 
 def make_stats(programs, public_dir):
     """Emit public/stats.html — a compact 'by the numbers' view (the 'See it'
-    artifact from the 'Build it' data). Static, computed at build time."""
+    artifact from the 'Build it' data). Static, computed at build time.
+
+    SHELVED: not called by build.py (the 'By the numbers' page is wishlisted;
+    its header link was removed). Kept here for revival — rich-stats mock lives
+    at _mocks/stats-landscape-wip.html. Re-wire the call in build.py to ship it.
+    """
     from collections import Counter
     total = len(programs)
     silent = sum(1 for p in programs if p.get("nationality_flag") == "silent")

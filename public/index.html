@@ -6,23 +6,25 @@
 <meta name="description" content="Korean government startup and business-support programs, navigable in English for foreign founders.">
 <style>
   @font-face{font-family:'Bagel Fat One';src:url('fonts/bagel-fat-one/bagel-fat-one-400-091.woff2') format('woff2');font-display:swap}
-  @font-face{font-family:'Source Sans 3';src:url('fonts/source-sans-3/source-sans-3-400-006.woff2') format('woff2');font-display:swap}
-  :root{--pink:#ff52e5;--pink-dk:#ca27b2;--gold-dk:#b58a00;--ink:#1a1a1a;--muted:#8c8598;--line:#e9e1d4;--bg:#f3f4f6;--card:#fff}
+  @font-face{font-family:'Source Sans 3';font-weight:400;src:url('fonts/source-sans-3/source-sans-3-400-006.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'Source Sans 3';font-weight:600;src:url('fonts/source-sans-3/source-sans-3-600-006.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'Source Sans 3';font-weight:700 800;src:url('fonts/source-sans-3/source-sans-3-700-006.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'JetBrains Mono';font-weight:400;src:url('fonts/jetbrains-mono/jetbrains-mono-400-000.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'JetBrains Mono';font-weight:500 800;src:url('fonts/jetbrains-mono/jetbrains-mono-600-000.woff2') format('woff2');font-display:swap}
+  :root{--pink:#ff52e5;--pink-dk:#ca27b2;--ink:#1a1a1a;--muted:#6f6878;--line:#e9e1d4;--bg:#f3f4f6;--card:#fff;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace}
   body[data-bg="gray"]{--bg:#eef0f4}
   body[data-bg="pink"]{--bg:radial-gradient(1100px 460px at 80% -160px,#ffdcf2,transparent 70%) #fdf2f9}
-  body[data-bg="dark"]{--bg:#16141b;--card:#211e29;--ink:#f1eff5;--muted:#9a93a8;--line:#322e3c}
+  body[data-bg="dark"]{--bg:#16141b;--card:#211e29;--ink:#f1eff5;--muted:#9a93a8;--line:#322e3c;--pink-dk:#ff7aed}
   *{box-sizing:border-box;margin:0;padding:0}
   body{color:var(--ink);font-family:'Source Sans 3','Apple SD Gothic Neo',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);min-height:100vh}
-  .mono{font-family:ui-monospace,Menlo,monospace}.fat{font-family:'Bagel Fat One','Arial Black',cursive}.kr{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif}
+  .kr{font-family:'Apple SD Gothic Neo',sans-serif}
 
-  /* ── Mode switcher (replaces .pg) ── */
+  /* ── Mode switcher ── */
   .modewrap{position:relative;margin-left:12px;flex-shrink:0}
   .modes{display:flex;gap:1px;background:var(--line);border-radius:7px;overflow:hidden}
-  .mode-btn{font-size:11px;font-weight:700;padding:5px 10px;background:var(--card);color:var(--muted);cursor:pointer;border:none;font-family:ui-monospace,Menlo,monospace;transition:.1s;white-space:nowrap}
+  .mode-btn{font-size:11px;font-weight:700;padding:5px 10px;background:var(--card);color:var(--muted);cursor:pointer;border:none;font-family:var(--mono);transition:.1s;white-space:nowrap}
   .mode-btn:hover{color:var(--ink)}
   .mode-btn.on{background:var(--ink);color:var(--card)}
-
-  /* custom popover — anchored under the Custom button so it reads as related */
   .custom-pop{display:none;position:absolute;top:calc(100% + 7px);right:0;z-index:60;
     flex-flow:row wrap;align-items:center;gap:6px 13px;padding:8px 11px;width:max-content;max-width:calc(100vw - 24px);
     background:var(--card);border:1px solid var(--line);border-radius:10px;
@@ -31,66 +33,112 @@
   .custom-pop::before{content:"";position:absolute;top:-5px;right:24px;width:9px;height:9px;
     background:var(--card);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
   .grp{display:flex;gap:3px;align-items:center}
-  .grp>label{font-size:9.5px;font-weight:800;letter-spacing:.05em;color:var(--muted);margin-right:3px;font-family:ui-monospace,Menlo,monospace}
+  .grp>label{font-size:9.5px;font-weight:800;letter-spacing:.05em;color:var(--muted);margin-right:3px;font-family:var(--mono)}
   .cfg-btn{font-size:11px;font-weight:700;padding:3px 8px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--muted);cursor:pointer;font-family:inherit;transition:.1s}
   .cfg-btn:hover{border-color:var(--pink);color:var(--ink)}
   .cfg-btn.on{background:var(--pink);color:#fff;border-color:var(--pink)}
 
-  /* ── Header (from playground, top:0 since no pg bar) ── */
+  /* ── Header ── */
   header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--card) 60%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  .bar{display:flex;align-items:center;gap:12px;padding:12px 22px}
-  .brand{font-size:16px;font-weight:800}.brand .d{color:var(--pink)}
-  .sect{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-family:ui-monospace,Menlo,monospace;padding-left:9px;border-left:1px solid var(--line)}
-  .navlink{font-size:11px;font-weight:700;color:var(--muted);text-decoration:none;font-family:ui-monospace,Menlo,monospace}.navlink:hover{color:var(--pink-dk)}
-  .live{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.05em;color:var(--muted);font-weight:600;font-family:ui-monospace,Menlo,monospace}
+  .bar{display:flex;align-items:center;gap:11px;padding:11px 22px}
+  .brand{font-family:'Bagel Fat One','Arial Black',cursive;font-size:21px;line-height:1;color:var(--ink)}.brand .d{color:var(--pink)}
+  .sect{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--pink-dk);font-family:var(--mono);padding:3px 11px;border:1.5px solid color-mix(in srgb,var(--pink) 42%,var(--line));border-radius:999px}
+  .live{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.05em;color:var(--muted);font-weight:600;font-family:var(--mono)}
   .led{width:8px;height:8px;border-radius:50%;background:#2da854;animation:p 1.8s infinite}@keyframes p{0%{box-shadow:0 0 0 0 rgba(45,168,84,.5)}70%{box-shadow:0 0 0 7px rgba(45,168,84,0)}100%{box-shadow:0 0 0 0 rgba(45,168,84,0)}}
   .pills{display:flex;gap:7px;padding:0 22px 11px;overflow-x:auto;scrollbar-width:none}.pills::-webkit-scrollbar{display:none}
   .pill{flex:none;border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;font-family:inherit;white-space:nowrap}
   .pill.on{background:var(--pink);color:#fff;border-color:var(--pink)}.pill .n{opacity:.6;margin-left:3px;font-size:11px}
 
-  /* ── Layout (unchanged from playground) ── */
+  /* ── Layout ── */
   .layout{display:flex;gap:18px;padding:16px 22px 70px;align-items:flex-start}
   .grid{flex:1;min-width:0;display:grid;gap:13px}
   body[data-cols="2"] .grid{grid-template-columns:repeat(2,minmax(0,1fr))}body[data-cols="3"] .grid{grid-template-columns:repeat(3,minmax(0,1fr))}body[data-cols="4"] .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
 
-  /* ── Card (unchanged from playground) ── */
-  .card{display:flex;flex-direction:column;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 15px;text-decoration:none;color:inherit;box-shadow:0 2px 6px -4px rgba(60,30,50,.18);transition:.12s}
+  /* ── Card ── */
+  .card{display:flex;flex-direction:column;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 15px;text-decoration:none;color:inherit;box-shadow:0 2px 6px -4px rgba(60,30,50,.18);transition:.12s;cursor:pointer}
   .card:hover{transform:translateY(-3px);border-color:var(--pink)}
   .top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
-  .dday{font-family:'Bagel Fat One','Arial Black',cursive;font-size:26px;line-height:.82;color:var(--pink-dk)}.dday.hot{color:var(--pink)}.dday small{display:block;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--muted);margin-top:4px}
-  .cat{font-size:10px;font-weight:800;letter-spacing:.06em;font-family:ui-monospace,Menlo,monospace;padding:3px 7px;border-radius:6px}
+  .dday{font-family:'Bagel Fat One','Arial Black',cursive;font-size:26px;line-height:.82;color:var(--pink-dk)}.dday.hot{color:var(--pink)}.dday small{display:block;font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:4px}
+  .cat{font-size:10px;font-weight:800;letter-spacing:.06em;font-family:var(--mono);padding:3px 7px;border-radius:6px}
   h3{font-size:15px;line-height:1.27;font-weight:700}
-  .ko{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .desc{font-size:12px;line-height:1.36;color:var(--ink);opacity:.74;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .meta{font-size:10px;color:var(--muted);font-family:ui-monospace,Menlo,monospace}
-  .foot{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:6px}
-  .badge{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:999px}.b-fore{background:var(--pink);color:#fff}.b-easy{background:#fff3c2;color:var(--gold-dk)}.b-glob{background:#eaf1ff;color:#2f6bd8}
-  .reg{font-size:10px;color:var(--muted);font-family:ui-monospace,Menlo,monospace;margin-left:auto}
-  /* chips color mode (hardcoded — v1 is chips only) */
+  .meta{font-size:10px;color:var(--muted);font-family:var(--mono)}
+  .foot{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin-top:auto;padding-top:6px}
+  .badge{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:999px}.b-fore{background:var(--pink);color:#fff}.b-glob{background:#eaf1ff;color:#2f6bd8}
+  .reg{font-size:10px;color:var(--muted);font-family:var(--mono);margin-left:auto}
   .cat{background:color-mix(in srgb,var(--ac) 18%,transparent);color:var(--ac)}
 
-  /* ── Stream (playground values, top adjusted -39px for no pg bar) ── */
+  /* ── Stream ── */
   .stream{width:250px;flex:none;position:sticky;top:96px;max-height:calc(100vh - 112px);background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
   body[data-stream="off"] .stream{display:none}
-  .shead{padding:11px 13px;border-bottom:1px solid var(--line);font-size:12px}.shead b{font-weight:800}.shead .s{display:block;color:var(--muted);font-size:10px;margin-top:3px;font-family:ui-monospace,Menlo,monospace}
+  .shead{padding:11px 13px;border-bottom:1px solid var(--line);font-size:12px}.shead b{font-weight:800}.shead .s{display:block;color:var(--muted);font-size:10px;margin-top:3px;font-family:var(--mono)}
   .srows{overflow:auto;flex:1;min-height:0}
-  .tl{display:flex;gap:9px;align-items:baseline;padding:8px 12px;border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent);text-decoration:none;color:inherit}.tl:hover{background:color-mix(in srgb,var(--pink) 6%,transparent)}
-  .ago{font-size:10px;font-weight:700;color:var(--pink-dk);font-family:ui-monospace,Menlo,monospace;min-width:34px}
+  .tl{display:flex;gap:9px;align-items:baseline;padding:8px 12px;border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent);text-decoration:none;color:inherit;cursor:pointer}.tl:hover{background:color-mix(in srgb,var(--pink) 6%,transparent)}
+  .ago{font-size:10px;font-weight:700;color:var(--pink-dk);font-family:var(--mono);min-width:34px}
   .tlt{flex:1;font-size:11.5px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .more{flex:none;text-align:center;padding:10px;font-size:11px;font-weight:700;color:var(--pink-dk);font-family:ui-monospace,Menlo,monospace;border-top:1px solid var(--line);cursor:pointer;user-select:none}
+  .more{flex:none;text-align:center;padding:10px;font-size:11px;font-weight:700;color:var(--pink-dk);font-family:var(--mono);border-top:1px solid var(--line);cursor:pointer;user-select:none}
   .more:hover{background:color-mix(in srgb,var(--pink) 7%,transparent)}
   .empty{color:var(--muted);padding:48px 22px;font-size:14px}
+  .sitefoot{margin:6px 22px 46px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:11.5px;line-height:1.55}
+  .sitefoot b{color:var(--ink);font-weight:700}
 
-  /* ── Featured wow-anchor (the startup-visa hook) ── */
-  .feat{display:flex;flex-wrap:wrap;align-items:center;gap:5px 14px;margin:14px 22px 0;padding:13px 17px;border-radius:14px;
-    background:linear-gradient(100deg,color-mix(in srgb,var(--pink) 16%,var(--card)),var(--card) 72%);
-    border:1px solid color-mix(in srgb,var(--pink) 34%,var(--line))}
-  .feat-k{width:100%;font-family:ui-monospace,Menlo,monospace;font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--pink-dk)}
-  .feat-h{font-family:'Bagel Fat One','Arial Black',cursive;font-size:21px;line-height:1;color:var(--ink)}
-  .feat-sub{flex:1 1 240px;min-width:0;font-size:13px;line-height:1.35;color:var(--muted)}
-  .feat-links{display:flex;flex-wrap:wrap;gap:7px;width:100%;margin-top:3px}
-  .feat-links a{font-size:12px;font-weight:700;font-family:ui-monospace,Menlo,monospace;text-decoration:none;color:#fff;background:var(--pink);padding:5px 11px;border-radius:999px}
-  .feat-links a:hover{background:var(--pink-dk)}
+  /* ── Featured wow-anchor (banner B: compact one-row visa pills) ── */
+  .feat{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;margin:14px 22px 0;padding:15px 18px;border-radius:14px;
+    background:color-mix(in srgb,var(--pink) 7%,var(--card));
+    border:1px solid color-mix(in srgb,var(--pink) 24%,var(--line));border-left:4px solid var(--pink)}
+  .feat-k{width:100%;font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--pink-dk)}
+  .feat-h{flex:1 1 100%;font-family:'Bagel Fat One','Arial Black',cursive;font-size:22px;line-height:1.05;color:var(--ink)}
+  .feat-sub{flex:1 1 100%;font-size:13.5px;line-height:1.4;color:var(--ink)}
+  .feat-sub b{color:var(--pink-dk)}
+  .feat-links{display:flex;flex-wrap:wrap;gap:6px;width:100%;margin-top:5px;align-items:center}
+  .feat-lead{font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  .feat-links a{font-size:11.5px;font-weight:700;font-family:var(--mono);text-decoration:none;color:var(--pink-dk);background:color-mix(in srgb,var(--pink) 13%,var(--card));border:1px solid color-mix(in srgb,var(--pink) 30%,transparent);padding:3px 9px;border-radius:999px}
+  .feat-links a:hover{background:var(--pink);color:#fff}
+
+  /* ── Overview modal ── */
+  body.modal-open{overflow:hidden}
+  .backdrop{position:fixed;inset:0;background:rgba(26,14,30,.52);display:none;z-index:100;overflow-y:auto;padding:28px 18px}
+  .backdrop.show{display:block}
+  .modal{background:var(--card);border-radius:18px;max-width:620px;margin:0 auto;position:relative;box-shadow:0 24px 70px -24px rgba(30,15,35,.6);padding:26px 28px;animation:pop .16s ease-out}
+  @keyframes pop{from{opacity:0;transform:translateY(10px) scale(.99)}to{opacity:1;transform:none}}
+  .modal-x{position:absolute;top:13px;right:15px;width:30px;height:30px;border:none;background:color-mix(in srgb,var(--line) 55%,transparent);border-radius:50%;color:var(--ink);font-size:17px;cursor:pointer;line-height:1}
+  .modal-x:hover{background:var(--pink);color:#fff}
+  .crumb{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:14px;padding-right:30px}
+  .closes{margin-left:auto;font-family:var(--mono);font-size:12px;font-weight:800;color:var(--pink-dk)}
+  .modal h1{font-size:23px;line-height:1.15;font-weight:800;letter-spacing:-.01em}
+  .kotitle{margin-top:6px;font-size:13px;color:var(--muted)}
+  .lead{margin-top:13px;font-size:15px;line-height:1.5}
+  .gloss{margin-top:8px;font-size:13px;color:var(--muted);font-style:italic}
+  .sec{margin-top:20px}
+  .lab{font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .stagepill{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:999px;background:color-mix(in srgb,var(--ac) 12%,transparent);color:var(--ac);margin-bottom:9px}
+  .bodytext{font-size:14px;line-height:1.5}
+  .src{margin-top:8px;font-size:11.5px;color:var(--muted)}
+  .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:4px}
+  .facts .fact:last-child:nth-child(odd){grid-column:1/-1}
+  .fact{background:var(--card);padding:11px 13px}
+  .fact .k{font-family:var(--mono);font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .fact .v{font-size:14px;font-weight:600;margin-top:3px}
+  .runby{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:color-mix(in srgb,var(--ac) 6%,var(--card));border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+  .runby .org{font-size:14px;font-weight:700}
+  .runby .ph{font-family:var(--mono);font-size:12px;color:var(--muted);text-decoration:none}
+  .otype{font-size:11px;font-weight:800;font-family:var(--mono);padding:3px 9px;border-radius:999px;background:color-mix(in srgb,var(--ac) 16%,transparent);color:var(--ac);margin-left:auto}
+  .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+  .btn{flex:1 1 200px;text-align:center;font-weight:800;font-size:14px;text-decoration:none;padding:12px 16px;border-radius:11px}
+  .btn-p{background:var(--pink);color:#fff}.btn-p:hover{background:var(--pink-dk)}
+  .btn-s{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn-s:hover{border-color:var(--pink)}
+  .note{margin-top:18px;padding-top:13px;border-top:1px solid var(--line);font-size:12px;line-height:1.45;color:var(--muted)}
+
+  /* ── Responsive (mobile: single column, stream hidden, header wraps) ── */
+  @media(max-width:760px){
+    .bar{flex-wrap:wrap;gap:8px 10px;padding:11px 16px}
+    .pills{padding:0 16px 11px}
+    .feat{margin:14px 16px 0}
+    .layout{flex-direction:column;padding:14px 16px 60px}
+    .stream{display:none}
+    .grid{grid-template-columns:1fr!important}
+    .modal{padding:22px 18px}
+  }
 </style>
 </head>
 <body data-bg="gray" data-cols="3" data-stream="on">
@@ -99,7 +147,6 @@
   <div class="bar">
     <span class="brand">Seoul Crushing<span class="d">.</span></span>
     <span class="sect">Start</span>
-    <a class="navlink" href="stats.html">📊 By the numbers</a>
     <span class="live"><span class="led"></span><span id="liveCount">…</span> LIVE</span>
     <div class="modewrap">
       <div class="modes" id="modes">
@@ -112,11 +159,6 @@
           <button class="cfg-btn on" data-k="bg" data-v="gray">gray</button>
           <button class="cfg-btn" data-k="bg" data-v="pink">pink</button>
           <button class="cfg-btn" data-k="bg" data-v="dark">dark</button>
-        </div>
-        <div class="grp"><label>COLS</label>
-          <button class="cfg-btn" data-k="cols" data-v="2">2</button>
-          <button class="cfg-btn on" data-k="cols" data-v="3">3</button>
-          <button class="cfg-btn" data-k="cols" data-v="4">4</button>
         </div>
         <div class="grp"><label>STREAM</label>
           <button class="cfg-btn on" data-k="stream" data-v="on">on</button>
@@ -144,6 +186,10 @@
   </aside>
 </div>
 
+<footer class="sitefoot">🤖 English titles &amp; summaries are <b>AI-translated</b> from the official Korean postings and may contain errors — always confirm details on the official posting before applying.</footer>
+
+<div class="backdrop" id="backdrop"><div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Program details"><button class="modal-x" id="modalX" aria-label="Close">✕</button><div id="mbody"></div></div></div>
+
 <script src="data/programs.js"></script>
 <script>
 (function(){
@@ -152,32 +198,34 @@ if(!window.KPN_DATA){document.getElementById('grid').innerHTML='<p class="empty"
 const PROGRAMS=window.KPN_DATA.programs;
 const TODAY=new Date();TODAY.setHours(0,0,0,0);
 
-// Korean category → English label + accent color
+// Korean category → English chip label + accent color (card chips, UPPERCASE)
 const CAT={
-  '사업화':              {en:'BUILD',     ac:'#d9802a'},
-  '멘토링ㆍ컨설팅ㆍ교육': {en:'MENTORING', ac:'#7c4dd6'},
-  '창업교육':            {en:'EDUCATION', ac:'#7c4dd6'},
-  '행사ㆍ네트워크':       {en:'EVENT',     ac:'#d8635f'},
-  '시설ㆍ공간ㆍ보육':     {en:'SPACE',     ac:'#3a9d4f'},
-  '글로벌':              {en:'GLOBAL',    ac:'#2f6bd8'},
-  '판로ㆍ해외진출':       {en:'EXPORT',    ac:'#2f6bd8'},
-  '기술개발(R&D)':       {en:'R&D',       ac:'#d9802a'},
-  '인력':                {en:'HIRING',    ac:'#1f9e8f'},
-  '정책자금':            {en:'GRANTS',    ac:'#b58a00'},
-  '융자ㆍ보증':          {en:'LOANS',     ac:'#b58a00'},
+  '사업화':{en:'BUILD',ac:'#d9802a'},'멘토링ㆍ컨설팅ㆍ교육':{en:'MENTORING',ac:'#7c4dd6'},
+  '창업교육':{en:'EDUCATION',ac:'#7c4dd6'},'행사ㆍ네트워크':{en:'EVENT',ac:'#d8635f'},
+  '시설ㆍ공간ㆍ보육':{en:'SPACE',ac:'#3a9d4f'},'글로벌':{en:'GLOBAL',ac:'#2f6bd8'},
+  '판로ㆍ해외진출':{en:'EXPORT',ac:'#2f6bd8'},'기술개발(R&D)':{en:'R&D',ac:'#d9802a'},
+  '인력':{en:'HIRING',ac:'#1f9e8f'},'정책자금':{en:'GRANTS',ac:'#b58a00'},'융자ㆍ보증':{en:'LOANS',ac:'#b58a00'},
 };
 const REG={
-  '전국':'NATIONWIDE','서울':'SEOUL','경기':'GYEONGGI','부산':'BUSAN',
-  '대구':'DAEGU','인천':'INCHEON','대전':'DAEJEON','광주':'GWANGJU',
-  '울산':'ULSAN','강원':'GANGWON','충북':'CHUNGBUK','충남':'CHUNGNAM',
-  '전북':'JEONBUK','전남':'JEONNAM','경북':'GYEONGBUK','경남':'GYEONGNAM',
-  '제주':'JEJU','수도권':'SEOUL AREA',
+  '전국':'NATIONWIDE','서울':'SEOUL','경기':'GYEONGGI','부산':'BUSAN','대구':'DAEGU','인천':'INCHEON',
+  '대전':'DAEJEON','광주':'GWANGJU','울산':'ULSAN','강원':'GANGWON','충북':'CHUNGBUK','충남':'CHUNGNAM',
+  '전북':'JEONBUK','전남':'JEONNAM','경북':'GYEONGBUK','경남':'GYEONGNAM','제주':'JEJU','수도권':'SEOUL AREA',
 };
-const STAGE_EN={'예비창업자':'Pre-launch','1년미만':'<1yr','2년미만':'<2yr','3년미만':'<3yr','5년미만':'<5yr','7년미만':'<7yr','10년미만':'<10yr'};
+const STAGE_N={'1년미만':1,'2년미만':2,'3년미만':3,'5년미만':5,'7년미만':7,'10년미만':10};
+function stageLabel(stages){
+  if(!stages||!stages.length)return '';
+  const pre=stages.includes('예비창업자');
+  const ns=stages.map(s=>STAGE_N[s]).filter(Boolean);
+  const mx=ns.length?Math.max(...ns):0;
+  if(pre&&mx)return `Pre-launch to ${mx}yr`;
+  if(pre)return 'Pre-launch';
+  if(mx)return `Under ${mx}yr`;
+  return '';
+}
 function metaLine(p){
   const parts=[];
-  const st=(p.business_stage||[]).map(s=>STAGE_EN[s]).filter(Boolean);
-  if(st.length)parts.push(st.length>1?`${st[0]}–${st[st.length-1]}`:st[0]);
+  const sl=stageLabel(p.business_stage);
+  if(sl)parts.push(sl);
   if(p.age_min&&p.age_max)parts.push(`age ${p.age_min}–${p.age_max}`);
   else if(p.age_min)parts.push(`age ${p.age_min}+`);
   else if(p.age_max)parts.push(`under ${p.age_max}`);
@@ -202,24 +250,23 @@ function getLenses(p){
 PROGRAMS.forEach(p=>{p._days=daysUntil(p.close_date);p._ago=daysSince(p.open_date);p._lenses=getLenses(p);});
 const ACTIVE=PROGRAMS.filter(p=>p._days>=0);
 
-const LENSES=[['all','All'],['soon','🔥 Closing soon'],['visa','🛂 Visa'],['money','💰 Money'],['space','🏢 Space'],['fun','🎉 Fun'],['global','🌏 Go global']];
+const LENSES=[['all','All'],['soon','🔥 Closing soon'],['visa','🛂 Visa'],['money','💰 Money'],['space','🏢 Space'],['fun','🤝 Meet'],['global','🌏 Go global']];
 let activeLens='all';
 
-function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function esc(s){return(s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function isForeign(p){return p.nationality_flag==='explicit_foreign'||p.foreigner_relevance==='inbound_global'||p.foreigner_relevance==='foreigner_targeted';}
 function card(p){
   const hot=p._days<=3;
   const cat=CAT[p.category]||{en:p.category.slice(0,8).toUpperCase(),ac:'#888'};
   const reg=REG[p.region]||(p.region||'').toUpperCase();
   const title=p.title_en||p.title_ko;
   const desc=p.summary_en||'';
-  const link='start/'+p.id+'.html';
   const mmdd=p.close_date?p.close_date.slice(5).replace('-','/'):'';
-  const meta=metaLine(p);
-  let lead='';
-  if(p.nationality_flag==='explicit_foreign'||p.foreigner_relevance==='inbound_global'||p.foreigner_relevance==='foreigner_targeted')lead='<span class="badge b-fore">🛂 For foreign founders</span>';
-  else if(p.foreigner_relevance==='outbound_na')lead='<span class="badge b-glob">🌏 Abroad</span>';
-  else if(meta)lead=`<span class="meta">${meta}</span>`;
-  return `<a class="card" style="--ac:${cat.ac}" href="${link}" target="_blank" rel="noopener"><div class="top"><div class="dday${hot?' hot':''}">D-${p._days}<small>${mmdd}</small></div><span class="cat">${cat.en}</span></div><h3>${esc(title)}</h3>${desc?`<span class="desc">${esc(desc)}</span>`:''}<div class="foot">${lead}<span class="reg">${reg}</span></div></a>`;
+  const metaReg=[metaLine(p),reg].filter(Boolean).join(' · ');
+  let badge='';
+  if(isForeign(p))badge='<span class="badge b-fore">🛂 For foreign founders</span>';
+  else if(p.foreigner_relevance==='outbound_na')badge='<span class="badge b-glob">🌏 Abroad</span>';
+  return `<a class="card" style="--ac:${cat.ac}" data-prog="${esc(p.id)}" href="start/${esc(p.id)}.html" target="_blank" rel="noopener"><div class="top"><div class="dday${hot?' hot':''}">D-${p._days}<small>${mmdd}</small></div><span class="cat">${cat.en}</span></div><h3>${esc(title)}</h3>${desc?`<span class="desc">${esc(desc)}</span>`:''}<div class="foot">${badge}<span class="meta">${metaReg}</span></div></a>`;
 }
 function render(){
   const rows=ACTIVE.filter(p=>activeLens==='all'||p._lenses.includes(activeLens)).sort((a,b)=>a._days-b._days);
@@ -238,8 +285,7 @@ function renderStream(){
   document.getElementById('streamCount').textContent=sorted.length;
   const row=p=>{
     const ago=p._ago===0?'NEW':`${p._ago}d`;
-    const link='start/'+p.id+'.html';
-    return`<a class="tl" href="${link}" target="_blank" rel="noopener"><span class="ago">${ago}</span><span class="tlt">${esc(p.title_en||p.title_ko)}</span></a>`;
+    return`<a class="tl" data-prog="${esc(p.id)}" href="start/${esc(p.id)}.html" target="_blank" rel="noopener"><span class="ago">${ago}</span><span class="tlt">${esc(p.title_en||p.title_ko)}</span></a>`;
   };
   const more=document.getElementById('more');
   let shown=STREAM_CAP;
@@ -253,24 +299,95 @@ function renderStream(){
   paint();
 }
 
-// Featured wow-anchor: surface the startup-visa programs if they're live
+// Featured wow-anchor (banner B): compact one-row visa pills
 const FEATURED=[
-  {match:'OASIS',                       label:'OASIS startup visa'},
-  {match:'Startup Korea Special Visa',  label:'Startup Korea Special Visa'},
-  {match:'K-Startup Grand Challenge',   label:'K-Startup Grand Challenge'},
+  {match:'OASIS',                       label:'OASIS'},
+  {match:'Startup Korea Special Visa',  label:'Startup Korea'},
+  {match:'K-Startup Grand Challenge',   label:'K-Startup GC'},
 ];
 function renderFeatured(){
   const silent=PROGRAMS.filter(p=>p.nationality_flag==='silent').length;
-  const barred=PROGRAMS.filter(p=>p.nationality_flag==='barred').length;
   const found=[];
   FEATURED.forEach(f=>{
     const p=ACTIVE.find(x=>(x.title_ko||'').includes(f.match)||(x.title_en||'').includes(f.match));
-    if(p)found.push(`<a href="start/${p.id}.html" target="_blank" rel="noopener">${f.label} →</a>`);
+    if(p)found.push(`<a data-prog="${esc(p.id)}" href="start/${esc(p.id)}.html" target="_blank" rel="noopener">${esc(f.label)} →</a>`);
   });
-  const visa=found.length?' Korea even has a dedicated startup visa:':'';
-  document.getElementById('featSub').innerHTML=`<b>${silent}</b> of ${PROGRAMS.length} programs here state no nationality requirement${barred===0?', and none we found state a nationality bar':''} — as a legal resident you can likely apply.${visa}`;
-  document.getElementById('featLinks').innerHTML=found.join('');
+  document.getElementById('featSub').innerHTML=`<b>${silent}</b> of ${PROGRAMS.length} programs state no nationality bar — as a legal resident, you can likely apply.`;
+  document.getElementById('featLinks').innerHTML=found.length?`<span class="feat-lead">Korea even has startup visas:</span>${found.join('')}`:'';
 }
+
+// ── Overview modal (in-page render of start/<id>.html, file://-safe) ──
+const CAT_LABEL={'사업화':'Build','멘토링ㆍ컨설팅ㆍ교육':'Mentoring','창업교육':'Education','행사ㆍ네트워크':'Event','시설ㆍ공간ㆍ보육':'Space','글로벌':'Global','판로ㆍ해외진출':'Export','기술개발(R&D)':'R&D','인력':'Hiring','정책자금':'Grants','융자ㆍ보증':'Loans'};
+const CAT_GLOSS={'사업화':'Cash or in-kind support to commercialize and grow your business.','정책자금':'Government policy funding (grant-type).','융자ㆍ보증':'Loans and credit guarantees — repayable financing, not a grant.','시설ㆍ공간ㆍ보육':'Subsidized or free workspace and incubation.','멘토링ㆍ컨설팅ㆍ교육':'Mentoring, consulting, and education — usually no direct cash.','창업교육':'Startup education and training.','행사ㆍ네트워크':'An event, competition, or networking opportunity.','글로벌':'Support to grow your business internationally.','판로ㆍ해외진출':'Help reaching overseas markets and exporting.','기술개발(R&D)':'R&D funding and support for technology development.','인력':'Hiring and workforce support.'};
+const REG_EN={'전국':'Nationwide','서울':'Seoul','경기':'Gyeonggi','부산':'Busan','대구':'Daegu','인천':'Incheon','대전':'Daejeon','광주':'Gwangju','울산':'Ulsan','강원':'Gangwon','충북':'Chungbuk','충남':'Chungnam','전북':'Jeonbuk','전남':'Jeonnam','경북':'Gyeongbuk','경남':'Gyeongnam','제주':'Jeju','수도권':'Seoul area'};
+const ORG_EXPLAIN={'National gov':'Run by central government — a ministry or national agency.','Regional Innovation Center':'A 창조경제혁신센터 — a regional, government-backed startup hub.','City/Province agency':'A local public agency or technopark, run by a city or province.','Public foundation':'A non-profit public foundation or institute.','Private / accelerator':'A private accelerator, VC, or company-run program.','University':'A university startup center or industry–academic program.','Other':'Program operator.'};
+const ENGLISH_HOSTS=['startup-korea.com','ksgc.global'];
+const EXCL_POINTERS=['See the official announcement.','See the official announcement and attachments.','See detailed announcement.'];
+function fmtDate(iso){if(!iso)return '—';try{return new Date(iso+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}catch(e){return iso;}}
+function appLang(p){const u=p.apply_url||'';return ENGLISH_HOSTS.some(h=>u.includes(h))?'English supported':'Korean (official portal)';}
+function renderOverview(p){
+  const catlabel=CAT_LABEL[p.category]||p.category;
+  const gloss=CAT_GLOSS[p.category]||'';
+  const amin=p.age_min,amax=p.age_max;
+  const age=amin&&amax?`${amin}–${amax}`:(amin?`${amin}+`:(amax?`under ${amax}`:''));
+  const badge=isForeign(p)?'<span class="badge b-fore">🛂 For foreign founders</span>':(p.foreigner_relevance==='outbound_na'?'<span class="badge b-glob">🌏 Abroad / outbound</span>':'');
+  const sl=stageLabel(p.business_stage);
+  const target=esc(p.target_en||'');
+  const exclRaw=p.exclusions_en||'';
+  const showExcl=exclRaw&&!EXCL_POINTERS.includes(exclRaw.trim());
+  const reg=REG_EN[p.region]||p.region||'';
+  const noPre=p.business_stage&&p.business_stage.length&&!p.business_stage.includes('예비창업자');
+  const otype=p.org_type||'Other';
+  const phone=(p.contact_phone||'').trim();
+  const applyUrl=esc(p.apply_url||p.detail_url||'#');
+  const detailUrl=esc(p.detail_url||'#');
+  const facts=[['Region',reg],['Category',catlabel]];
+  if(age)facts.push(['Age',age]);
+  facts.push(['Application',appLang(p)],['Opens',fmtDate(p.open_date)],['Closes',fmtDate(p.close_date)]);
+  let h='';
+  h+=`<div class="crumb"><span class="cat" style="--ac:${(CAT[p.category]||{}).ac||'#888'}">${esc(catlabel)}</span>${badge}<span class="closes">closes ${esc(fmtDate(p.close_date))}</span></div>`;
+  h+=`<h1>${esc(p.title_en||p.title_ko||'')}</h1>`;
+  if(p.title_ko)h+=`<div class="kotitle kr">${esc(p.title_ko)}</div>`;
+  if(p.summary_en)h+=`<p class="lead">${esc(p.summary_en)}</p>`;
+  if(gloss)h+=`<p class="gloss">${esc(gloss)}</p>`;
+  h+='<div class="sec"><div class="lab">Who can apply</div>';
+  if(sl)h+=`<span class="stagepill">${esc(sl)}</span><br>`;
+  if(target)h+=`<p class="bodytext">${target}</p>`;
+  if(noPre)h+='<p class="src">For already-operating businesses — verify registration requirements on the official posting.</p>';
+  h+='<p class="src">Eligibility translated from the official Korean posting — confirm there before applying.</p></div>';
+  if(showExcl)h+=`<div class="sec"><div class="lab">Who\'s excluded</div><p class="bodytext">${esc(exclRaw)}</p></div>`;
+  h+=`<div class="sec"><div class="lab">The facts</div><div class="facts">${facts.map(([k,v])=>`<div class="fact"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>`).join('')}</div></div>`;
+  const ph=phone?`<a class="ph" href="tel:${esc(phone)}">☎ ${esc(phone)}</a>`:'';
+  h+=`<div class="sec"><div class="lab">Run by</div><div class="runby"><div><div class="org">${esc(p.agency||'')}</div>${ph}</div><span class="otype" title="${esc(ORG_EXPLAIN[otype]||'')}">${esc(otype)}</span></div></div>`;
+  h+=`<div class="cta"><a class="btn btn-p" href="${applyUrl}" target="_blank" rel="noopener noreferrer">Apply on official site →</a><a class="btn btn-s" href="${detailUrl}" target="_blank" rel="noopener noreferrer">Full announcement (Korean) →</a></div>`;
+  h+='<p class="note">Eligibility and details are translated from the official Korean announcement for navigation — <b>confirm on the official posting before applying.</b> Seoul Crushing doesn\'t decide eligibility and never guarantees you qualify.</p>';
+  return h;
+}
+const backdrop=document.getElementById('backdrop'),modalEl=document.getElementById('modal'),mbody=document.getElementById('mbody');
+let lastFocus=null;
+function showModal(p){lastFocus=document.activeElement;modalEl.style.setProperty('--ac',(CAT[p.category]||{}).ac||'#888');mbody.innerHTML=renderOverview(p);backdrop.classList.add('show');document.body.classList.add('modal-open');backdrop.scrollTop=0;document.getElementById('modalX').focus();}
+function hideModal(){backdrop.classList.remove('show');document.body.classList.remove('modal-open');if(lastFocus&&lastFocus.focus){lastFocus.focus();lastFocus=null;}}
+function openModal(p){history.pushState({prog:p.id},'','#'+p.id);showModal(p);}
+function closeModal(){if(location.hash){history.back();}else{hideModal();}}
+window.addEventListener('popstate',hideModal);
+document.addEventListener('click',e=>{
+  const a=e.target.closest('a[data-prog]');
+  if(!a)return;
+  if(e.metaKey||e.ctrlKey||e.shiftKey||e.button===1)return; // let cmd/ctrl/middle-click open the static page in a new tab
+  e.preventDefault();
+  const p=PROGRAMS.find(x=>x.id===a.dataset.prog);
+  if(p)openModal(p);
+});
+document.getElementById('modalX').addEventListener('click',closeModal);
+backdrop.addEventListener('click',e=>{if(e.target===backdrop)closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&backdrop.classList.contains('show'))closeModal();});
+backdrop.addEventListener('keydown',e=>{
+  if(e.key!=='Tab'||!backdrop.classList.contains('show'))return;
+  const f=modalEl.querySelectorAll('a[href],button');if(!f.length)return;
+  const first=f[0],last=f[f.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+});
 
 // View modes
 const PRESET={light:{bg:'gray',cols:'3',stream:'on'},dark:{bg:'dark',cols:'3',stream:'on'}};
@@ -282,7 +399,7 @@ function applyMode(mode){
   document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
   if(mode==='custom'){
     const s=JSON.parse(localStorage.getItem('kpn_custom')||'null')||{bg:'gray',cols:'3',stream:'on'};
-    document.body.dataset.bg=s.bg;document.body.dataset.cols=s.cols;document.body.dataset.stream=s.stream;
+    document.body.dataset.bg=s.bg;document.body.dataset.cols='3';document.body.dataset.stream=s.stream;
     localStorage.setItem('kpn_mode','custom');
   }else{
     const p=PRESET[mode];document.body.dataset.bg=p.bg;document.body.dataset.cols=p.cols;document.body.dataset.stream=p.stream;
@@ -308,6 +425,8 @@ document.addEventListener('click',e=>{if(!e.target.closest('.modewrap'))setPop(f
 document.getElementById('liveCount').textContent=ACTIVE.length;
 applyMode(localStorage.getItem('kpn_mode')||'light');
 renderPills();render();renderStream();renderFeatured();
+// open modal if loaded with a #program-id (shareable links)
+if(location.hash.length>1){const p=PROGRAMS.find(x=>x.id===location.hash.slice(1));if(p)showModal(p);}
 })();
 </script>
 </body>

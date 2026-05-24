@@ -15,10 +15,10 @@ import os
 import xml.etree.ElementTree as ET
 from collections import Counter
 
-from pages import make_pages, make_stats, CAT_LABEL, REG_EN, STAGE_EN
+from pages import make_pages, CAT_LABEL, REG_EN, STAGE_EN
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE_URL = "https://korea-programs-navigator.local"
+SITE_URL = "https://seoulcrushing.com/start"
 
 
 def make_rss(programs: list, out_dir: str) -> None:
@@ -65,6 +65,8 @@ def main():
     trans = json.load(open(tpath, encoding="utf-8")) if os.path.exists(tpath) else {}
     opath = os.path.join(ROOT, "data", "org_types.json")
     orgtypes = json.load(open(opath, encoding="utf-8")) if os.path.exists(opath) else {}
+    ovpath = os.path.join(ROOT, "data", "overrides.json")
+    overrides = json.load(open(ovpath, encoding="utf-8")) if os.path.exists(ovpath) else {}
     for r in norm:
         r["org_type"] = orgtypes.get(r.get("agency", ""), "Other")
         t = trans.get(r["content_hash"])
@@ -77,6 +79,9 @@ def main():
                 r["target_en"] = t["target_en"]
             if t.get("exclusions_en"):
                 r["exclusions_en"] = t["exclusions_en"]
+        ov = overrides.get(r["id"])
+        if ov:
+            r.update(ov)  # manual corrections (data/overrides.json) win over heuristic + translation
 
     # Drift guards — surface anything that would render as raw Korean or untranslated.
     unknown_cat = sorted({r["category"] for r in norm if r["category"] and r["category"] not in CAT_LABEL})
@@ -108,7 +113,6 @@ def main():
         f.write("window.KPN_DATA = " + json.dumps(payload, ensure_ascii=False) + ";")
     make_rss(norm, out)
     npages = make_pages(norm, os.path.join(ROOT, "public"))
-    make_stats(norm, os.path.join(ROOT, "public"))
 
     print(f"built {len(norm)} programs -> public/data/  (translated: {sum(1 for r in norm if r['title_en'])}/{len(norm)})")
     print("facets:", {k: len(v) for k, v in facets.items()})

@@ -1,6 +1,6 @@
 # v1 build contract — locked 2026-05-23
 
-Read **README.md** (North-Star + principles) and **DESIGN.md** (schema, pipeline, parse rules, trust guards) first. Visual spec = open **`public/playground.html`** + **`public/mock.html`** in a browser. This file = the final v1 scope decisions on top of those.
+Read **README.md** (North-Star + principles) and **DESIGN.md** (schema, pipeline, parse rules, trust guards) first. Visual spec = the built feed **`public/index.html`** (open in a browser). This file = the final v1 scope decisions on top of those. _(Earlier `playground.html` / `mock.html` design iterations were removed once `index.html` superseded them, 2026-05-24.)_
 
 **Build in-place on `main` — no worktree** (solo, no-remote repo). Sonnet tier. Commit at logical boundaries; local only, never add a remote / push.
 
@@ -10,7 +10,7 @@ Foreign founders **broadly** — any foreign resident who can register/run a bus
 ## Data
 K-Startup **active only** (~296; `rcrt_prgs_yn=="Y"` AND `close_date ≥ today`). **No Bizinfo** (→ v2). Daily refresh.
 
-## UX (match the playground/mock)
+## UX (match the built feed `public/index.html`)
 - **Browse:** compact cards, **chips** category color (not rainbow tints, not mono), fat **pink D-day**, warm English title leads + KO secondary. Lenses: `All · 🔥 Closing soon · 🛂 Visa · 💰 Money · 🏢 Space · 🎉 Fun · 🌏 Go global`.
 - **⚡ Just-in:** recency stream (newest first) — de-duplicated from the cards (different angle, not the same list).
 - **View customization:** **Light** (default = gray bg · 3-col · stream on) / **Dark** (dark · 3 · on) / **Custom** (bg `gray|pink|dark` · cols `2|3|4` · stream `on|off`). Persist in localStorage. Color = chips only.
@@ -18,7 +18,7 @@ K-Startup **active only** (~296; `rcrt_prgs_yn=="Y"` AND `close_date ≥ today`)
 - **Wow discovery (in v1):** feature the standout foreigner-unique programs prominently (OASIS startup-visa, global tracks) — a featured slot + 🛂 Visa as a front lens. This is the shareable hook ("wait, I can get a startup visa?!"). No new data — pure framing of what's already in the 296.
 
 ## Translation — NO paid AI API
-`title_ko` + `summary_ko` → **warm, human, plain English** (not literal gov-speak; match the tone in `mock.html`), + inbound/outbound tag for `글로벌` / `판로ㆍ해외진출` categories. Do it via **Claude Code** (Haiku subagents, or inline if running as one) — cache to `data/translations.json` keyed by `content_hash`, deltas only. (Owner rule `feedback_no_paid_ai_api`.)
+`title_ko` + `summary_ko` → **warm, human, plain English** (not literal gov-speak; match the established tone of the `summary_en` strings in `data/translations.json`), + inbound/outbound tag for `글로벌` / `판로ㆍ해외진출` categories. Do it via **Claude Code** (Haiku subagents, or inline if running as one) — cache to `data/translations.json` keyed by `content_hash`, deltas only. (Owner rule `feedback_no_paid_ai_api`.)
 
 ## Also in v1
 **RSS feed** — static `feed.xml` emitted by `build.py` (no backend, no PII; fits privacy-first + serves don't-miss-out).
