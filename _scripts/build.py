@@ -61,7 +61,10 @@ def main():
     norm = json.load(open(os.path.join(ROOT, "data", "normalized.json"), encoding="utf-8"))
     tpath = os.path.join(ROOT, "data", "translations.json")
     trans = json.load(open(tpath, encoding="utf-8")) if os.path.exists(tpath) else {}
+    opath = os.path.join(ROOT, "data", "org_types.json")
+    orgtypes = json.load(open(opath, encoding="utf-8")) if os.path.exists(opath) else {}
     for r in norm:
+        r["org_type"] = orgtypes.get(r.get("agency", ""), "Other")
         t = trans.get(r["content_hash"])
         if t:
             r["title_en"] = t.get("title_en") or r["title_en"]

@@ -7,5 +7,6 @@ venv/
 /data/raw/
 /data/*.json
 !/data/translations.json
+!/data/org_types.json
 /data/batches/
 /public/data/
