@@ -21,7 +21,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GLOBAL_CATS = {"글로벌", "판로ㆍ해외진출"}
 # anchored phrases only — never bare 국민 (avoids "전국민 대상" = open-to-all)
 BARRED_RE = re.compile(r"(내국인에\s*한|대한민국\s*국민에\s*한|국민에\s*한(?:하|함|정))")
-FOREIGN_RE = re.compile(r"(외국인|재외국민)")
+FOREIGN_RE = re.compile(r"(외국인|재외국민|외국\s*국적)")
 
 
 def strip_html(s):
@@ -117,7 +117,14 @@ def main():
     if not raws:
         raise SystemExit("no data/raw/kstartup_active_*.json — run fetch_kstartup.py first")
     src = raws[-1]
-    out = [normalize(r) for r in json.load(open(src, encoding="utf-8"))]
+    overrides_path = os.path.join(ROOT, "data", "overrides.json")
+    overrides = json.load(open(overrides_path, encoding="utf-8")) if os.path.exists(overrides_path) else {}
+    out = []
+    for r in json.load(open(src, encoding="utf-8")):
+        rec = normalize(r)
+        if rec["id"] in overrides:
+            rec.update(overrides[rec["id"]])
+        out.append(rec)
     with open(os.path.join(ROOT, "data", "normalized.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
 
