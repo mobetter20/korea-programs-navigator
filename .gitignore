@@ -11,3 +11,4 @@ venv/
 /data/batches/
 /public/data/
 /public/start/
+/public/stats.html

@@ -41,6 +41,7 @@
   .bar{display:flex;align-items:center;gap:12px;padding:12px 22px}
   .brand{font-size:16px;font-weight:800}.brand .d{color:var(--pink)}
   .sect{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-family:ui-monospace,Menlo,monospace;padding-left:9px;border-left:1px solid var(--line)}
+  .navlink{font-size:11px;font-weight:700;color:var(--muted);text-decoration:none;font-family:ui-monospace,Menlo,monospace}.navlink:hover{color:var(--pink-dk)}
   .live{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.05em;color:var(--muted);font-weight:600;font-family:ui-monospace,Menlo,monospace}
   .led{width:8px;height:8px;border-radius:50%;background:#2da854;animation:p 1.8s infinite}@keyframes p{0%{box-shadow:0 0 0 0 rgba(45,168,84,.5)}70%{box-shadow:0 0 0 7px rgba(45,168,84,0)}100%{box-shadow:0 0 0 0 rgba(45,168,84,0)}}
   .pills{display:flex;gap:7px;padding:0 22px 11px;overflow-x:auto;scrollbar-width:none}.pills::-webkit-scrollbar{display:none}
@@ -98,6 +99,7 @@
   <div class="bar">
     <span class="brand">Seoul Crushing<span class="d">.</span></span>
     <span class="sect">Start</span>
+    <a class="navlink" href="stats.html">📊 By the numbers</a>
     <span class="live"><span class="led"></span><span id="liveCount">…</span> LIVE</span>
     <div class="modewrap">
       <div class="modes" id="modes">

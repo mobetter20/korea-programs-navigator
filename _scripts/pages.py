@@ -218,3 +218,64 @@ def make_pages(programs, public_dir):
             f.write(render_overview(p))
         n += 1
     return n
+
+
+STATS_EXTRA_CSS = """
+.lead{margin-top:10px}
+.callout{background:linear-gradient(100deg,color-mix(in srgb,var(--pink) 16%,var(--card)),var(--card) 72%);border:1px solid color-mix(in srgb,var(--pink) 34%,var(--line));border-radius:14px;padding:16px 18px;margin-top:16px;font-size:14px;line-height:1.5}
+.callout b{font-family:'Bagel Fat One','Arial Black',cursive;color:var(--pink-dk);font-size:20px}
+.stat{margin-top:24px}
+.stat h2{font-size:11px;font-family:ui-monospace,Menlo,monospace;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:10px;font-weight:800}
+.bar{display:flex;align-items:center;gap:10px;margin:5px 0}
+.bl{flex:0 0 150px;font-size:12.5px;text-align:right}
+.bt{flex:1;height:12px;background:color-mix(in srgb,var(--line) 55%,transparent);border-radius:999px;overflow:hidden}
+.bf{display:block;height:100%;background:var(--ac);border-radius:999px}
+.bn{flex:0 0 30px;font-size:11.5px;font-weight:700;color:var(--muted);font-family:ui-monospace,Menlo,monospace}
+"""
+
+
+def _bars(counter):
+    mx = max(counter.values()) if counter else 1
+    return "".join(
+        f'<div class="bar"><span class="bl">{html.escape(str(l))}</span>'
+        f'<span class="bt"><span class="bf" style="width:{round(c / mx * 100)}%"></span></span>'
+        f'<span class="bn">{c}</span></div>'
+        for l, c in counter.most_common()
+    )
+
+
+def make_stats(programs, public_dir):
+    """Emit public/stats.html — a compact 'by the numbers' view (the 'See it'
+    artifact from the 'Build it' data). Static, computed at build time."""
+    from collections import Counter
+    total = len(programs)
+    silent = sum(1 for p in programs if p.get("nationality_flag") == "silent")
+    barred = sum(1 for p in programs if p.get("nationality_flag") == "barred")
+    cat = Counter(CAT_LABEL.get(p.get("category", ""), p.get("category", "")) for p in programs)
+    reg = Counter(REG_EN.get(p.get("region", ""), p.get("region", "")) for p in programs if p.get("region"))
+    org = Counter(p.get("org_type", "Other") for p in programs)
+    bar_clause = ", and <b>none</b> bar foreigners" if barred == 0 else f"; only {barred} bar foreigners"
+    body = (
+        '<a class="back" href="index.html">← Seoul Crushing / Start</a>'
+        '<article class="sheet"><h1>By the numbers</h1>'
+        f'<p class="lead">What {total} live Korean government startup &amp; business-support programs look like — '
+        "and how open they are to foreign founders.</p>"
+        f'<div class="callout">🛂 <b>{silent}</b> of {total} programs state <b>no nationality requirement</b>'
+        f"{bar_clause}. As a legal resident, you can likely apply to far more than you'd expect.</div>"
+        f'<div class="stat"><h2>By category</h2>{_bars(cat)}</div>'
+        f'<div class="stat"><h2>By region</h2>{_bars(reg)}</div>'
+        f'<div class="stat"><h2>Run by</h2>{_bars(org)}</div>'
+        '<p class="note">Source: K-Startup (창업진흥원) open data — the current active set, refreshed regularly. '
+        "Counts describe the programs in the navigator, not all of Korea's support programs.</p></article>"
+    )
+    css = PAGE_CSS.replace("../fonts/", "fonts/") + STATS_EXTRA_CSS  # root-level: fonts/ not ../fonts/
+    head = (
+        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">'
+        "<title>By the numbers — Seoul Crushing / Start</title>"
+        f'<meta name="description" content="What {total} Korean government startup programs look like, '
+        'and how open they are to foreign founders.">'
+        f"<style>{css}</style></head><body><div class=\"wrap\">"
+    )
+    with open(os.path.join(public_dir, "stats.html"), "w", encoding="utf-8") as f:
+        f.write(head + body + "</div></body></html>")
