@@ -73,16 +73,23 @@ Korean). To include them, run the **translation step** — in a Claude Code sess
 4. `python3 _scripts/enrich.py --merge delta.clean.json`
 5. `./refresh.sh` (build now includes them).
 
-**Scheduled (autonomous) — to activate:** the refresh must run as a **scheduled
-Claude Code routine** (not a plain GitHub Action — the translation step bars an
-API-calling Action under the no-paid-API rule). The routine *is* Claude, so it
-does the translation step itself. Owner setup:
-- Create a scheduled CC routine whose prompt runs: `fetch → normalize --input →
-  (translate the untranslated deltas via Haiku → validate_delta → enrich --merge)
-  → build → validate_build → commit-if-changed → push`. Daily, early KST.
-- It needs `DATA_GO_KR_SERVICE_KEY` (local `.env`, or a routine secret if cloud)
-  and push credentials. **Local-first is the safe default** (a missed day is
-  low-harm — D-day is computed client-side, so deadlines stay correct).
+**Scheduled (autonomous) — INSTALLED, frozen:** a local launchd job runs the
+deterministic pipeline daily at 06:00 KST — `com.ajin.korea-programs-navigator-refresh`
+→ `_scripts/scheduled_refresh.py` (pure Python; launchd can't exec bash on a
+Documents path). It does fetch → normalize → build → validate → commit-if-changed →
+push, reading the key from local `.env`. It does **not** translate — new programs are
+held (above) until a top-up; closed programs still drop daily. Missed days are low-harm
+(D-day is client-side). **It is FROZEN** by a `REFRESH_FROZEN` file at the repo root.
+
+To activate:
+1. Reconnect the Cloudflare GitHub App (auto-deploy webhook) — else pushes don't publish.
+2. `rm REFRESH_FROZEN`
+3. Watch the first run — `tail -f data/refresh.log` — and confirm `git push` works from
+   launchd (keychain creds may need a first-time unlock).
+
+For fully-autonomous translation (no held lag), add a Claude Code translate step to the
+runner — a `claude -p` call between normalize and build (deferred; held-behavior keeps
+the feed correct meanwhile, per the no-paid-AI rule).
 
 ## Watchdog (independent)
 
