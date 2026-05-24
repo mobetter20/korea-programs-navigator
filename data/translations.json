@@ -118,7 +118,7 @@
  "3bdf95bbe89e3628": {
   "title_en": "Expand overseas: Seoul Unicorn Challenge",
   "summary_en": "Seoul picks high-potential startups going global and funds market research, legal, and travel. Apply to get selected.",
-  "foreigner_relevance": "outbound_na",
+  "foreigner_relevance": "general_eligible",
   "target_en": "General companies. Domestic companies: startups less than 10 years old seeking overseas expansion. Overseas companies: startups less than 10 years old operated by foreign nationals."
  },
  "b777d0413d4ad2f1": {
@@ -234,7 +234,7 @@
  "5bd3d367b29f008d": {
   "title_en": "Launch your startup globally with Hwaseong",
   "summary_en": "Hwaseong Industrial Promotion Institute accelerates startups with global ambitions. Mentoring, market research, investor intros.",
-  "foreigner_relevance": "inbound_global",
+  "foreigner_relevance": "outbound_na",
   "target_en": "General companies, solo entrepreneurs. As of announcement close date, technology (less than 7 years tenure) or 10 major new industries (less than 10 years tenure) sector Hwaseong-based individual or corporate startups.",
   "exclusions_en": "See detailed announcement."
  },
@@ -421,7 +421,7 @@
  "02198a31a30e605f": {
   "title_en": "Expand your e-commerce reach: unified platform access",
   "summary_en": "Online sellers get integrated shop management tools and support to scale sales across channels.",
-  "foreigner_relevance": "outbound_na",
+  "foreigner_relevance": "general_eligible",
   "target_en": "General companies, solo entrepreneurs. Micro-business owners.",
   "exclusions_en": "Businesses with no business registration or in suspension/discontinuation. Sellers in government-restricted industries/items (entertainment/adult businesses, etc.). Franchise headquarters or franchisees (based on Fair Trade Commission-registered franchise business criteria)."
  },
@@ -440,7 +440,7 @@
  "44663a88454045f6": {
   "title_en": "Government procurement channel: boost B2B sales",
   "summary_en": "Startups get institutional sponsorship to sell into Korea's public procurement platform—steady revenue without the pitch.",
-  "foreigner_relevance": "outbound_na",
+  "foreigner_relevance": "general_eligible",
   "target_en": "University students, general public, universities, research institutions, general companies, solo entrepreneurs. Companies that have been issued a 'Startup Certification' under the Small and Medium Enterprise Startup Support Act Article 2 and Enforcement Decree Article 2, and meet Venture Korea product designation criteria. (See full requirements in official announcement [2. Applicant Eligibility and Exclusions].)",
   "exclusions_en": "Applicants subject to exclusion criteria under the Venture Korea Registered Product/Service Designation Management Regulations cannot apply for designation."
  },
@@ -996,7 +996,7 @@
  "ddd78c208ec4152f": {
   "title_en": "Launch K-beauty globally: B the B partner network",
   "summary_en": "Expand Korean beauty brands overseas. SBA matches you with global distribution partners.",
-  "foreigner_relevance": "outbound_na",
+  "foreigner_relevance": "general_eligible",
   "target_en": "General companies: domestic and international companies wishing to operate B the B global bases; companies that either own overseas permanent stores or can acquire/establish new ones by November 2026; companies capable of creating and operating permanent K-beauty B the B concept stores overseas; companies able to contribute matching or greater funds (in-kind or cash) equivalent to SBA support.",
   "exclusions_en": "See the official announcement."
  },
@@ -1563,7 +1563,7 @@
  "d35c81295e3c9930": {
   "title_en": "Expand globally: Korea's 2026 international market access program",
   "summary_en": "Fund and support for Korean companies entering global markets. Get backing for overseas expansion strategy, market research, and international partnerships.",
-  "foreigner_relevance": "outbound_na",
+  "foreigner_relevance": "general_eligible",
   "target_en": "General corporations. ㅇ Technology sector: ICT, digital product/service-holding companies.\nㅇ Products and services currently in domestic/overseas markets with active business operations (promotion, advertising, sales).\nㅇ Companies prepared for overseas expansion (holding 1 or more of the following):\n① Overseas IP (patents, PCT, trademarks, etc.).\n② Experience with overseas exhibitions/conference participation.\n③ Overseas subsidiary establishment documentation.\n④ Export track record.\n⑤ Contracts with overseas partners (MOU, NDA, etc.).\nㅇ Pre-IPO unlisted and domestic or foreign registered corporations.",
   "exclusions_en": "① Companies not meeting 'Application Qualifications' above.\n② Publicly listed companies as of the announcement date.\n③ Regulated for payment default by financial institutions.\n④ Delinquent in national and local taxes.\n⑤ Subject to business participation restrictions or sanctions as of the submission deadline.\n⑥ Companies receiving support with identical content from government/local government/related institutions.\n⑦ Companies selected in the current year for 'DNA-Integrated Product/Service Overseas Expansion Support Project' or 'AI Digital Transformation Innovation Company Overseas Demonstration Support Project'.\n\n※ If selected companies violate the above or state false facts, selection may be cancelled and government support funds recovered.\n※ If duplicate benefit issues are confirmed after company selection, foundation support funds may be fully recovered."
  },
