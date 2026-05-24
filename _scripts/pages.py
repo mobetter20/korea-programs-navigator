@@ -105,7 +105,7 @@ def _app_lang(p):
     url = p.get("apply_url") or ""
     if any(h in url for h in ENGLISH_HOSTS):
         return "English supported"
-    return "Korean (official portal)"
+    return "Korean (application & program)"
 
 
 def render_overview(p, site_url=""):

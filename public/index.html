@@ -70,7 +70,7 @@
   .desc{font-size:12px;line-height:1.36;color:var(--ink);opacity:.74;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .meta{font-size:10px;color:var(--muted);font-family:var(--mono)}
   .foot{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin-top:auto;padding-top:6px}
-  .badge{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:999px}.b-fore{background:var(--pink);color:#fff}.b-glob{background:#eaf1ff;color:#2f6bd8}
+  .badge{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:999px}.b-fore{background:var(--pink);color:#fff}.b-glob{background:#eaf1ff;color:#2f6bd8}.b-eng{background:#e7f7ec;color:#1c7c43}
   .reg{font-size:10px;color:var(--muted);font-family:var(--mono);margin-left:auto}
   .cat{background:color-mix(in srgb,var(--ac) 18%,transparent);color:var(--ac)}
 
@@ -277,7 +277,8 @@ function card(p){
   let badge='';
   if(isForeign(p))badge='<span class="badge b-fore">🛂 For foreign founders</span>';
   else if(p.foreigner_relevance==='outbound_na')badge='<span class="badge b-glob">🌏 Abroad</span>';
-  return `<a class="card" style="--ac:${cat.ac}" data-prog="${esc(p.id)}" href="start/${esc(p.id)}.html" target="_blank" rel="noopener"><div class="top"><div class="dday${hot?' hot':''}">D-${p._days}<small>${mmdd}</small></div><span class="cat">${cat.en}</span></div><h3>${esc(title)}</h3>${desc?`<span class="desc">${esc(desc)}</span>`:''}<div class="foot">${badge}<span class="meta">${metaReg}</span></div></a>`;
+  const eng=ENGLISH_HOSTS.some(h=>(p.apply_url||'').includes(h))?'<span class="badge b-eng">🌐 English OK</span>':'';
+  return `<a class="card" style="--ac:${cat.ac}" data-prog="${esc(p.id)}" href="start/${esc(p.id)}.html" target="_blank" rel="noopener"><div class="top"><div class="dday${hot?' hot':''}">D-${p._days}<small>${mmdd}</small></div><span class="cat">${cat.en}</span></div><h3>${esc(title)}</h3>${desc?`<span class="desc">${esc(desc)}</span>`:''}<div class="foot">${badge}${eng}<span class="meta">${metaReg}</span></div></a>`;
 }
 function render(){
   const rows=ACTIVE.filter(p=>activeLens==='all'||p._lenses.includes(activeLens)).sort((a,b)=>a._days-b._days);
@@ -323,7 +324,7 @@ function renderFeatured(){
     const p=ACTIVE.find(x=>(x.title_ko||'').includes(f.match)||(x.title_en||'').includes(f.match));
     if(p)found.push(`<a data-prog="${esc(p.id)}" href="start/${esc(p.id)}.html" target="_blank" rel="noopener">${esc(f.label)} →</a>`);
   });
-  document.getElementById('featSub').innerHTML=`<b>${silent}</b> of ${PROGRAMS.length} programs state no nationality bar — as a legal resident, you can likely apply.`;
+  document.getElementById('featSub').innerHTML=`<b>${silent}</b> of ${PROGRAMS.length} programs state no nationality bar — as a legal resident, you can likely apply. Most run in Korean, so bring a teammate who speaks it.`;
   document.getElementById('featLinks').innerHTML=found.length?`<span class="feat-lead">Korea even has startup visas:</span>${found.join('')}`:'';
 }
 
@@ -335,7 +336,7 @@ const ORG_EXPLAIN={'National gov':'Run by central government — a ministry or n
 const ENGLISH_HOSTS=['startup-korea.com','ksgc.global'];
 const EXCL_POINTERS=['See the official announcement.','See the official announcement and attachments.','See detailed announcement.'];
 function fmtDate(iso){if(!iso)return '—';try{return new Date(iso+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}catch(e){return iso;}}
-function appLang(p){const u=p.apply_url||'';return ENGLISH_HOSTS.some(h=>u.includes(h))?'English supported':'Korean (official portal)';}
+function appLang(p){const u=p.apply_url||'';return ENGLISH_HOSTS.some(h=>u.includes(h))?'English supported':'Korean (application & program)';}
 function renderOverview(p){
   const catlabel=CAT_LABEL[p.category]||p.category;
   const gloss=CAT_GLOSS[p.category]||'';
