@@ -40,12 +40,11 @@ Status: **plan-critic-hardened + live-measured (2026-05-23).** Implements North-
 
 1. **fetch_kstartup.py** — pull all, dedupe `pbanc_sn`, filter active. ✅ built.
 2. **normalize.py** — raw active → schema via parse rules. Pure (no net/LLM); tested against `data/fixtures/sample_record.json`.
-3. **enrich.py** — LLM, new/changed only, **`content_hash` = hash of LLM inputs only (`biz_pbanc_nm`+`pbanc_ctnt`)**:
-   - translate title+summary KO→EN (Claude Haiku).
-   - `foreigner_relevance`: LLM inbound/outbound judgment ONLY for categories **글로벌 + 판로ㆍ해외진출**; else `general_eligible`. `outbound_na` down-ranks, never excludes.
-   - needs `ANTHROPIC_API_KEY`.
-4. **build.py** — emit `public/data/programs.json` (+ facet indexes category/region/stage).
-5. **cron** — GH Actions daily (deferred until remote exists).
+3. **enrich.py** — **cache manager only, NO API.** Field-level `--merge` of Claude-Code-produced translations into `data/translations.json` (keyed by `content_hash` = sha1 of `title_ko`+`summary_ko`). Reports missing/stale. **Translation + inbound/outbound judgment run via Claude Code Haiku subagents** (no paid AI API — owner rule `feedback_no_paid_ai_api`), not an API key.
+   - fields cached: `title_en`, `summary_en`, `target_en` (eligibility), `exclusions_en` (faithful, never condensed), `foreigner_relevance`.
+   - `foreigner_relevance`: inbound/outbound judgment ONLY for **글로벌 + 판로ㆍ해외진출**; else `general_eligible`. `outbound_na` down-ranks, never excludes.
+4. **build.py** — merge `translations.json` + `org_types.json` into records; emit `programs.js`/`.json`, `feed.xml`, per-program `start/<id>.html`, `stats.html`. Drift guards warn on unknown category/region/stage enums or untranslated records.
+5. **refresh** — a **scheduled Claude Code routine** (NOT a plain GH Action — the translation step bars an API-calling Action under no-paid-API): fetch → normalize → CC translates new/changed deltas → enrich --merge → build → commit. Deferred until remote exists.
 
 ## Dedupe decision (made explicit)
 

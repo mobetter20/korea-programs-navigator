@@ -262,12 +262,13 @@ const FEATURED=[
 function renderFeatured(){
   const silent=ACTIVE.filter(p=>p.nationality_flag==='silent').length;
   const barred=ACTIVE.filter(p=>p.nationality_flag==='barred').length;
-  document.getElementById('featSub').innerHTML=`<b>${silent}</b> of ${ACTIVE.length} programs here state no nationality requirement${barred===0?', and none bar foreigners':''} — as a legal resident you can likely apply. Korea even has a dedicated startup visa:`;
   const found=[];
   FEATURED.forEach(f=>{
     const p=ACTIVE.find(x=>(x.title_ko||'').includes(f.match)||(x.title_en||'').includes(f.match));
     if(p)found.push(`<a href="start/${p.id}.html">${f.label} →</a>`);
   });
+  const visa=found.length?' Korea even has a dedicated startup visa:':'';
+  document.getElementById('featSub').innerHTML=`<b>${silent}</b> of ${ACTIVE.length} programs here state no nationality requirement${barred===0?', and none bar foreigners':''} — as a legal resident you can likely apply.${visa}`;
   document.getElementById('featLinks').innerHTML=found.join('');
 }
 

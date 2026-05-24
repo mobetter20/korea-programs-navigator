@@ -15,7 +15,7 @@ import os
 import xml.etree.ElementTree as ET
 from collections import Counter
 
-from pages import make_pages, make_stats
+from pages import make_pages, make_stats, CAT_LABEL, REG_EN, STAGE_EN
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE_URL = "https://korea-programs-navigator.local"
@@ -77,6 +77,19 @@ def main():
                 r["target_en"] = t["target_en"]
             if t.get("exclusions_en"):
                 r["exclusions_en"] = t["exclusions_en"]
+
+    # Drift guards — surface anything that would render as raw Korean or untranslated.
+    unknown_cat = sorted({r["category"] for r in norm if r["category"] and r["category"] not in CAT_LABEL})
+    unknown_reg = sorted({r["region"] for r in norm if r["region"] and r["region"] not in REG_EN})
+    unknown_stage = sorted({s for r in norm for s in r["business_stage"] if s not in STAGE_EN})
+    untranslated = [r["id"] for r in norm if not r.get("title_en")]
+    for label, items in [("categories (add to CAT_LABEL)", unknown_cat),
+                         ("regions (add to REG_EN)", unknown_reg),
+                         ("stages (add to STAGE_EN)", unknown_stage)]:
+        if items:
+            print(f"⚠️  DRIFT: unknown {label}: {items} — these render as raw Korean")
+    if untranslated:
+        print(f"⚠️  {len(untranslated)} programs UNTRANSLATED (would show Korean): {untranslated[:8]}")
 
     facets = {
         "category": [k for k, _ in Counter(r["category"] for r in norm).most_common()],
