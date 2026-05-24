@@ -210,14 +210,14 @@ function card(p){
   const reg=REG[p.region]||(p.region||'').toUpperCase();
   const title=p.title_en||p.title_ko;
   const desc=p.summary_en||'';
-  const link=p.apply_url||p.detail_url||'#';
+  const link='start/'+p.id+'.html';
   const mmdd=p.close_date?p.close_date.slice(5).replace('-','/'):'';
   const meta=metaLine(p);
   let lead='';
   if(p.nationality_flag==='explicit_foreign'||p.foreigner_relevance==='inbound_global'||p.foreigner_relevance==='foreigner_targeted')lead='<span class="badge b-fore">🛂 For foreign founders</span>';
   else if(p.foreigner_relevance==='outbound_na')lead='<span class="badge b-glob">🌏 Abroad</span>';
   else if(meta)lead=`<span class="meta">${meta}</span>`;
-  return `<a class="card" style="--ac:${cat.ac}" href="${link}" target="_blank" rel="noopener noreferrer"><div class="top"><div class="dday${hot?' hot':''}">D-${p._days}<small>${mmdd}</small></div><span class="cat">${cat.en}</span></div><h3>${esc(title)}</h3>${desc?`<span class="desc">${esc(desc)}</span>`:''}<div class="foot">${lead}<span class="reg">${reg}</span></div></a>`;
+  return `<a class="card" style="--ac:${cat.ac}" href="${link}"><div class="top"><div class="dday${hot?' hot':''}">D-${p._days}<small>${mmdd}</small></div><span class="cat">${cat.en}</span></div><h3>${esc(title)}</h3>${desc?`<span class="desc">${esc(desc)}</span>`:''}<div class="foot">${lead}<span class="reg">${reg}</span></div></a>`;
 }
 function render(){
   const rows=ACTIVE.filter(p=>activeLens==='all'||p._lenses.includes(activeLens)).sort((a,b)=>a._days-b._days);
@@ -236,8 +236,8 @@ function renderStream(){
   document.getElementById('streamCount').textContent=sorted.length;
   const row=p=>{
     const ago=p._ago===0?'NEW':`${p._ago}d`;
-    const link=p.apply_url||p.detail_url||'#';
-    return`<a class="tl" href="${link}" target="_blank" rel="noopener noreferrer"><span class="ago">${ago}</span><span class="tlt">${esc(p.title_en||p.title_ko)}</span></a>`;
+    const link='start/'+p.id+'.html';
+    return`<a class="tl" href="${link}"><span class="ago">${ago}</span><span class="tlt">${esc(p.title_en||p.title_ko)}</span></a>`;
   };
   const more=document.getElementById('more');
   let shown=STREAM_CAP;
@@ -261,8 +261,8 @@ function renderFeatured(){
   const found=[];
   FEATURED.forEach(f=>{
     const p=ACTIVE.find(x=>(x.title_ko||'').includes(f.match)||(x.title_en||'').includes(f.match));
-    if(p){const link=p.apply_url||p.detail_url||'#';
-      found.push(`<a href="${link}" target="_blank" rel="noopener noreferrer">${f.label} →</a>`);}
+    if(p){const link='start/'+p.id+'.html';
+      found.push(`<a href="${link}">${f.label} →</a>`);}
   });
   if(found.length){document.getElementById('featLinks').innerHTML=found.join('');document.getElementById('feat').hidden=false;}
 }

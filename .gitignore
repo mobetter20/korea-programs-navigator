@@ -10,3 +10,4 @@ venv/
 !/data/org_types.json
 /data/batches/
 /public/data/
+/public/start/

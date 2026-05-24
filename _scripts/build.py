@@ -15,6 +15,8 @@ import os
 import xml.etree.ElementTree as ET
 from collections import Counter
 
+from pages import make_pages
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE_URL = "https://korea-programs-navigator.local"
 
@@ -92,10 +94,12 @@ def main():
     with open(os.path.join(out, "programs.js"), "w", encoding="utf-8") as f:
         f.write("window.KPN_DATA = " + json.dumps(payload, ensure_ascii=False) + ";")
     make_rss(norm, out)
+    npages = make_pages(norm, os.path.join(ROOT, "public"))
 
     print(f"built {len(norm)} programs -> public/data/  (translated: {sum(1 for r in norm if r['title_en'])}/{len(norm)})")
     print("facets:", {k: len(v) for k, v in facets.items()})
     print(f"rss: public/data/feed.xml")
+    print(f"overview pages: public/start/ ({npages})")
 
 
 if __name__ == "__main__":
