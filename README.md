@@ -4,6 +4,13 @@
 
 English-language navigator that aggregates Korean government **startup & business-support** programs from open APIs and surfaces what a **foreign resident** can actually apply for. Comprehensive underneath, one scannable card per program on top. Visual/architecture sibling: [seoulcrushing.com](../seoulcrushing.com).
 
+## Status — LIVE
+
+**https://start.seoulcrushing.com** — v1 shipped 2026-05-24 (296 active K-Startup programs, English, privacy-first static). The **START** pillar of the Seoul Crushing house; public name shipped as **Start**.
+
+- **Run / refresh the data:** `./refresh.sh` — the full pipeline, gates, translation step, scheduled-routine activation, rollback, and freeze are in **[FAILSAFE.md](./FAILSAFE.md)**.
+- **Deploy:** own public repo → its own Cloudflare Pages project (auto-deploys on push to `main`) → custom domain `start.seoulcrushing.com`. No analytics, no third-party requests, self-hosted fonts.
+
 ## North-Star
 
 Make Korea's startup- and business-support universe **navigable** for foreign residents who want to build something here — surfacing the programs they're **actually eligible for** (far more than they realize), **matched to their situation** (stage · age · region · sector), readable **in English**. Comprehensive underneath, ruthlessly simple on top: one program = one scannable card filtered to *you*, never a 28,000-row haystack. Honest about fit — shows what matches and how to verify it, flags the rare nationality bars — **never promising you qualify.**
@@ -60,10 +67,10 @@ No runtime LLM (ingestion only) · privacy-first (no analytics/cookies/3rd-party
 
 ## Open decisions
 
-1. **Public name / positioning** — should emerge from the "wow discovery"; don't lead with the visa filter.
-2. **The wow discovery** — find one foreigner-eligible biz program ~80% qualify for and ~80% don't know about. Landing-page + launch anchor.
+1. ~~**Public name / positioning**~~ — **resolved:** shipped as **Start** (the house pillar) + positioning "Korean startup & business support, in English, for foreign founders." Doesn't lead with the visa filter.
+2. **The wow discovery** — feature the standout foreigner-unique programs (OASIS startup-visa, global tracks) + the "293 of 296 state no nationality bar" framing. Partially live; refine.
 3. Card valence split (Open-now / Standing recommended) · sources-panel filter (life-domain vs 부처) · timeline panel (deadlines, recommended).
-4. **Remote / deploy** — local-only for now (privacy default; no remote added). seoulcrushing.com uses a `mobetter20` GitHub + Cloudflare Pages — the obvious path when ready, but the owner's call.
+4. ~~**Remote / deploy**~~ — **resolved 2026-05-24:** public repo + its own Cloudflare Pages project + subdomain `start.seoulcrushing.com` (Option A; 301-flippable to a `/start` path later). Full pipeline/runbook in [FAILSAFE.md](./FAILSAFE.md).
 
 ---
 *Supersedes the original F-5-first planning brief. Key inversions: audience is F-6 / foreign-founder (not F-5); MVP domain is biz-support (not all life domains); contact-as-primary-action retired.*

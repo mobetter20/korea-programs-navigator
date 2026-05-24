@@ -10,8 +10,10 @@ Run: python3 _scripts/build.py
 from __future__ import annotations
 
 import datetime as dt
+import hashlib
 import json
 import os
+import re
 import xml.etree.ElementTree as ET
 from collections import Counter
 
@@ -19,6 +21,27 @@ from pages import make_pages, CAT_LABEL, REG_EN, STAGE_EN
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE_URL = "https://start.seoulcrushing.com"
+
+_HANGUL = re.compile(r"[가-힣]")
+
+
+def is_publishable(r):
+    """A program ships only if its English is present and Korean-free — 'held'
+    (untranslated / failed-translation) records are EXCLUDED from the payload,
+    never rendered in Korean. This is the build-time gate behind the fail-safe."""
+    te, se = r.get("title_en") or "", r.get("summary_en") or ""
+    return bool(te) and not _HANGUL.search(te) and not _HANGUL.search(se)
+
+
+def data_hash(programs):
+    """Stable hash of published content (volatile build metadata excluded) so
+    `generated` only advances when the data actually changes — makes
+    commit-if-changed real (no daily no-op commits / CF redeploys)."""
+    fields = ("id", "title_en", "summary_en", "target_en", "exclusions_en",
+              "close_date", "open_date", "category", "region", "age_min", "age_max",
+              "apply_url", "detail_url", "nationality_flag", "foreigner_relevance", "org_type")
+    snap = [{k: p.get(k) for k in fields} for p in sorted(programs, key=lambda x: x.get("id", ""))]
+    return hashlib.sha1(json.dumps(snap, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()[:16]
 
 
 def make_rss(programs: list, out_dir: str) -> None:
@@ -108,29 +131,49 @@ def main():
     if untranslated:
         print(f"⚠️  {len(untranslated)} programs UNTRANSLATED (would show Korean): {untranslated[:8]}")
 
+    # Build-time exclusion: only publishable (English, Korean-free) records ship.
+    # Held records stay in normalized.json but never reach the public payload.
+    publishable = [r for r in norm if is_publishable(r)]
+    held = [r["id"] for r in norm if not is_publishable(r)]
+    if held:
+        print(f"⚠️  {len(held)} HELD (untranslated/Korean) — excluded from payload: {held[:8]}")
+
     facets = {
-        "category": [k for k, _ in Counter(r["category"] for r in norm).most_common()],
-        "region": sorted({r["region"] for r in norm if r["region"]}),
-        "stage": sorted({s for r in norm for s in r["business_stage"]}),
-    }
-    payload = {
-        "generated": dt.datetime.now().isoformat(timespec="seconds"),
-        "count": len(norm), "facets": facets, "programs": norm,
+        "category": [k for k, _ in Counter(r["category"] for r in publishable).most_common()],
+        "region": sorted({r["region"] for r in publishable if r["region"]}),
+        "stage": sorted({s for r in publishable for s in r["business_stage"]}),
     }
     out = os.path.join(ROOT, "public", "data")
     os.makedirs(out, exist_ok=True)
-    with open(os.path.join(out, "programs.json"), "w", encoding="utf-8") as f:
-        json.dump(payload, f, ensure_ascii=False, indent=1)
+
+    # Deterministic `generated`: reuse the prior timestamp when data is unchanged.
+    dhash = data_hash(publishable)
+    generated = dt.datetime.now().astimezone().isoformat(timespec="seconds")  # offset-aware (watchdog parses TZ)
+    prior = os.path.join(out, "programs.js")
+    if os.path.exists(prior):
+        try:
+            s = open(prior, encoding="utf-8").read()
+            old = json.loads(s[s.index("=") + 1:].rstrip().rstrip(";"))
+            if old.get("meta", {}).get("data_hash") == dhash:
+                generated = old.get("generated", generated)
+        except Exception:
+            pass
+
+    payload = {
+        "generated": generated,
+        "count": len(publishable),
+        "meta": {"active_count": len(norm), "published_count": len(publishable), "data_hash": dhash},
+        "facets": facets,
+        "programs": publishable,
+    }
     with open(os.path.join(out, "programs.js"), "w", encoding="utf-8") as f:
         f.write("window.KPN_DATA = " + json.dumps(payload, ensure_ascii=False) + ";")
-    make_rss(norm, out)
-    npages = make_pages(norm, os.path.join(ROOT, "public"), SITE_URL)
-    make_sitemap(norm, os.path.join(ROOT, "public"), SITE_URL)
+    make_rss(publishable, out)
+    npages = make_pages(publishable, os.path.join(ROOT, "public"), SITE_URL)
+    make_sitemap(publishable, os.path.join(ROOT, "public"), SITE_URL)
 
-    print(f"built {len(norm)} programs -> public/data/  (translated: {sum(1 for r in norm if r['title_en'])}/{len(norm)})")
-    print("facets:", {k: len(v) for k, v in facets.items()})
-    print(f"rss: public/data/feed.xml")
-    print(f"overview pages: public/start/ ({npages})")
+    print(f"built: {len(norm)} active -> {len(publishable)} published ({len(held)} held) · pages {npages}")
+    print(f"generated={generated} · data_hash={dhash}")
 
 
 if __name__ == "__main__":

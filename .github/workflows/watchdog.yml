@@ -1,0 +1,170 @@
+# watchdog.yml — freshness watchdog for start.seoulcrushing.com
+#
+# PURPOSE
+#   The site's data is refreshed by a LOCAL routine that commits+pushes.
+#   If that routine silently stops, data goes stale with no signal.
+#   This workflow runs on independent GitHub Actions infra to detect that.
+#   It does NOT refresh data — it only watches freshness.
+#
+# BEHAVIOR
+#   Every 6 hours (+ manual dispatch):
+#     1. Fetch https://start.seoulcrushing.com/data/programs.js
+#     2. Extract the "generated": "<ISO8601>" field
+#     3. Compute age in hours
+#     4. If age > 3 days (72 h), OR fetch/parse failed →
+#          open OR update a "Navigator data health" issue
+#     5. If healthy and that issue is open → add recovery comment + close
+#
+# SECRETS NEEDED: none — uses built-in GITHUB_TOKEN only.
+
+name: Data freshness watchdog
+
+on:
+  schedule:
+    # Offset from the top of the hour to avoid GitHub Actions thundering-herd.
+    - cron: "43 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write   # open / close / comment on issues
+  # contents: read is implicit for public repos; no write needed here.
+
+concurrency:
+  group: kpn-watchdog
+  cancel-in-progress: false   # let an in-flight check finish rather than skip
+
+jobs:
+  check-freshness:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ------------------------------------------------------------------ #
+      # 1. Fetch programs.js and extract the "generated" timestamp          #
+      # ------------------------------------------------------------------ #
+      - name: Fetch and parse generated timestamp
+        id: fetch
+        run: |
+          set -euo pipefail
+          DATA_URL="https://start.seoulcrushing.com/data/programs.js"
+
+          # Grab just the first 512 bytes — the generated field is always first.
+          raw="$(curl --silent --show-error --fail --max-time 20 \
+                      --range 0-511 "$DATA_URL")" || {
+            echo "status=fetch_failed" >> "$GITHUB_OUTPUT"
+            echo "detail=curl exited non-zero fetching $DATA_URL" >> "$GITHUB_OUTPUT"
+            exit 0   # don't fail the step; the issue-handler step decides what to do
+          }
+
+          # Extract the ISO8601 value from: "generated": "2026-05-24T16:40:50"
+          generated="$(printf '%s' "$raw" \
+            | grep -oP '"generated"\s*:\s*"\K[^"]+' || true)"
+
+          if [ -z "$generated" ]; then
+            echo "status=parse_failed" >> "$GITHUB_OUTPUT"
+            echo "detail=Could not find \"generated\" field in first 512 bytes of $DATA_URL" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Convert the timestamp (assume UTC — the local routine writes UTC).
+          generated_epoch="$(date -u -d "$generated" +%s 2>/dev/null)" || {
+            echo "status=parse_failed" >> "$GITHUB_OUTPUT"
+            echo "detail=Could not parse timestamp \"$generated\" as a date" >> "$GITHUB_OUTPUT"
+            exit 0
+          }
+
+          now_epoch="$(date -u +%s)"
+          age_hours=$(( (now_epoch - generated_epoch) / 3600 ))
+
+          echo "generated=$generated"  >> "$GITHUB_OUTPUT"
+          echo "age_hours=$age_hours"  >> "$GITHUB_OUTPUT"
+
+          if [ "$age_hours" -gt 72 ]; then
+            echo "status=stale" >> "$GITHUB_OUTPUT"
+            echo "detail=Data is ${age_hours}h old (threshold: 72h). Last generated: $generated" >> "$GITHUB_OUTPUT"
+          else
+            echo "status=healthy" >> "$GITHUB_OUTPUT"
+            echo "detail=Data is ${age_hours}h old. Last generated: $generated" >> "$GITHUB_OUTPUT"
+          fi
+
+      # ------------------------------------------------------------------ #
+      # 2. Open / update / close the sentinel issue                         #
+      # ------------------------------------------------------------------ #
+      - name: Update Navigator data health issue
+        # A transient GitHub API failure (GraphQL 504, rate-limit) must NOT
+        # fail the run — the fetch result is the substance; issue hygiene is
+        # cosmetic. Mirror the sibling seoulcrushing.com workflow pattern.
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STATUS:      ${{ steps.fetch.outputs.status }}
+          DETAIL:      ${{ steps.fetch.outputs.detail }}
+          GENERATED:   ${{ steps.fetch.outputs.generated }}
+          AGE_HOURS:   ${{ steps.fetch.outputs.age_hours }}
+        run: |
+          set -euo pipefail
+          TITLE="Navigator data health"
+          DATA_URL="https://start.seoulcrushing.com/data/programs.js"
+          RUN_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+
+          # --- Find open issue (retry up to 3× for GraphQL flakes) --------- #
+          issue_number=""
+          for attempt in 1 2 3; do
+            if issue_number="$(gh issue list \
+                --state open \
+                --search "${TITLE} in:title" \
+                --json number,title \
+                --jq '[.[] | select(.title == "'"${TITLE}"'")][0].number // ""')"; then
+              break
+            fi
+            sleep $((attempt * 10))
+            issue_number=""
+          done
+
+          # --- Healthy path: close any open issue with a recovery comment -- #
+          if [ "$STATUS" = "healthy" ]; then
+            if [ -n "$issue_number" ]; then
+              gh issue close "$issue_number" \
+                --comment "Data freshness recovered. ${DETAIL}. Run: ${RUN_URL}"
+            fi
+            echo "Watchdog: healthy (${DETAIL}). No issue action needed."
+            exit 0
+          fi
+
+          # --- Unhealthy path: build issue body ---------------------------- #
+          body_file="$(mktemp)"
+          {
+            echo "## Navigator data health alert"
+            echo ""
+            echo "**Status:** \`${STATUS}\`"
+            echo ""
+            echo "**Detail:** ${DETAIL}"
+            echo ""
+            echo "**Data URL:** ${DATA_URL}"
+            echo ""
+            if [ -n "$GENERATED" ]; then
+              echo "**Last generated timestamp:** \`${GENERATED}\` (${AGE_HOURS}h ago)"
+              echo ""
+            fi
+            echo "**Detected by run:** ${RUN_URL}"
+            echo ""
+            echo "---"
+            echo "### What to check"
+            echo ""
+            echo "1. Is the local refresh routine (\`_scripts/\`) still running on the source machine?"
+            echo "2. Did the last \`git push\` to this repo succeed? Check \`git log --oneline -5\` on the source machine."
+            echo "3. Is Cloudflare Pages picking up pushes? Check the Pages dashboard for build errors."
+            echo ""
+            echo "Once fixed, this issue will auto-close on the next healthy watchdog run."
+          } > "${body_file}"
+
+          # --- Open new or update existing issue --------------------------- #
+          if [ -n "$issue_number" ]; then
+            # Update body to reflect latest check, and add a progress comment.
+            gh issue edit "$issue_number" --body-file "${body_file}"
+            gh issue comment "$issue_number" \
+              --body "Still unhealthy as of run ${GITHUB_RUN_ID}. ${DETAIL}"
+            echo "Updated existing issue #${issue_number}."
+          else
+            gh issue create --title "${TITLE}" --body-file "${body_file}"
+            echo "Opened new issue: ${TITLE}."
+          fi

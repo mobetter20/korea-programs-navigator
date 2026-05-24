@@ -127,10 +127,19 @@ def normalize(rec):
 
 
 def main():
-    raws = sorted(glob.glob(os.path.join(ROOT, "data", "raw", "kstartup_active_*.json")))
-    if not raws:
-        raise SystemExit("no data/raw/kstartup_active_*.json — run fetch_kstartup.py first")
-    src = raws[-1]
+    import argparse
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--input", help="explicit raw file (default: latest data/raw/kstartup_active_*.json)")
+    a = ap.parse_args()
+    if a.input:
+        src = a.input
+        if not os.path.exists(src):
+            raise SystemExit(f"--input not found: {src}")
+    else:
+        raws = sorted(glob.glob(os.path.join(ROOT, "data", "raw", "kstartup_active_*.json")))
+        if not raws:
+            raise SystemExit("no data/raw/kstartup_active_*.json — run fetch_kstartup.py first")
+        src = raws[-1]
     overrides_path = os.path.join(ROOT, "data", "overrides.json")
     overrides = json.load(open(overrides_path, encoding="utf-8")) if os.path.exists(overrides_path) else {}
     out = []

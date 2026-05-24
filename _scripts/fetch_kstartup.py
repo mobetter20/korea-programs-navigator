@@ -88,10 +88,17 @@ def main():
     print(f"--- biz_enyy distinct formats (active): {len({r.get('biz_enyy','') for r in active})}")
     print(f"--- with empty close_date (rolling?): {sum(1 for r in active if not (r.get('pbanc_rcpt_end_dt') or '').strip())}")
 
+    FLOOR = 20
+    if len(active) < FLOOR:
+        raise SystemExit(f"ABORT: only {len(active)} active (< floor {FLOOR}) — likely an API hiccup; "
+                         "NOT overwriting the last-good raw. Re-run later.")
     os.makedirs(os.path.join(ROOT, "data", "raw"), exist_ok=True)
     os.makedirs(os.path.join(ROOT, "data", "fixtures"), exist_ok=True)
-    with open(os.path.join(ROOT, "data", "raw", f"kstartup_active_{today}.json"), "w", encoding="utf-8") as f:
+    final = os.path.join(ROOT, "data", "raw", f"kstartup_active_{today}.json")
+    tmp = final + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
         json.dump(active, f, ensure_ascii=False, indent=1)
+    os.replace(tmp, final)  # atomic promote: a partial/failed write never becomes the "latest" raw
     if active:
         fx = dict(active[0])
         fx["prch_cnpl_no"] = "REDACTED"
