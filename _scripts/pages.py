@@ -105,9 +105,10 @@ def _fmt_date(iso):
 
 
 def _app_lang(p):
+    # Only assert English when the apply URL is a known English host — targeting
+    # foreigners (inbound_global) does NOT mean the application form is English.
     url = p.get("apply_url") or ""
-    fore = p.get("nationality_flag") == "explicit_foreign" or p.get("foreigner_relevance") == "inbound_global"
-    if fore or any(h in url for h in ENGLISH_HOSTS):
+    if any(h in url for h in ENGLISH_HOSTS):
         return "English supported"
     return "Korean (official portal)"
 
@@ -129,7 +130,9 @@ def render_overview(p):
     stages = _stage_range(p.get("business_stage"))
     stage_html = "".join(f"<span>{e(STAGE_EN[s])}</span>" for s in (p.get("business_stage") or []) if s in STAGE_EN)
     target = e(p.get("target_en") or "")
-    excl = e(p.get("exclusions_en") or "")
+    excl_raw = p.get("exclusions_en") or ""
+    excl = e(excl_raw)
+    excl_is_pointer = excl_raw in ("See the official announcement.", "See the official announcement and attachments.")
     reg = e(REG_EN.get(p.get("region", ""), p.get("region", "")))
     no_prelaunch = bool(p.get("business_stage")) and "예비창업자" not in p["business_stage"]
     org = e(p.get("agency") or "")
@@ -165,7 +168,7 @@ def render_overview(p):
                "confirm there before applying.</p></div>")
     parts.append("".join(wca))
 
-    if excl:
+    if excl and not excl_is_pointer:  # suppress bare "see the announcement" — adds nothing
         parts.append(f'<div class="sec"><div class="lab">Who\'s excluded</div>'
                      f'<p class="body">{excl}</p></div>')
 
@@ -254,7 +257,8 @@ def make_stats(programs, public_dir):
     cat = Counter(CAT_LABEL.get(p.get("category", ""), p.get("category", "")) for p in programs)
     reg = Counter(REG_EN.get(p.get("region", ""), p.get("region", "")) for p in programs if p.get("region"))
     org = Counter(p.get("org_type", "Other") for p in programs)
-    bar_clause = ", and <b>none</b> bar foreigners" if barred == 0 else f"; only {barred} bar foreigners"
+    bar_clause = (", and <b>none</b> we found state a nationality bar" if barred == 0
+                  else f"; only {barred} state a nationality bar")
     body = (
         '<a class="back" href="index.html">← Seoul Crushing / Start</a>'
         '<article class="sheet"><h1>By the numbers</h1>'
