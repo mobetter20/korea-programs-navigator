@@ -1926,5 +1926,11 @@
   "foreigner_relevance": null,
   "target_en": "Youth, university students, general public, universities, research institutions, general enterprises, solo entrepreneurs. Age: 39 or under (born January 1, 1987 or later). Company age: Prospective entrepreneurs or founders within 3 years (founded after February 2023). Prospective entrepreneurs: no business registration in applicant's name with Incheon residential address. Founders: founders within 3 years as of business registration certificate with business location in Incheon.",
   "exclusions_en": "Excluded industries: Small business sectors (e.g., retail/wholesale, distribution, food service, beauty franchises, etc.)."
+ },
+ "99456387c14de1e4": {
+  "title_en": "Enter the AI + Open Data Challenge",
+  "summary_en": "A challenge for companies to build AI solutions on open public data and compete. This is a revised notice — it adds updated eligibility exclusions and entry notes, so check the posting before applying.",
+  "target_en": "Open widely: youth, university students, the general public, universities, research institutions, companies, solo creator-businesses, and startups under 10 years old with AI technical capability.",
+  "exclusions_en": "See the official announcement and attachments."
  }
 }
