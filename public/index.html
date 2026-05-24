@@ -25,22 +25,24 @@
   body{color:var(--ink);font-family:'Source Sans 3','Apple SD Gothic Neo',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);min-height:100vh}
   .kr{font-family:'Apple SD Gothic Neo',sans-serif}
 
-  /* ── Mode switcher ── */
-  .modewrap{position:relative;margin-left:12px;flex-shrink:0}
-  .modes{display:flex;gap:1px;background:var(--line);border-radius:7px;overflow:hidden}
-  .mode-btn{font-size:11px;font-weight:700;padding:5px 10px;background:var(--card);color:var(--muted);cursor:pointer;border:none;font-family:var(--mono);transition:.1s;white-space:nowrap}
-  .mode-btn:hover{color:var(--ink)}
-  .mode-btn.on{background:var(--ink);color:var(--card)}
+  /* ── Theme dropdown (single pill → mode + custom settings) ── */
+  .modewrap{position:relative;margin-left:auto;flex-shrink:0}
+  .theme-pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;font-family:var(--mono);
+    color:var(--muted);background:var(--card);border:1.5px solid var(--line);border-radius:999px;
+    padding:5px 12px;cursor:pointer;transition:.12s;white-space:nowrap}
+  .theme-pill:hover,.theme-pill[aria-expanded="true"]{border-color:var(--pink);color:var(--ink)}
+  .theme-pill .tdot{color:var(--pink);font-size:13px;line-height:1}
+  .theme-pill .tcaret{font-size:9px;opacity:.65}
   .custom-pop{display:none;position:absolute;top:calc(100% + 7px);right:0;z-index:60;
-    flex-flow:row wrap;align-items:center;gap:6px 13px;padding:8px 11px;width:max-content;max-width:calc(100vw - 24px);
+    flex-flow:column;align-items:stretch;gap:9px;padding:10px 12px;width:max-content;max-width:calc(100vw - 24px);
     background:var(--card);border:1px solid var(--line);border-radius:10px;
     box-shadow:0 10px 28px -12px rgba(40,20,40,.38)}
   .custom-pop.open{display:flex}
   .custom-pop::before{content:"";position:absolute;top:-5px;right:24px;width:9px;height:9px;
     background:var(--card);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
-  .grp{display:flex;gap:3px;align-items:center}
-  .grp>label{font-size:9.5px;font-weight:800;letter-spacing:.05em;color:var(--muted);margin-right:3px;font-family:var(--mono)}
-  .cfg-btn{font-size:11px;font-weight:700;padding:3px 8px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--muted);cursor:pointer;font-family:inherit;transition:.1s}
+  .grp{display:flex;gap:4px;align-items:center}
+  .grp>label{font-size:9.5px;font-weight:800;letter-spacing:.05em;color:var(--muted);min-width:52px;font-family:var(--mono)}
+  .cfg-btn{font-size:11px;font-weight:700;padding:3px 9px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--muted);cursor:pointer;font-family:inherit;transition:.1s}
   .cfg-btn:hover{border-color:var(--pink);color:var(--ink)}
   .cfg-btn.on{background:var(--pink);color:#fff;border-color:var(--pink)}
 
@@ -49,8 +51,6 @@
   .bar{display:flex;align-items:center;gap:11px;padding:11px 22px}
   .brand{font-family:'Bagel Fat One','Arial Black',cursive;font-size:21px;line-height:1;color:var(--ink)}.brand .d{color:var(--pink)}
   .sect{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--pink-dk);font-family:var(--mono);padding:3px 11px;border:1.5px solid color-mix(in srgb,var(--pink) 42%,var(--line));border-radius:999px}
-  .live{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.05em;color:var(--muted);font-weight:600;font-family:var(--mono)}
-  .led{width:8px;height:8px;border-radius:50%;background:#2da854;animation:p 1.8s infinite}@keyframes p{0%{box-shadow:0 0 0 0 rgba(45,168,84,.5)}70%{box-shadow:0 0 0 7px rgba(45,168,84,0)}100%{box-shadow:0 0 0 0 rgba(45,168,84,0)}}
   .pills{display:flex;gap:7px;padding:0 22px 11px;overflow-x:auto;scrollbar-width:none}.pills::-webkit-scrollbar{display:none}
   .pill{flex:none;border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;font-family:inherit;white-space:nowrap}
   .pill.on{background:var(--pink);color:#fff;border-color:var(--pink)}.pill .n{opacity:.6;margin-left:3px;font-size:11px}
@@ -78,6 +78,9 @@
   .stream{width:250px;flex:none;position:sticky;top:96px;max-height:calc(100vh - 112px);background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
   body[data-stream="off"] .stream{display:none}
   .shead{padding:11px 13px;border-bottom:1px solid var(--line);font-size:12px}.shead b{font-weight:800}.shead .s{display:block;color:var(--muted);font-size:10px;margin-top:3px;font-family:var(--mono)}
+  .sheadrow{display:flex;align-items:center;gap:8px}
+  .live{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.03em;color:var(--muted);font-weight:600;font-family:var(--mono)}
+  .led{width:8px;height:8px;border-radius:50%;background:#2da854;animation:p 1.8s infinite}@keyframes p{0%{box-shadow:0 0 0 0 rgba(45,168,84,.5)}70%{box-shadow:0 0 0 7px rgba(45,168,84,0)}100%{box-shadow:0 0 0 0 rgba(45,168,84,0)}}
   .srows{overflow:auto;flex:1;min-height:0}
   .tl{display:flex;gap:9px;align-items:baseline;padding:8px 12px;border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent);text-decoration:none;color:inherit;cursor:pointer}.tl:hover{background:color-mix(in srgb,var(--pink) 6%,transparent)}
   .ago{font-size:10px;font-weight:700;color:var(--pink-dk);font-family:var(--mono);min-width:34px}
@@ -153,14 +156,16 @@
   <div class="bar">
     <span class="brand">Seoul Crushing<span class="d">.</span></span>
     <span class="sect">Start</span>
-    <span class="live"><span class="led"></span><span id="liveCount">…</span> LIVE</span>
     <div class="modewrap">
-      <div class="modes" id="modes">
-        <button class="mode-btn on" data-mode="light">Light</button>
-        <button class="mode-btn" data-mode="dark">Dark</button>
-        <button class="mode-btn" data-mode="custom">Custom</button>
-      </div>
+      <button class="theme-pill" id="themeBtn" aria-haspopup="true" aria-expanded="false" aria-controls="customPop">
+        <span class="tdot">◐</span><span id="themeLabel">Light</span><span class="tcaret">▾</span>
+      </button>
       <div class="custom-pop" id="customPop">
+        <div class="grp"><label>THEME</label>
+          <button class="cfg-btn on" data-mode="light">Light</button>
+          <button class="cfg-btn" data-mode="dark">Dark</button>
+          <button class="cfg-btn" data-mode="custom">Custom</button>
+        </div>
         <div class="grp"><label>BG</label>
           <button class="cfg-btn on" data-k="bg" data-v="gray">gray</button>
           <button class="cfg-btn" data-k="bg" data-v="pink">pink</button>
@@ -186,7 +191,7 @@
 <div class="layout">
   <main class="grid" id="grid"></main>
   <aside class="stream">
-    <div class="shead"><b>⚡ Just in</b><span class="s">newest first · <span id="streamCount">…</span> total</span></div>
+    <div class="shead"><div class="sheadrow"><b>⚡ Just in</b><span class="live"><span class="led"></span><span id="liveCount">…</span> live</span></div><span class="s">newest first · <span id="streamCount">…</span> total</span></div>
     <div class="srows" id="tl"></div>
     <div class="more" id="more" hidden></div>
   </aside>
@@ -398,11 +403,16 @@ backdrop.addEventListener('keydown',e=>{
 // View modes
 const PRESET={light:{bg:'gray',cols:'3',stream:'on'},dark:{bg:'dark',cols:'3',stream:'on'}};
 const pop=document.getElementById('customPop');
-function setPop(open){pop.classList.toggle('open',open);}
+const themeBtn=document.getElementById('themeBtn');
+function setPop(open){pop.classList.toggle('open',open);themeBtn.setAttribute('aria-expanded',open?'true':'false');}
 function syncCfg(){document.querySelectorAll('[data-k]').forEach(b=>b.classList.toggle('on',b.dataset.v===document.body.dataset[b.dataset.k]));}
-function applyMode(mode){
+function setModeUI(mode){
   document.body.dataset.mode=mode;
-  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
+  pop.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
+  document.getElementById('themeLabel').textContent=mode.charAt(0).toUpperCase()+mode.slice(1);
+}
+function applyMode(mode){
+  setModeUI(mode);
   if(mode==='custom'){
     const s=JSON.parse(localStorage.getItem('kpn_custom')||'null')||{bg:'gray',cols:'3',stream:'on'};
     document.body.dataset.bg=s.bg;document.body.dataset.cols='3';document.body.dataset.stream=s.stream;
@@ -414,19 +424,19 @@ function applyMode(mode){
   }
   syncCfg();
 }
-document.getElementById('modes').addEventListener('click',e=>{
-  const b=e.target.closest('.mode-btn');if(!b)return;
-  if(b.dataset.mode==='custom'){applyMode('custom');setPop(!pop.classList.contains('open'));}
-  else applyMode(b.dataset.mode);
-});
+themeBtn.addEventListener('click',()=>setPop(!pop.classList.contains('open')));
 pop.addEventListener('click',e=>{
+  const m=e.target.closest('.cfg-btn[data-mode]');
+  if(m){applyMode(m.dataset.mode);return;}
   const b=e.target.closest('[data-k]');if(!b)return;
   document.body.dataset[b.dataset.k]=b.dataset.v;
   b.parentElement.querySelectorAll('[data-k]').forEach(x=>x.classList.toggle('on',x===b));
   const c={bg:document.body.dataset.bg,cols:document.body.dataset.cols,stream:document.body.dataset.stream};
   localStorage.setItem('kpn_custom',JSON.stringify(c));localStorage.setItem('kpn_mode','custom');
+  setModeUI('custom');
 });
 document.addEventListener('click',e=>{if(!e.target.closest('.modewrap'))setPop(false);});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&pop.classList.contains('open'))setPop(false);});
 
 document.getElementById('liveCount').textContent=ACTIVE.length;
 applyMode(localStorage.getItem('kpn_mode')||'light');
