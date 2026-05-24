@@ -126,10 +126,10 @@
   <div class="pills" id="pills"></div>
 </header>
 
-<section class="feat" id="feat" hidden>
-  <span class="feat-k">✨ most foreign founders don't know this exists</span>
-  <b class="feat-h">Wait — Korea has a startup visa.</b>
-  <span class="feat-sub">The OASIS startup-immigration system and the Startup Korea Special Visa are built for foreign founders — and the K-Startup Grand Challenge will fund you to come build here.</span>
+<section class="feat" id="feat">
+  <span class="feat-k">✨ what most foreign founders miss</span>
+  <b class="feat-h">You can apply to far more than you think.</b>
+  <span class="feat-sub" id="featSub"></span>
   <span class="feat-links" id="featLinks"></span>
 </section>
 
@@ -258,13 +258,15 @@ const FEATURED=[
   {match:'K-Startup Grand Challenge',   label:'K-Startup Grand Challenge'},
 ];
 function renderFeatured(){
+  const silent=ACTIVE.filter(p=>p.nationality_flag==='silent').length;
+  const barred=ACTIVE.filter(p=>p.nationality_flag==='barred').length;
+  document.getElementById('featSub').innerHTML=`<b>${silent}</b> of ${ACTIVE.length} programs here state no nationality requirement${barred===0?', and none bar foreigners':''} — as a legal resident you can likely apply. Korea even has a dedicated startup visa:`;
   const found=[];
   FEATURED.forEach(f=>{
     const p=ACTIVE.find(x=>(x.title_ko||'').includes(f.match)||(x.title_en||'').includes(f.match));
-    if(p){const link='start/'+p.id+'.html';
-      found.push(`<a href="${link}">${f.label} →</a>`);}
+    if(p)found.push(`<a href="start/${p.id}.html">${f.label} →</a>`);
   });
-  if(found.length){document.getElementById('featLinks').innerHTML=found.join('');document.getElementById('feat').hidden=false;}
+  document.getElementById('featLinks').innerHTML=found.join('');
 }
 
 // View modes
