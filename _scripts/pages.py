@@ -205,17 +205,24 @@ def render_overview(p, site_url=""):
 
 
 def make_pages(programs, public_dir, site_url=""):
-    """Emit public/start/<id>.html for every program. Returns the count."""
+    """Emit public/start/<id>.html for each program AND prune pages for programs
+    no longer published (closed / held / removed), so the dir matches the payload
+    exactly. Returns the count."""
     out = os.path.join(public_dir, "start")
     os.makedirs(out, exist_ok=True)
-    n = 0
+    keep, n = set(), 0
     for p in programs:
         pid = p.get("id")
         if not pid:
             continue
         with open(os.path.join(out, f"{pid}.html"), "w", encoding="utf-8") as f:
             f.write(render_overview(p, site_url))
+        keep.add(f"{pid}.html")
         n += 1
+    if keep:  # never prune to empty (guards against a bad/empty build wiping the dir)
+        for fn in os.listdir(out):
+            if fn.endswith(".html") and fn not in keep:
+                os.remove(os.path.join(out, fn))
     return n
 
 

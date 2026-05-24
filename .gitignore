@@ -11,3 +11,5 @@ venv/
 !/data/overrides.json
 /data/batches/
 /_mocks/
+/data/refresh.log
+/REFRESH_FROZEN
