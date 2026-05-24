@@ -70,6 +70,15 @@ def nationality(target, excl):
     return "silent", "inferred"
 
 
+def abs_url(u):
+    """Ensure an external URL has a scheme — K-Startup stores some apply URLs
+    scheme-less (e.g. 'www.foo.com'), which a browser treats as a relative path."""
+    u = (u or "").strip()
+    if u and "://" not in u:
+        u = "https://" + u
+    return u or None
+
+
 def normalize(rec):
     target = " ".join(filter(None, [rec.get("aply_trgt"), rec.get("aply_trgt_ctnt")]))
     excl = rec.get("aply_excl_trgt_ctnt")
@@ -96,8 +105,8 @@ def normalize(rec):
         "close_date": to_iso(rec.get("pbanc_rcpt_end_dt")),
         "is_active": True,
         "contact_phone": rec.get("prch_cnpl_no"),
-        "detail_url": rec.get("detl_pg_url"),
-        "apply_url": rec.get("aply_mthd_onli_rcpt_istc") or rec.get("biz_aply_url") or rec.get("detl_pg_url"),
+        "detail_url": abs_url(rec.get("detl_pg_url")),
+        "apply_url": abs_url(rec.get("aply_mthd_onli_rcpt_istc") or rec.get("biz_aply_url") or rec.get("detl_pg_url")),
         "agency": rec.get("pbanc_ntrp_nm") or rec.get("sprv_inst") or "",
         "content_hash": chash,
     }
