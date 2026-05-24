@@ -87,7 +87,31 @@ h1{font-size:25px;line-height:1.14;font-weight:800;letter-spacing:-.01em}
 .btn-p{background:var(--pink);color:#fff}.btn-p:hover{background:var(--pink-dk)}
 .btn-s{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn-s:hover{border-color:var(--pink)}
 .note{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;line-height:1.45;color:var(--muted)}
+/* house chrome — vendored (cross-origin, cannot share /styles.css) */
+.house-foot{border-top:1px solid var(--line);background:transparent;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px 18px;flex-wrap:wrap}
+.house-foot .hf-meta{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--muted)}
+.house-foot .hf-brand{font-family:'Bagel Fat One','Arial Black',cursive;font-size:14px;color:var(--ink)}
+.house-foot .hf-brand .hb-dot{color:var(--pink-dk)}
+.house-foot .hf-meta a{color:inherit;text-decoration:none;border-bottom:1px dotted var(--line)}
+.house-foot .hf-meta a:hover{color:var(--ink);border-bottom-color:var(--muted)}
+.hf-pills{display:flex;gap:6px;align-items:center}
+.hf-pills .pill{font-family:'Source Sans 3','Apple SD Gothic Neo',-apple-system,sans-serif;font-weight:700;font-size:12px;text-decoration:none;padding:3px 10px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+.hf-pills .pill-w{color:#ca27b2}.hf-pills .pill-w:hover{background:color-mix(in srgb,#ca27b2 12%,transparent)}
+.hf-pills .pill-s{color:#b58a00}.hf-pills .pill-s.here{cursor:default;background:color-mix(in srgb,#b58a00 12%,transparent);border-color:#f0d97a}
+.hf-pills .pill-d{color:#7c4dd6}.hf-pills .pill-d:hover{background:color-mix(in srgb,#7c4dd6 12%,transparent)}
+@media(max-width:600px){.house-foot .hf-meta .hf-pagemeta{display:none}}
 """
+
+HOUSE_FOOT = (
+    '<footer class="house-foot">'
+    '<div class="hf-meta"><span class="hf-brand">Seoul Crushing<span class="hb-dot">.</span></span>'
+    '<span class="hf-mk"> &middot; made by <a href="https://ajin.im" target="_blank" rel="noopener">ajin.im</a></span></div>'
+    '<div class="hf-pills">'
+    '<a class="pill pill-w" href="https://seoulcrushing.com/" target="_blank" rel="noopener">Watch</a>'
+    '<span class="pill pill-s here">Start</span>'
+    '<a class="pill pill-d" href="https://seoulcrushing.com/decode" target="_blank" rel="noopener">Decode</a>'
+    '</div></footer>'
+)
 
 
 def _fmt_date(iso):
@@ -196,12 +220,13 @@ def render_overview(p, site_url=""):
             f'<meta name="viewport" content="width=device-width, initial-scale=1">'
             f'<title>{title} — Seoul Crushing</title>'
             f'<meta name="description" content="{summary}">'
+            f'<meta name="author" content="ajin.im">'
             f'<meta property="og:title" content="{title}"><meta property="og:description" content="{summary}">'
             f'<meta property="og:type" content="article">'
             f'<link rel="canonical" href="{site_url}/start/{p["id"]}">'
             f'<meta property="og:url" content="{site_url}/start/{p["id"]}">'
             f"<style>{PAGE_CSS}</style></head><body><div class=\"wrap\">")
-    return head + "".join(parts) + "</div></body></html>"
+    return head + "".join(parts) + HOUSE_FOOT + "</div></body></html>"
 
 
 def make_pages(programs, public_dir, site_url=""):
