@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>card mock — Seoul Crushing / Start</title>
+<style>
+  @font-face{font-family:'Bagel Fat One';src:url('fonts/bagel-fat-one/bagel-fat-one-400-091.woff2') format('woff2');font-display:swap}
+  @font-face{font-family:'Source Sans 3';src:url('fonts/source-sans-3/source-sans-3-400-006.woff2') format('woff2');font-display:swap}
+  :root{--pink:#ff52e5;--pink-dk:#ca27b2;--gold-dk:#b58a00;--ink:#1a1a1a;--muted:#8c8598;--line:#e9e1d4;--bg:#eef0f4;--card:#fff}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:'Source Sans 3','Apple SD Gothic Neo',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;padding:26px 28px}
+  .kr{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif}
+  h1{font-size:13px;font-family:ui-monospace,Menlo,monospace;color:var(--pink-dk);margin-bottom:6px;font-weight:800;letter-spacing:.06em}
+  .note{font-size:12.5px;color:var(--muted);margin-bottom:20px;max-width:600px;line-height:1.45}
+  .note b{color:var(--ink)}
+  .cols{display:flex;gap:34px;flex-wrap:wrap;align-items:flex-start}
+  .label{font-size:10px;font-family:ui-monospace,Menlo,monospace;font-weight:800;letter-spacing:.07em;color:var(--muted);text-transform:uppercase;margin-bottom:9px}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,210px));gap:13px}
+
+  /* card styles lifted verbatim from index.html */
+  .card{display:flex;flex-direction:column;gap:5px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 15px;text-decoration:none;color:inherit;box-shadow:0 2px 6px -4px rgba(60,30,50,.18);transition:.12s}
+  .card:hover{transform:translateY(-3px);border-color:var(--pink)}
+  .top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+  .dday{font-family:'Bagel Fat One','Arial Black',cursive;font-size:26px;line-height:.82;color:var(--pink-dk)}.dday.hot{color:var(--pink)}.dday small{display:block;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--muted);margin-top:4px}
+  .cat{font-size:10px;font-weight:800;letter-spacing:.06em;font-family:ui-monospace,Menlo,monospace;padding:3px 7px;border-radius:6px;background:color-mix(in srgb,var(--ac) 18%,transparent);color:var(--ac)}
+  h3{font-size:15px;line-height:1.27;font-weight:700}
+  .ko{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .foot{display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:7px}
+  .badge{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:999px}.b-fore{background:var(--pink);color:#fff}
+  .reg{font-size:10px;color:var(--muted);font-family:ui-monospace,Menlo,monospace;margin-left:auto}
+
+  /* NEW bits */
+  .desc{font-size:12px;line-height:1.36;color:var(--ink);opacity:.74;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .meta{font-size:10.5px;color:var(--muted);font-family:ui-monospace,Menlo,monospace}
+</style>
+</head>
+<body>
+<h1>CARD MOCK · Seoul Crushing / Start</h1>
+<p class="note">The one change you asked about: an <b>English one-line description</b> (<code>summary_en</code> — already translated, currently unused) sits under the title. Plus an optional <b>eligibility-at-a-glance</b> meta line (stage · age — from fixed maps, zero tokens). Left = <b>English-first</b> (KO title moves into the click-through overview). Right = <b>keeps a faint KO title</b> too. Clicking would open the English overview, not jump straight to a Korean site.</p>
+
+<div class="cols">
+  <div>
+    <div class="label">A · English-first (recommended)</div>
+    <div class="grid">
+      <a class="card" style="--ac:#7c4dd6">
+        <div class="top"><div class="dday hot">D-3<small>05/27</small></div><span class="cat">EDUCATION</span></div>
+        <h3>Pitch skills for young startup founders</h3>
+        <span class="desc">A cohort course on presentation and communication for early-stage founders who want to pitch and persuade better.</span>
+        <div class="foot"><span class="meta">Pre-launch–3yr · 20–39</span><span class="reg">NATIONWIDE</span></div>
+      </a>
+      <a class="card" style="--ac:#d9802a">
+        <div class="top"><div class="dday hot">D-7<small>05/31</small></div><span class="cat">BUILD</span></div>
+        <h3>Launch a deep-tech startup with government IP</h3>
+        <span class="desc">Jeonbuk backs startups spun out of government research institutes — licensing, commercialization, investor intros, full-cycle.</span>
+        <div class="foot"><span class="meta">Pre-launch–7yr</span><span class="reg">JEONBUK</span></div>
+      </a>
+      <a class="card" style="--ac:#7c4dd6">
+        <div class="top"><div class="dday">D-22<small>06/15</small></div><span class="cat">MENTORING</span></div>
+        <h3>Get a startup visa with OASIS</h3>
+        <span class="desc">Korea's startup-immigration system (OASIS 4&amp;5) — points-based support toward a startup visa for foreign founders.</span>
+        <div class="foot"><span class="badge b-fore">🛂 Foreign founders</span><span class="reg">SEOUL</span></div>
+      </a>
+      <a class="card" style="--ac:#3a9d4f">
+        <div class="top"><div class="dday">D-12<small>06/05</small></div><span class="cat">SPACE</span></div>
+        <h3>Free office at a youth startup center</h3>
+        <span class="desc">Move-in workspace plus mentoring at a Seoul youth startup center for early founders building their first company.</span>
+        <div class="foot"><span class="meta">Pre-launch–3yr · 19–39</span><span class="reg">SEOUL</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div>
+    <div class="label">B · keeps faint KO title</div>
+    <div class="grid">
+      <a class="card" style="--ac:#7c4dd6">
+        <div class="top"><div class="dday hot">D-3<small>05/27</small></div><span class="cat">EDUCATION</span></div>
+        <h3>Pitch skills for young startup founders</h3>
+        <span class="desc">A cohort course on presentation and communication for early-stage founders who want to pitch and persuade better.</span>
+        <span class="ko kr">[창업] 청년창업가 기획자 양성(능력 있는 기획자의 듣고 말하기)</span>
+        <div class="foot"><span class="meta">Pre-launch–3yr</span><span class="reg">NATIONWIDE</span></div>
+      </a>
+      <a class="card" style="--ac:#d9802a">
+        <div class="top"><div class="dday hot">D-7<small>05/31</small></div><span class="cat">BUILD</span></div>
+        <h3>Launch a deep-tech startup with government IP</h3>
+        <span class="desc">Jeonbuk backs startups spun out of government research institutes — licensing, commercialization, investor intros, full-cycle.</span>
+        <span class="ko kr">전북 정부출연연구기관 보유기술 기반 창업기업 모집</span>
+        <div class="foot"><span class="meta">Pre-launch–7yr</span><span class="reg">JEONBUK</span></div>
+      </a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
