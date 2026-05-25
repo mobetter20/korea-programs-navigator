@@ -87,30 +87,21 @@ h1{font-size:25px;line-height:1.14;font-weight:800;letter-spacing:-.01em}
 .btn-p{background:var(--pink);color:#fff}.btn-p:hover{background:var(--pink-dk)}
 .btn-s{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn-s:hover{border-color:var(--pink)}
 .note{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;line-height:1.45;color:var(--muted)}
-/* house chrome — vendored (cross-origin, cannot share /styles.css) */
-.house-foot{border-top:1px solid var(--line);background:transparent;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px 18px;flex-wrap:wrap}
-.house-foot .hf-meta{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--muted)}
-.house-foot .hf-brand{font-family:'Bagel Fat One','Arial Black',cursive;font-size:14px;color:var(--ink)}
-.house-foot .hf-brand .hb-dot{color:var(--pink-dk)}
-.house-foot .hf-meta a{color:inherit;text-decoration:none;border-bottom:1px dotted var(--line)}
-.house-foot .hf-meta a:hover{color:var(--ink);border-bottom-color:var(--muted)}
-.hf-pills{display:flex;gap:6px;align-items:center}
-.hf-pills .pill{font-family:'Source Sans 3','Apple SD Gothic Neo',-apple-system,sans-serif;font-weight:700;font-size:12px;text-decoration:none;padding:3px 10px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
-.hf-pills .pill-w{color:#ca27b2}.hf-pills .pill-w:hover{background:color-mix(in srgb,#ca27b2 12%,transparent)}
-.hf-pills .pill-s{color:#8a6900}.hf-pills .pill-s.here{cursor:default;background:color-mix(in srgb,#8a6900 12%,transparent);border-color:#f0d97a}
-.hf-pills .pill-d{color:#7c4dd6}.hf-pills .pill-d:hover{background:color-mix(in srgb,#7c4dd6 12%,transparent)}
-@media(max-width:600px){.house-foot .hf-meta .hf-pagemeta{display:none}}
+/* hub link — vendored (cross-origin, cannot share /styles.css). Plain link back
+   to the seoulcrushing.com hub + maker's mark; pillar switcher dropped 2026-05-25. */
+.spoke-foot{border-top:1px solid var(--line);background:transparent;padding:13px 20px;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--muted)}
+.spoke-foot .hf-brand{font-family:'Bagel Fat One','Arial Black',cursive;font-size:14px;color:var(--ink);text-decoration:none;border-bottom:none}
+.spoke-foot .hf-brand:hover{color:var(--pink-dk)}
+.spoke-foot .hf-brand .hb-dot{color:var(--pink-dk)}
+.spoke-foot a{color:inherit;text-decoration:none;border-bottom:1px dotted var(--line)}
+.spoke-foot a:hover{color:var(--ink);border-bottom-color:var(--muted)}
 """
 
 HOUSE_FOOT = (
-    '<footer class="house-foot">'
-    '<div class="hf-meta"><span class="hf-brand">Seoul Crushing<span class="hb-dot">.</span></span>'
-    '<span class="hf-mk"> &middot; made by <a href="https://ajin.im" target="_blank" rel="noopener">ajin.im</a></span></div>'
-    '<div class="hf-pills">'
-    '<a class="pill pill-w" href="https://seoulcrushing.com/" target="_blank" rel="noopener">Watch</a>'
-    '<span class="pill pill-s here">Start</span>'
-    '<a class="pill pill-d" href="https://seoulcrushing.com/decode" target="_blank" rel="noopener">Decode</a>'
-    '</div></footer>'
+    '<footer class="spoke-foot">'
+    '<a class="hf-brand hub-link" href="https://seoulcrushing.com/" target="_blank" rel="noopener">Seoul Crushing<span class="hb-dot">.</span></a>'
+    '<span class="hf-mk"> &middot; made by <a href="https://ajin.im" target="_blank" rel="noopener">ajin.im</a></span>'
+    '</footer>'
 )
 
 
