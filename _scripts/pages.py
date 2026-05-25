@@ -173,7 +173,7 @@ def render_overview(p, site_url=""):
     if no_prelaunch:
         wca.append('<p class="hint">This program is for already-operating businesses — '
                    "verify registration requirements on the official posting.</p>")
-    wca.append('<p class="src">Eligibility translated from the official Korean posting — '
+    wca.append('<p class="src">Eligibility <b>AI-translated</b> from the official Korean posting — '
                "confirm there before applying.</p></div>")
     parts.append("".join(wca))
 
@@ -203,7 +203,7 @@ def render_overview(p, site_url=""):
                  f'<a class="btn btn-s" href="{detail_url}" target="_blank" rel="noopener noreferrer">Full announcement (Korean) →</a></div>')
 
     parts.append('<p class="note">Eligibility and details are drawn from the official Korean announcement and '
-                 "translated for navigation — <b>confirm on the official posting before applying.</b> "
+                 "<b>AI-translated</b> for navigation — <b>confirm on the official posting before applying.</b> "
                  "Seoul Crushing doesn't decide eligibility and never guarantees you qualify.</p>")
     parts.append("</article>")
 

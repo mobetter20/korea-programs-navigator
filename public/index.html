@@ -214,7 +214,6 @@
   </aside>
 </div>
 
-<footer class="sitefoot">🤖 English titles &amp; summaries are <b>AI-translated</b> from the official Korean postings and may contain errors — always confirm details on the official posting before applying.</footer>
 <footer class="spoke-foot">
   <a class="hf-brand hub-link" href="https://seoulcrushing.com/" target="_blank" rel="noopener">Seoul Crushing<span class="hb-dot">.</span></a><span class="hf-mk"> · made by <a href="https://ajin.im" target="_blank" rel="noopener">ajin.im</a></span>
 </footer>
@@ -386,13 +385,13 @@ function renderOverview(p){
   if(sl)h+=`<span class="stagepill">${esc(sl)}</span><br>`;
   if(target)h+=`<p class="bodytext">${target}</p>`;
   if(noPre)h+='<p class="src">For already-operating businesses — verify registration requirements on the official posting.</p>';
-  h+='<p class="src">Eligibility translated from the official Korean posting — confirm there before applying.</p></div>';
+  h+='<p class="src">Eligibility <b>AI-translated</b> from the official Korean posting — confirm there before applying.</p></div>';
   if(showExcl)h+=`<div class="sec"><div class="lab">Who\'s excluded</div><p class="bodytext">${esc(exclRaw)}</p></div>`;
   h+=`<div class="sec"><div class="lab">The facts</div><div class="facts">${facts.map(([k,v])=>`<div class="fact"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>`).join('')}</div></div>`;
   const ph=phone?`<a class="ph" href="tel:${esc(phone)}">☎ ${esc(phone)}</a>`:'';
   h+=`<div class="sec"><div class="lab">Run by</div><div class="runby"><div><div class="org">${esc(p.agency||'')}</div>${ph}</div><span class="otype" title="${esc(ORG_EXPLAIN[otype]||'')}">${esc(otype)}</span></div></div>`;
   h+=`<div class="cta"><a class="btn btn-p" href="${applyUrl}" target="_blank" rel="noopener noreferrer">Apply on official site →</a><a class="btn btn-s" href="${detailUrl}" target="_blank" rel="noopener noreferrer">Full announcement (Korean) →</a></div>`;
-  h+='<p class="note">Eligibility and details are translated from the official Korean announcement for navigation — <b>confirm on the official posting before applying.</b> Seoul Crushing doesn\'t decide eligibility and never guarantees you qualify.</p>';
+  h+='<p class="note">Eligibility and details are <b>AI-translated</b> from the official Korean announcement for navigation — <b>confirm on the official posting before applying.</b> Seoul Crushing doesn\'t decide eligibility and never guarantees you qualify.</p>';
   return h;
 }
 const backdrop=document.getElementById('backdrop'),modalEl=document.getElementById('modal'),mbody=document.getElementById('mbody');
