@@ -221,6 +221,7 @@ def render_overview(p, site_url=""):
             f'<title>{title} — Seoul Crushing</title>'
             f'<meta name="description" content="{summary}">'
             f'<meta name="author" content="ajin.im">'
+            f'<link rel="icon" href="/favicon.svg" type="image/svg+xml">'
             f'<meta property="og:title" content="{title}"><meta property="og:description" content="{summary}">'
             f'<meta property="og:type" content="article">'
             f'<meta property="og:image" content="{site_url}/og-image.png">'
