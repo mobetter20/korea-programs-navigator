@@ -132,13 +132,6 @@
       <pubDate>Wed, 20 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
-      <title>Meet corporates: Kyobo Life open innovation day</title>
-      <link>https://www.startup-plus.kr/project/PRJ007063</link>
-      <description>One-on-one speed dating with business units at Kyobo Life. Hosted at Seoul Startup Hub to pre-screen collaboration fit before the main accelerator program.</description>
-      <guid isPermaLink="false">ks-177763</guid>
-      <pubDate>Tue, 19 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
       <title>Expand overseas: Seoul Unicorn Challenge</title>
       <link>https://www.startup-plus.kr/project/PRJ007000</link>
       <description>Seoul picks high-potential startups going global and funds market research, legal, and travel. Apply to get selected.</description>
@@ -206,13 +199,6 @@
       <link>https://platform.hsbiz.or.kr/business/detail/N/1216</link>
       <description>Hwaseong Industrial Promotion Institute accelerates startups with global ambitions. Mentoring, market research, investor intros.</description>
       <guid isPermaLink="false">ks-177725</guid>
-      <pubDate>Tue, 19 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>Protect your users' data: location privacy workshop</title>
-      <link>http://www.openitrun.com</link>
-      <description>Free training on legal compliance and best practices for startups using location data.</description>
-      <guid isPermaLink="false">ks-177720</guid>
       <pubDate>Tue, 19 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
@@ -424,6 +410,20 @@
       <description>Tech and commercialization support for smart digital medicine startups. Comprehensive ecosystem backing.</description>
       <guid isPermaLink="false">ks-177594</guid>
       <pubDate>Mon, 18 May 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Master government contracts: MRO bootcamp</title>
+      <link>https://fanfandaero.kr/portal/v2/preSprtBizPbancDetail.do?sprtBizCd=202618020100&amp;sprtBizTrgtYn=N&amp;groupNo=</link>
+      <description>Hands-on course on winning public procurement bids for spare parts and consumables suppliers.</description>
+      <guid isPermaLink="false">ks-177736</guid>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Social ventures solving Incheon's toughest problems</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177696</link>
+      <description>For young founders using business to tackle urban challenges. Incheon's program funds idea refinement and launch support.</description>
+      <guid isPermaLink="false">ks-177696</guid>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0900</pubDate>
     </item>
   </channel>
 </rss>
