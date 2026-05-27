@@ -13,20 +13,6 @@
       <pubDate>Mon, 01 Jun 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
-      <title>Pitch skills for young startup founders</title>
-      <link>https://www.naroo.or.kr/bbs/content.php?co_id=program_view&amp;np_seq=1264</link>
-      <description>A cohort-based course on presentation, listening, and communication skills for early-stage founders who want to improve their ability to pitch and persuade.</description>
-      <guid isPermaLink="false">ks-177777</guid>
-      <pubDate>Thu, 21 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>Write a killer investor pitch deck</title>
-      <link>https://forms.gle/qq7Xhs2XEGQDfnT18</link>
-      <description>Hands-on workshop on crafting investor-ready materials. Hosted by TIPS Town Daejeon for early-stage founders.</description>
-      <guid isPermaLink="false">ks-177766</guid>
-      <pubDate>Wed, 20 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
       <title>Free workshop space + prototyping support in Ulsan</title>
       <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177762</link>
       <description>U-SPACE is a government makerspace offering rapid product development support and equipment access for early-stage founders and startups in the region.</description>
@@ -125,13 +111,6 @@
       <pubDate>Wed, 20 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
-      <title>Solo operator office space in Gangnam</title>
-      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177731</link>
-      <description>Two-person office suite available at Office Hub's shared space for solopreneurs and tiny startups.</description>
-      <guid isPermaLink="false">ks-177731</guid>
-      <pubDate>Wed, 20 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
       <title>Expand overseas: Seoul Unicorn Challenge</title>
       <link>https://www.startup-plus.kr/project/PRJ007000</link>
       <description>Seoul picks high-potential startups going global and funds market research, legal, and travel. Apply to get selected.</description>
@@ -192,13 +171,6 @@
       <link>https://gsp.or.kr/supportProject/UVSD0001.do?sportSeq=6233</link>
       <description>Gyeonggi Province hosts technical workshops on cloud architecture with Megazone Cloud.</description>
       <guid isPermaLink="false">ks-177727</guid>
-      <pubDate>Tue, 19 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>Launch your startup globally with Hwaseong</title>
-      <link>https://platform.hsbiz.or.kr/business/detail/N/1216</link>
-      <description>Hwaseong Industrial Promotion Institute accelerates startups with global ambitions. Mentoring, market research, investor intros.</description>
-      <guid isPermaLink="false">ks-177725</guid>
       <pubDate>Tue, 19 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
@@ -269,13 +241,6 @@
       <link>https://forms.gle/frF9Yn6jZWWxkpXP9</link>
       <description>Learn real-world DX skills—data pipelines, process monitoring, dashboards, simulation—then use them immediately on the factory floor. Sponsored by Gyeonggi TechnoParc.</description>
       <guid isPermaLink="false">ks-177718</guid>
-      <pubDate>Mon, 18 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>Solve your biotech challenge with expert advisors</title>
-      <link>https://www.seoulbiohub.kr/front/supportManageReq/supportManageView.do?seq=758&amp;gubun=09&amp;&amp;&amp;&amp;link_g_topmenu_id=310&amp;link_g_submenu_id=310&amp;link_g_homepage=F</link>
-      <description>Seoul BioHub matches early-stage biomedical founders with university and research institute experts to tackle your hardest technical problems.</description>
-      <guid isPermaLink="false">ks-177717</guid>
       <pubDate>Mon, 18 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
@@ -423,6 +388,41 @@
       <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177696</link>
       <description>For young founders using business to tackle urban challenges. Incheon's program funds idea refinement and launch support.</description>
       <guid isPermaLink="false">ks-177696</guid>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Biotech startup competition: find your next investor</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177685</link>
+      <description>Dongguk University's BMC incubator searches for cutting-edge biomedical ideas. Win recognition, funding, and mentorship.</description>
+      <guid isPermaLink="false">ks-177685</guid>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Agritech meets co-ops: test and scale your solution</title>
+      <link>https://nharvestx.net/?utm_medium=button&amp;utm_source=kstartup&amp;utm_campaign=kstart</link>
+      <description>Work directly with Korea's largest agricultural cooperative and subsidiaries on digital farming, logistics, and food tech. PoC + revenue upside.</description>
+      <guid isPermaLink="false">ks-177682</guid>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Gyeonggi startup school: from idea to investor ready</title>
+      <link>https://gsp.or.kr/supportProject/UVSD0001.do?sportSeq=6230</link>
+      <description>Foundational curriculum plus investor-pitching workshops for early-stage founders in Gyeonggi. Spring cohort.</description>
+      <guid isPermaLink="false">ks-177680</guid>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Expert consultants for legal and tax questions</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177676</link>
+      <description>Dongjak District founders get subsidized sessions with IP and tax pros to solve real problems.</description>
+      <guid isPermaLink="false">ks-177676</guid>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Build a web MVP with data &amp; AI (hands-on)</title>
+      <link>https://www.aictms.or.kr/core/?cid=29&amp;role=programview&amp;pSeq=4331&amp;tab=</link>
+      <description>Learn data analysis and AI prediction modeling hands-on, then ship a real web app. No background required.</description>
+      <guid isPermaLink="false">ks-177675</guid>
       <pubDate>Fri, 15 May 2026 00:00:00 +0900</pubDate>
     </item>
   </channel>
