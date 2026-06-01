@@ -6,6 +6,13 @@
     <description>Korean government startup and business-support programs for foreign residents</description>
     <language>en</language>
     <item>
+      <title>Venture certification diagnosis (free coaching)</title>
+      <link>https://m.site.naver.com/29ex4</link>
+      <description>Free diagnostic assessment to benchmark your startup against venture certification criteria. Get custom coaching to close gaps.</description>
+      <guid isPermaLink="false">ks-177892</guid>
+      <pubDate>Mon, 01 Jun 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
       <title>Deep tech + national strategy: R&amp;D matching platform</title>
       <link>https://docs.google.com/forms/d/e/1FAIpQLSfVEzugVpfKUMlCAN0ZqPArVro-WH4Rnp6BAMwo_K0vaT0U5Q/viewform</link>
       <description>Pair your startup with government research labs. Co-develop next-gen tech. Daejeon-based.</description>
@@ -52,13 +59,6 @@
       <link>https://forms.gle/JzCsa2NBPN6a6Rbf8</link>
       <description>Forbes Korea picks 30 promising founders each year and hosts a networking summit with VCs and investors. Apply to get in front of them.</description>
       <guid isPermaLink="false">ks-177754</guid>
-      <pubDate>Wed, 20 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>Launch your global startup at Korea University</title>
-      <link>https://docs.google.com/forms/d/e/1FAIpQLSdvdvjmy8fiifebRb1rzdeL5h8rigxCQukCA3ZK3R6sF1MFUw/viewform</link>
-      <description>KU Global Startlink finds early-stage founders with innovative tech or ideas and coaches them for international scale.</description>
-      <guid isPermaLink="false">ks-177753</guid>
       <pubDate>Wed, 20 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
@@ -115,13 +115,6 @@
       <link>https://www.startup-plus.kr/project/PRJ007000</link>
       <description>Seoul picks high-potential startups going global and funds market research, legal, and travel. Apply to get selected.</description>
       <guid isPermaLink="false">ks-177746</guid>
-      <pubDate>Tue, 19 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>Biohealth startup incubator: free space + grants</title>
-      <link>https://www.khidi.or.kr/kbic</link>
-      <description>Korea Health Industry Promotion Institute runs Innovation Members for biohealth founders—free office, business support, and go-to-market help.</description>
-      <guid isPermaLink="false">ks-177744</guid>
       <pubDate>Tue, 19 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
@@ -227,13 +220,6 @@
       <link>http://buly.kr/7x8Uzrs</link>
       <description>Create content celebrating Gyeonggi Province and earn production funding.</description>
       <guid isPermaLink="false">ks-177712</guid>
-      <pubDate>Mon, 18 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>Youth startup office at Gangdong U1 Center</title>
-      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177711</link>
-      <description>Affordable workspace for early-stage founders at the Goock BizValley complex. Move in today.</description>
-      <guid isPermaLink="false">ks-177711</guid>
       <pubDate>Mon, 18 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
@@ -349,13 +335,6 @@
       <pubDate>Fri, 15 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
-      <title>Expert consultants for legal and tax questions</title>
-      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177676</link>
-      <description>Dongjak District founders get subsidized sessions with IP and tax pros to solve real problems.</description>
-      <guid isPermaLink="false">ks-177676</guid>
-      <pubDate>Fri, 15 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
       <title>Energy innovation testbed: prove your green tech</title>
       <link>https://www.sba.seoul.kr/Pages/BusinessApply/PostingDetail.aspx?p=0&amp;mid=14b75cef-924e-f111-b404-d4f5ef4a1e33</link>
       <description>Seoul's energy infrastructure opens to startups. Test, iterate, and commercialize clean energy solutions with real operational data.</description>
@@ -423,6 +402,27 @@
       <link>https://w-startup.daegu.go.kr/business/307</link>
       <description>Desk space and support for women founders at Daegu's incubator.</description>
       <guid isPermaLink="false">ks-177659</guid>
+      <pubDate>Wed, 13 May 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Gwangjin startup hub: mentoring and fundraising</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177650</link>
+      <description>Office space, consulting by growth stage, and investor introductions.</description>
+      <guid isPermaLink="false">ks-177650</guid>
+      <pubDate>Wed, 13 May 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>IP startup bootcamp: protect your idea</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177646</link>
+      <description>Free intensive program on IP rights and business planning for founders with tech or ideas to protect.</description>
+      <guid isPermaLink="false">ks-177646</guid>
+      <pubDate>Wed, 13 May 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>National university pitch: public data startup competition</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177638</link>
+      <description>Win prizes for startup ideas using public data. Open to students nationwide.</description>
+      <guid isPermaLink="false">ks-177638</guid>
       <pubDate>Wed, 13 May 2026 00:00:00 +0900</pubDate>
     </item>
   </channel>
