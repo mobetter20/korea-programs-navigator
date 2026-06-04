@@ -6,6 +6,13 @@
     <description>Korean government startup and business-support programs for foreign residents</description>
     <language>en</language>
     <item>
+      <title>Protect your users' data: location privacy workshop</title>
+      <link>http://www.openitrun.com</link>
+      <description>Free training on legal compliance and best practices for startups using location data.</description>
+      <guid isPermaLink="false">ks-177946</guid>
+      <pubDate>Tue, 02 Jun 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
       <title>Free office at Chungbuk Global Tech Venture Center</title>
       <link>https://cb-postbi.cbnu.ac.kr/community_06_06</link>
       <description>Chungbuk National University's BI incubator has space for promising tech startups. Get mentoring, investor intros, and lab access for free.</description>
@@ -32,13 +39,6 @@
       <description>Synergy IB Venture invests in startups at every stage—from seed through growth and IPO. Apply now to accelerate your runway.</description>
       <guid isPermaLink="false">ks-177765</guid>
       <pubDate>Mon, 01 Jun 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>Free workshop space + prototyping support in Ulsan</title>
-      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177762</link>
-      <description>U-SPACE is a government makerspace offering rapid product development support and equipment access for early-stage founders and startups in the region.</description>
-      <guid isPermaLink="false">ks-177762</guid>
-      <pubDate>Wed, 20 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
       <title>Free office: Gangdong Youth Startup Center</title>
@@ -150,13 +150,6 @@
       <link>https://www.k-startup.go.kr/web/contents/webPMSBizUnvs.do?returnUrl=/screen/BMO0101M01?pbancId=0667101</link>
       <description>Collaborate with major Korean platforms using real customer and transaction data. Build AI products that actually sell.</description>
       <guid isPermaLink="false">ks-177702</guid>
-      <pubDate>Tue, 19 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>New York revenue sprint for global Korean startups</title>
-      <link>https://forms.gle/DntzHbr1yZXUqevT9</link>
-      <description>Fast-track your entry to the US market. 2026 cohort runs hands-on programs in NYC with mentorship, connections, and on-the-ground support.</description>
-      <guid isPermaLink="false">ks-177697</guid>
       <pubDate>Tue, 19 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
@@ -284,13 +277,6 @@
       <description>Free workspace and mentorship for young founders with high-potential ideas.</description>
       <guid isPermaLink="false">ks-177657</guid>
       <pubDate>Mon, 18 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>Master government contracts: MRO bootcamp</title>
-      <link>https://fanfandaero.kr/portal/v2/preSprtBizPbancDetail.do?sprtBizCd=202618020100&amp;sprtBizTrgtYn=N&amp;groupNo=</link>
-      <description>Hands-on course on winning public procurement bids for spare parts and consumables suppliers.</description>
-      <guid isPermaLink="false">ks-177736</guid>
-      <pubDate>Fri, 15 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
       <title>Social ventures solving Incheon's toughest problems</title>
@@ -424,6 +410,20 @@
       <description>12-month mentorship program for early deep tech startups. Expert guidance through growth.</description>
       <guid isPermaLink="false">ks-177630</guid>
       <pubDate>Wed, 13 May 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Indie game dev funding: JNGC grants</title>
+      <link>https://www.bojo.go.kr/bojo.do</link>
+      <description>Get production grants to build your indie game. For founders and pre-launch studios.</description>
+      <guid isPermaLink="false">ks-177647</guid>
+      <pubDate>Tue, 12 May 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Machine learning bootcamp: no math required</title>
+      <link>https://www.baeulang.kr/bbs/board.php?bo_table=BlockChain&amp;wr_id=65</link>
+      <description>Learn ML theory and hands-on coding. No background needed.</description>
+      <guid isPermaLink="false">ks-177629</guid>
+      <pubDate>Tue, 12 May 2026 00:00:00 +0900</pubDate>
     </item>
   </channel>
 </rss>
