@@ -76,13 +76,6 @@
       <pubDate>Wed, 20 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
-      <title>Corporate partnerships for your startup</title>
-      <link>https://www.k-startup.go.kr/web/contents/webPMSBizUnvs.do?returnUrl=/screen/BMO0101M01?pbancId=0623501</link>
-      <description>Government and industry partner to match startups with large companies needing innovation. Apply with your challenge or solution.</description>
-      <guid isPermaLink="false">ks-177743</guid>
-      <pubDate>Wed, 20 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
       <title>Startup bootcamp at Soongsil University</title>
       <link>https://forms.gle/VhX9aaLdbc424oDn8</link>
       <description>Practical 4-week course on business fundamentals for founders and early-stage teams. June cohort now enrolling.</description>
@@ -118,13 +111,6 @@
       <pubDate>Tue, 19 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
-      <title>Women-focused accelerator program</title>
-      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177714</link>
-      <description>Female-led accelerators mentor women-founded startups under 7 years old from seed to growth stage.</description>
-      <guid isPermaLink="false">ks-177714</guid>
-      <pubDate>Tue, 19 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
       <title>Government procurement channel: boost B2B sales</title>
       <link>https://www.k-startup.go.kr/web/contents/webPMSBizUnvs.do?returnUrl=/screen/BMO0101M01?pbancId=0665601</link>
       <description>Startups get institutional sponsorship to sell into Korea's public procurement platform—steady revenue without the pitch.</description>
@@ -150,13 +136,6 @@
       <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177713</link>
       <description>Korea Tech University backs pre-launch and new ventures in Chungnam with mentorship and funding.</description>
       <guid isPermaLink="false">ks-177713</guid>
-      <pubDate>Mon, 18 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>Free web development bootcamp in Daegu</title>
-      <link>https://forms.gle/55Fne3q1PWwwX6k4A</link>
-      <description>Hands-on course: web coding from concept to deployment. First-come, first-served.</description>
-      <guid isPermaLink="false">ks-177705</guid>
       <pubDate>Mon, 18 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
@@ -277,13 +256,6 @@
       <description>12-month mentorship program for early deep tech startups. Expert guidance through growth.</description>
       <guid isPermaLink="false">ks-177630</guid>
       <pubDate>Wed, 13 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>Indie game dev funding: JNGC grants</title>
-      <link>https://www.bojo.go.kr/bojo.do</link>
-      <description>Get production grants to build your indie game. For founders and pre-launch studios.</description>
-      <guid isPermaLink="false">ks-177647</guid>
-      <pubDate>Tue, 12 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
       <title>Machine learning bootcamp: no math required</title>
@@ -424,6 +396,34 @@
       <description>Free government-funded course: learn to build, launch, and pitch AI-powered products as a solo founder or technical co-founder.</description>
       <guid isPermaLink="false">ks-177487</guid>
       <pubDate>Mon, 04 May 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>E-commerce bootcamp for women — AI-powered shops</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177572</link>
+      <description>Launch a marketplace or online store. Cohort limited to 22 women with e-commerce goals.</description>
+      <guid isPermaLink="false">ks-177572</guid>
+      <pubDate>Fri, 01 May 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Free tech consulting for Seoul startups</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177505</link>
+      <description>Gwanak S-Valley's GROW-UP program gives early-stage tech founders free consulting to solve R&amp;D blockers and unlock new growth paths.</description>
+      <guid isPermaLink="false">ks-177505</guid>
+      <pubDate>Fri, 01 May 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Busan public data + AI startup contest</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177476</link>
+      <description>Build AI apps using Busan's open government datasets. Win funding, office space, and go-to-market support in the 2026 idea-to-business track.</description>
+      <guid isPermaLink="false">ks-177476</guid>
+      <pubDate>Fri, 01 May 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Moonshot Challenge: solve defense tech problems</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177663</link>
+      <description>Tackle Korea's defense innovation challenges. Submit solutions and compete for funding.</description>
+      <guid isPermaLink="false">ks-177663</guid>
+      <pubDate>Thu, 30 Apr 2026 00:00:00 +0900</pubDate>
     </item>
   </channel>
 </rss>
