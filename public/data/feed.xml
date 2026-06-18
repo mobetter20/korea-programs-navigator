@@ -6,6 +6,13 @@
     <description>Korean government startup and business-support programs for foreign residents</description>
     <language>en</language>
     <item>
+      <title>C4IR Korea: go global with mentoring</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=178112</link>
+      <description>Early-stage founders planning global expansion get expert guidance and network access.</description>
+      <guid isPermaLink="false">ks-178112</guid>
+      <pubDate>Thu, 11 Jun 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
       <title>Hankook University startup lab: incubator space available</title>
       <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=178069</link>
       <description>New venture with strong technology? Get office space and mentorship from experienced accelerators.</description>
@@ -55,13 +62,6 @@
       <pubDate>Wed, 20 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
-      <title>Scale your startup's impact in developing markets</title>
-      <link>https://kopis.koica.go.kr/</link>
-      <description>South Korea's development agency backs startups that combine sustainable business with development aid. Open call for 2026–27 projects.</description>
-      <guid isPermaLink="false">ks-177748</guid>
-      <pubDate>Wed, 20 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
       <title>Startup bootcamp at Soongsil University</title>
       <link>https://forms.gle/VhX9aaLdbc424oDn8</link>
       <description>Practical 4-week course on business fundamentals for founders and early-stage teams. June cohort now enrolling.</description>
@@ -80,13 +80,6 @@
       <link>https://fanfandaero.kr/portal/v2/preSprtBizPbancDetail.do?sprtBizCd=202618010200&amp;sprtBizTrgtYn=N&amp;groupNo=</link>
       <description>Government brings together small suppliers and corporate buyers of spare parts and consumables. Meet procurement teams face-to-face.</description>
       <guid isPermaLink="false">ks-177738</guid>
-      <pubDate>Tue, 19 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>Government procurement channel: boost B2B sales</title>
-      <link>https://www.k-startup.go.kr/web/contents/webPMSBizUnvs.do?returnUrl=/screen/BMO0101M01?pbancId=0665601</link>
-      <description>Startups get institutional sponsorship to sell into Korea's public procurement platform—steady revenue without the pitch.</description>
-      <guid isPermaLink="false">ks-177686</guid>
       <pubDate>Tue, 19 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
@@ -423,6 +416,13 @@
       <link>https://forms.gle/nGJnhuRdWxzGJob17</link>
       <description>Permanent enrollment in Gyeongnam's Startup-BuS. Monthly demo days, VCs, TIPS referrals, and direct investment support.</description>
       <guid isPermaLink="false">ks-176755</guid>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Tech consulting for Seoul startups</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176741</link>
+      <description>Free technical consulting to improve product and technology. Seoul-based Tech Trade-On program.</description>
+      <guid isPermaLink="false">ks-176741</guid>
       <pubDate>Mon, 16 Mar 2026 00:00:00 +0900</pubDate>
     </item>
   </channel>
