@@ -69,13 +69,6 @@
       <pubDate>Mon, 18 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
-      <title>Chungcheong startup launchpad: validate your idea</title>
-      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177713</link>
-      <description>Korea Tech University backs pre-launch and new ventures in Chungnam with mentorship and funding.</description>
-      <guid isPermaLink="false">ks-177713</guid>
-      <pubDate>Mon, 18 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
       <title>Biotech startup competition: find your next investor</title>
       <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177685</link>
       <description>Dongguk University's BMC incubator searches for cutting-edge biomedical ideas. Win recognition, funding, and mentorship.</description>
@@ -251,13 +244,6 @@
       <pubDate>Fri, 03 Apr 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
-      <title>Social business: facility + operating cost grants</title>
-      <link>https://tally.so/r/VLVKpv</link>
-      <description>Growing social enterprises get rent + overhead help. Sliding scale to Nov 2026.</description>
-      <guid isPermaLink="false">ks-177048</guid>
-      <pubDate>Fri, 03 Apr 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
       <title>University incubator: spring workspace + mentoring</title>
       <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177047</link>
       <description>Anyang University hosts early-stage startups. Mentor access, graduation support.</description>
@@ -424,6 +410,20 @@
       <description>Free compute power for Busan AI teams. Use expensive GPUs without the capital cost.</description>
       <guid isPermaLink="false">ks-176563</guid>
       <pubDate>Fri, 06 Mar 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Sell to Korea's government: startup product registration</title>
+      <link>https://www.startup-plus.kr/project/PRJ006510</link>
+      <description>Get listed in Venture Korea. Fast-track to public procurement.</description>
+      <guid isPermaLink="false">ks-177278</guid>
+      <pubDate>Tue, 03 Mar 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Global network + investor intros — regional founders</title>
+      <link>https://www.busanstartup.kr/biz_sup?mcode=biz02&amp;deadline=N</link>
+      <description>Self-paced program connecting local startups with overseas partners and capital. Build your international network.</description>
+      <guid isPermaLink="false">ks-176497</guid>
+      <pubDate>Tue, 03 Mar 2026 00:00:00 +0900</pubDate>
     </item>
   </channel>
 </rss>
