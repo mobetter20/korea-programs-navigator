@@ -6,6 +6,13 @@
     <description>Korean government startup and business-support programs for foreign residents</description>
     <language>en</language>
     <item>
+      <title>Game studio office space in Jeonju</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176685</link>
+      <description>Subsidized desks and infrastructure for game dev studios. Comprehensive support ecosystem in Jeonju game center.</description>
+      <guid isPermaLink="false">ks-176685</guid>
+      <pubDate>Thu, 25 Jun 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
       <title>C4IR Korea: go global with mentoring</title>
       <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=178112</link>
       <description>Early-stage founders planning global expansion get expert guidance and network access.</description>
@@ -136,13 +143,6 @@
       <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177505</link>
       <description>Gwanak S-Valley's GROW-UP program gives early-stage tech founders free consulting to solve R&amp;D blockers and unlock new growth paths.</description>
       <guid isPermaLink="false">ks-177505</guid>
-      <pubDate>Fri, 01 May 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>Busan public data + AI startup contest</title>
-      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=177476</link>
-      <description>Build AI apps using Busan's open government datasets. Win funding, office space, and go-to-market support in the 2026 idea-to-business track.</description>
-      <guid isPermaLink="false">ks-177476</guid>
       <pubDate>Fri, 01 May 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
@@ -370,13 +370,6 @@
       <pubDate>Mon, 16 Mar 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
-      <title>Game studio office space in Jeonju</title>
-      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176685</link>
-      <description>Subsidized desks and infrastructure for game dev studios. Comprehensive support ecosystem in Jeonju game center.</description>
-      <guid isPermaLink="false">ks-176685</guid>
-      <pubDate>Fri, 13 Mar 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
       <title>Athletes turn founders: startup bootcamp for career changers</title>
       <link>https://spowell.kspo.or.kr</link>
       <description>For athletes transitioning to business. Coursework, mentorship, and funding to launch your company.</description>
@@ -423,6 +416,13 @@
       <link>https://www.busanstartup.kr/biz_sup?mcode=biz02&amp;deadline=N</link>
       <description>Self-paced program connecting local startups with overseas partners and capital. Build your international network.</description>
       <guid isPermaLink="false">ks-176497</guid>
+      <pubDate>Tue, 03 Mar 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Free online/in-person startup mentoring in Gyeonggi</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176494</link>
+      <description>One-on-one guidance from mentors. Virtual or face-to-face sessions for first-time founders.</description>
+      <guid isPermaLink="false">ks-176494</guid>
       <pubDate>Tue, 03 Mar 2026 00:00:00 +0900</pubDate>
     </item>
   </channel>
