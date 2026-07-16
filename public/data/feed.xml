@@ -27,13 +27,6 @@
       <pubDate>Thu, 02 Jul 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
-      <title>Venture certification diagnosis (free coaching)</title>
-      <link>https://m.site.naver.com/29ex4</link>
-      <description>Free diagnostic assessment to benchmark your startup against venture certification criteria. Get custom coaching to close gaps.</description>
-      <guid isPermaLink="false">ks-178346</guid>
-      <pubDate>Wed, 01 Jul 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
       <title>Game studio office space in Jeonju</title>
       <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176685</link>
       <description>Subsidized desks and infrastructure for game dev studios. Comprehensive support ecosystem in Jeonju game center.</description>
@@ -423,6 +416,13 @@
       <link>https://3d-fab.kr/kor/technicalServices/01.php</link>
       <description>End-to-end prototype support: CAD design, 3D printing, finishing. Free-to-low-cost for early startups.</description>
       <guid isPermaLink="false">ks-176442</guid>
+      <pubDate>Thu, 01 Jan 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Job-matching support (companies &amp; jobseekers)</title>
+      <link>http://job.kosmes.or.kr</link>
+      <description>Connect job seekers facing hiring challenges with small companies struggling to find talent. Free matching service through the Business HR Difficulty Center.</description>
+      <guid isPermaLink="false">ks-176129</guid>
       <pubDate>Thu, 01 Jan 2026 00:00:00 +0900</pubDate>
     </item>
   </channel>
