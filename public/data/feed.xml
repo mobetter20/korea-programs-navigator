@@ -76,13 +76,6 @@
       <pubDate>Mon, 27 Apr 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
-      <title>Python data science: project-based skills</title>
-      <link>https://www.baeulang.kr/bbs/board.php?bo_table=AI&amp;wr_id=573&amp;sca=%EB%B6%80%EC%82%B0</link>
-      <description>Hands-on 8-week bootcamp. Busan-Ulsan-Gyeongnam region (online option). Free.</description>
-      <guid isPermaLink="false">ks-177359</guid>
-      <pubDate>Fri, 24 Apr 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
       <title>One-stop support: any founder, any question</title>
       <link>https://www.k-startup.go.kr/onestop/main/index.do</link>
       <description>Pre-launch stuck? Running into walls? Free consulting desk for strategy, legal, hiring.</description>
@@ -424,6 +417,13 @@
       <description>Connect job seekers facing hiring challenges with small companies struggling to find talent. Free matching service through the Business HR Difficulty Center.</description>
       <guid isPermaLink="false">ks-176129</guid>
       <pubDate>Thu, 01 Jan 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Cloud credits for location-based startups</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=175808</link>
+      <description>Location tech companies get subsidized cloud computing access to reduce infrastructure costs.</description>
+      <guid isPermaLink="false">ks-175808</guid>
+      <pubDate>Mon, 29 Dec 2025 00:00:00 +0900</pubDate>
     </item>
   </channel>
 </rss>
