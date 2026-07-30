@@ -6,13 +6,6 @@
     <description>Korean government startup and business-support programs for foreign residents</description>
     <language>en</language>
     <item>
-      <title>Incubator office at Dongguk University</title>
-      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=178473</link>
-      <description>Free workspace and mentoring for pre-seed and early startups backed by the university.</description>
-      <guid isPermaLink="false">ks-178473</guid>
-      <pubDate>Wed, 08 Jul 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
       <title>Free office at Chungbuk Global Tech Venture Center</title>
       <link>https://cb-postbi.cbnu.ac.kr/community_06_06</link>
       <description>Chungbuk National University's BI incubator has space for promising tech startups. Get mentoring, investor intros, and lab access for free.</description>
@@ -424,6 +417,13 @@
       <description>Location tech companies get subsidized cloud computing access to reduce infrastructure costs.</description>
       <guid isPermaLink="false">ks-175808</guid>
       <pubDate>Mon, 29 Dec 2025 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>2026 startup grants: complete list</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=175783</link>
+      <description>Central government and local agency funding programs all in one announcement. Browse options and apply.</description>
+      <guid isPermaLink="false">ks-175783</guid>
+      <pubDate>Fri, 19 Dec 2025 00:00:00 +0900</pubDate>
     </item>
   </channel>
 </rss>
