@@ -6,32 +6,11 @@
     <description>Korean government startup and business-support programs for foreign residents</description>
     <language>en</language>
     <item>
-      <title>Free office at Chungbuk Global Tech Venture Center</title>
-      <link>https://cb-postbi.cbnu.ac.kr/community_06_06</link>
-      <description>Chungbuk National University's BI incubator has space for promising tech startups. Get mentoring, investor intros, and lab access for free.</description>
-      <guid isPermaLink="false">ks-178418</guid>
-      <pubDate>Fri, 03 Jul 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>Venture certification prep — free advice</title>
-      <link>https://m.site.naver.com/2bCTe</link>
-      <description>One-on-one mentoring to prepare your startup for venture certification. Learn strategy, docs, and pass the official review on first try.</description>
-      <guid isPermaLink="false">ks-178376</guid>
-      <pubDate>Thu, 02 Jul 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
       <title>Game studio office space in Jeonju</title>
       <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176685</link>
       <description>Subsidized desks and infrastructure for game dev studios. Comprehensive support ecosystem in Jeonju game center.</description>
       <guid isPermaLink="false">ks-176685</guid>
       <pubDate>Thu, 25 Jun 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>Deep tech + national strategy: R&amp;D matching platform</title>
-      <link>https://docs.google.com/forms/d/e/1FAIpQLSfVEzugVpfKUMlCAN0ZqPArVro-WH4Rnp6BAMwo_K0vaT0U5Q/viewform</link>
-      <description>Pair your startup with government research labs. Co-develop next-gen tech. Daejeon-based.</description>
-      <guid isPermaLink="false">ks-177882</guid>
-      <pubDate>Mon, 01 Jun 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
       <title>ESG supply chain consulting for exporters</title>
@@ -272,13 +251,6 @@
       <pubDate>Tue, 03 Mar 2026 00:00:00 +0900</pubDate>
     </item>
     <item>
-      <title>Global network + investor intros — regional founders</title>
-      <link>https://www.busanstartup.kr/biz_sup?mcode=biz02&amp;deadline=N</link>
-      <description>Self-paced program connecting local startups with overseas partners and capital. Build your international network.</description>
-      <guid isPermaLink="false">ks-176497</guid>
-      <pubDate>Tue, 03 Mar 2026 00:00:00 +0900</pubDate>
-    </item>
-    <item>
       <title>Free online/in-person startup mentoring in Gyeonggi</title>
       <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=176494</link>
       <description>One-on-one guidance from mentors. Virtual or face-to-face sessions for first-time founders.</description>
@@ -424,6 +396,27 @@
       <description>Central government and local agency funding programs all in one announcement. Browse options and apply.</description>
       <guid isPermaLink="false">ks-175783</guid>
       <pubDate>Fri, 19 Dec 2025 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Office space, mentoring, and investment support at SK Hynix Park</title>
+      <link>https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&amp;pbancSn=175366</link>
+      <description>Seoul's SK Hynix Youth Startup Park offers continuous enrollment. Founders get workspace, training, tech consulting, and investor connections.</description>
+      <guid isPermaLink="false">ks-175366</guid>
+      <pubDate>Mon, 27 Oct 2025 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Find and connect biotech partners on BioLink Hub</title>
+      <link>https://docs.google.com/forms/d/e/1FAIpQLScux3Y0hAJ1HcolUkAqT3Y0syoTNL1rIUP9cjpyeWAFMsrVtw/viewform</link>
+      <description>Platform for biotech startups to discover each other, share tech, and collaborate on R&amp;D. Post what you need or what you offer.</description>
+      <guid isPermaLink="false">ks-173424</guid>
+      <pubDate>Fri, 23 May 2025 00:00:00 +0900</pubDate>
+    </item>
+    <item>
+      <title>Startup Korea Special Visa (recommendation track)</title>
+      <link>https://airtable.com/appkd63wQDUOCZTXj/pagfG6KRvMhurBowl/form</link>
+      <description>Apply for Korea's Startup Visa on rolling basis. Get Ministry recommendation after evaluation and build your company in Korea.</description>
+      <guid isPermaLink="false">ks-171419</guid>
+      <pubDate>Tue, 03 Dec 2024 00:00:00 +0900</pubDate>
     </item>
   </channel>
 </rss>
