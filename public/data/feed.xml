@@ -6,6 +6,13 @@
     <description>Korean government startup and business-support programs for foreign residents</description>
     <language>en</language>
     <item>
+      <title>Protect your users' data: location privacy workshop</title>
+      <link>https://docs.google.com/forms/d/14Rh3X0pUe9lO4npjc-sXNo2HywQ9A9jhemq-Z0PEf0s/edit</link>
+      <description>Free training on legal compliance and best practices for startups using location data.</description>
+      <guid isPermaLink="false">ks-178901</guid>
+      <pubDate>Thu, 13 Aug 2026 00:00:00 +0900</pubDate>
+    </item>
+    <item>
       <title>Free office at Chungbuk Global Tech Venture Center</title>
       <link>https://cb-postbi.cbnu.ac.kr/community_06_06</link>
       <description>Chungbuk National University's BI incubator has space for promising tech startups. Get mentoring, investor intros, and lab access for free.</description>
@@ -413,17 +420,10 @@
     </item>
     <item>
       <title>Find and connect biotech partners on BioLink Hub</title>
-      <link>https://docs.google.com/forms/d/e/1FAIpQLScux3Y0hAJ1HcolUkAqT3Y0syoTNL1rIUP9cjpyeWAFMsrVtw/viewform</link>
+      <link>https://docs.google.com/forms/d/e/1FAIpQLSf2UarfyK_yS-arS5Pl-ayS0X5NuNVcEZaqYSZpcCoyLD6qVQ/viewform</link>
       <description>Platform for biotech startups to discover each other, share tech, and collaborate on R&amp;D. Post what you need or what you offer.</description>
       <guid isPermaLink="false">ks-173424</guid>
       <pubDate>Fri, 23 May 2025 00:00:00 +0900</pubDate>
-    </item>
-    <item>
-      <title>Startup Korea Special Visa (recommendation track)</title>
-      <link>https://airtable.com/appkd63wQDUOCZTXj/pagfG6KRvMhurBowl/form</link>
-      <description>Apply for Korea's Startup Visa on rolling basis. Get Ministry recommendation after evaluation and build your company in Korea.</description>
-      <guid isPermaLink="false">ks-171419</guid>
-      <pubDate>Tue, 03 Dec 2024 00:00:00 +0900</pubDate>
     </item>
   </channel>
 </rss>
